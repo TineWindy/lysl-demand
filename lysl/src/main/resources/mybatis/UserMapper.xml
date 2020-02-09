@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whu.lysl.dao.UserDAO">
+
+    <sql id="UserCols">
+        name, phone, wx_number, institution_id
+     </sql>
+
+    <sql id="UserTable">
+        lysl_user_info
+    </sql>
+
+    <insert id="insert" parameterType="com.whu.lysl.entity.dbobj.UserDO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        <include refid="UserTable" />
+        (
+        <include refid="UserCols" />
+        )
+        VALUES(#{name}, #{phone}, #{wxNumber}, #{institutionId})
+    </insert>
+
+    <update id="update" parameterType="com.whu.lysl.entity.dbobj.UserDO">
+        UPDATE
+        <include refid="UserTable"/>
+        <set>
+            gmt_modified = now(),
+            <if test="name != null" >name = #{name},</if>
+            <if test="wxNumber != null" >wx_number = #{wxNumber},</if>
+            <if test="phone != null" >phone = #{phone},</if>
+            <if test="institutionId != null" >institution_id = #{institutionId},</if>
+        </set>
+        <where>
+            id = #{id} OR phone = #{phone}
+        </where>
+    </update>
+
+    <select id="selectById" resultType="com.whu.lysl.entity.dbobj.UserDO" >
+        SELECT id, gmt_created, gmt_modified
+        <include refid="UserCols" />
+        FROM
+        <include refid="UserTable" />
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectByPhone" resultType="com.whu.lysl.entity.dbobj.UserDO" >
+        SELECT id, gmt_created, gmt_modified
+        <include refid="UserCols" />
+        FROM
+        <include refid="UserTable" />
+        WHERE phone = #{phone}
+    </select>
+
+</mapper>
