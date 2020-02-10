@@ -1,6 +1,7 @@
 package com.whu.lysl.service.donation.impl;
 
 import com.whu.lysl.base.converters.DonationOrderConverter;
+import com.whu.lysl.base.enums.DonationOrderStatusEnum;
 import com.whu.lysl.base.utils.AssertUtils;
 import com.whu.lysl.dao.DonationOrderDAO;
 import com.whu.lysl.entity.condition.DonationOrderCondition;
@@ -35,7 +36,7 @@ public class DonationOrderServiceImpl implements DonationOrderService {
     @Override
     public int insertDonationOrder(DonationOrder donationOrder) {
         AssertUtils.AssertNotNull(donationOrder);
-        donationOrder.setStatus(0);
+        donationOrder.setStatus(DonationOrderStatusEnum.UNCHECKED.getCode());
         donationOrder.setDeleted(0);
         return donationOrderDAO.insertDonationOrder(DonationOrderConverter.model2Do(donationOrder));
     }
@@ -50,7 +51,7 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         AssertUtils.AssertNotNull(donationOrder);
         AssertUtils.AssertNotNull(donationOrder.getDonationOrderId());
         DonationOrder donationOrder1 = new DonationOrder();
-        donationOrder1.setStatus(1);
+        donationOrder1.setStatus(DonationOrderStatusEnum.APPROVED.getCode());
         donationOrder1.setDonationOrderId(donationOrder.getDonationOrderId());
         return updateDonationOrder(donationOrder1);
     }
@@ -59,7 +60,7 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         AssertUtils.AssertNotNull(donationOrder);
         AssertUtils.AssertNotNull(donationOrder.getDonationOrderId());
         DonationOrder donationOrder1 = new DonationOrder();
-        donationOrder1.setStatus(2);
+        donationOrder1.setStatus(DonationOrderStatusEnum.DISAPPROVED.getCode());
         donationOrder1.setDonationOrderId(donationOrder.getDonationOrderId());
         return updateDonationOrder(donationOrder1);
     }

@@ -7,6 +7,7 @@ import com.whu.lysl.base.converters.DonationOrderConverter;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.AssertUtils;
+import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.entity.condition.DonationOrderCondition;
 import com.whu.lysl.entity.dto.DonationOrder;
 import com.whu.lysl.entity.vo.DonationOrderVO;
@@ -78,28 +79,27 @@ public class DonationOrderController extends LYSLBaseController {
 
     @RequestMapping(value="checkDonationOrder", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String checkDonationOrder(@RequestBody Map<String,Integer> map, HttpServletRequest request) {
+    public String checkDonationOrder(@RequestBody Map<String,Object> map, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
 
-            int donationOrderId = map.get("donationOrderId");
-            int status = map.get("status");
+            int donationOrderId = Integer.parseInt(map.get("donationOrderId").toString());
+            String status = map.get("status").toString();
             AssertUtils.AssertNotNull(donationOrderId);
             AssertUtils.AssertNotNull(status);
-            if (status!=1 && status!=2) {
-                throw new LYSLException("status must be in {1, 2}", LYSLResultCodeEnum.DATA_INVALID);
-            }
 
-            List<DonationOrder> listDonationOrder = donationOrderService.getDonationOrderByCondition(
+              List<DonationOrder> listDonationOrder = donationOrderService.getDonationOrderByCondition(
                     new DonationOrderCondition.Builder().donationOrderId(donationOrderId).build());
             if(listDonationOrder.size()==0) {
                 throw new LYSLException("donationOrderId is invalid",  LYSLResultCodeEnum.DATA_INVALID);
             }
             int update_ans=0;
-            if (status==1) {
+            if (StringUtils.equal(status, "APPROVED")) {
                 update_ans = donationOrderService.checkPass(listDonationOrder.get(0));
-            } else if (status==2){
+            } else if (StringUtils.equal(status, "DISAPPROVED")){
                 update_ans = donationOrderService.checkFail(listDonationOrder.get(0));
+            } else {
+                throw new LYSLException("status must be in DISAPPROVED or APPROVED", LYSLResultCodeEnum.DATA_INVALID);
             }
             // TODO 通知捐赠主体 捐赠审核状态
             result.setResultObj(update_ans==1? "更新成功":"更新失败");

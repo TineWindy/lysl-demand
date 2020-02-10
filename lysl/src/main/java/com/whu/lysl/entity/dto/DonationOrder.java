@@ -63,6 +63,6 @@ public class DonationOrder {
     /**
      * 审核状态 0-未审核 1-已审核 2-审核未通过
      */
-    private Integer status;
+    private String status;
 
 }

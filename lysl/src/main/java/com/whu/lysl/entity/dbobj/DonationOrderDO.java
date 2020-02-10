@@ -61,8 +61,8 @@ public class DonationOrderDO {
     private Integer deleted;
 
     /**
-     * 审核状态 0-未审核 1-已审核 2-审核未通过
+     * 审核状态 UNCHECKED-未审核 APPROVED-已审核 DISAPPROVED-审核未通过
      */
-    private Integer status;
+    private String status;
 
 }
