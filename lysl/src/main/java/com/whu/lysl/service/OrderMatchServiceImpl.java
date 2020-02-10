@@ -1,5 +1,6 @@
 package com.whu.lysl.service;
 
+import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import com.whu.lysl.base.converters.MatchOrderConverter;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.dao.MatchOrderDAO;
@@ -8,6 +9,7 @@ import com.whu.lysl.entity.dto.MatchOrder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +37,24 @@ public class OrderMatchServiceImpl implements OrderMatchService{
             // 调用DAO将数据存入数据库
             matchOrderDAO.saveMatchOrder(matchOrderDo);
         }
+
+    }
+
+    @Override
+    public List<MatchOrder> getMatchOrderByDonorName(String honorName) throws LYSLException {
+        // TODO 去捐赠模块检查honorId是否正确
+        int donorId = 1;
+        List<Integer> donationOrderIdList = matchOrderDAO.selectDonationOrderIdByDonorId(donorId);
+        List<MatchOrder> matchOrderList = new ArrayList<>();
+        for (int i =0;i<donationOrderIdList.size();i++){
+
+            List<MatchOrderDo> matchOrderDoList = matchOrderDAO.selectByDonorIdAndDonationOrderId(donorId,donationOrderIdList.get(i));
+            MatchOrder matchOrder = MatchOrderConverter.DO2Model(matchOrderDoList);
+            matchOrderList.add(matchOrder);
+        }
+
+
+        return matchOrderList;
 
     }
 

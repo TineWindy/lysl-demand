@@ -6,9 +6,7 @@ import com.whu.lysl.entity.dto.MatchOrder;
 import com.whu.lysl.service.OrderMatchService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -36,27 +34,30 @@ public class MatchOrderController extends LYSLBaseController {
      * @return
      */
     @RequestMapping(value = "/dispatch",method = RequestMethod.POST)
-    public String artificialDispatch(HttpServletRequest request) {
+    public String artificialDispatch(HttpServletRequest request, @RequestBody MatchOrder matchOrder) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
-            MatchOrder matchOrder = new MatchOrder();
-            matchOrder.setDonorId(1);
-            matchOrder.setDoneeId(1);
-            matchOrder.setDemandOrderId(1);
-            matchOrder.setDonationOrderId(1);
-            List<Integer> testList = new ArrayList<>();
-            testList.add(1);
-            testList.add(2);
-            matchOrder.setMaterialIdList(testList);
-            matchOrder.setMaterialQuantityList(testList);
              orderMatchService.saveMatchOrder(matchOrder);
-
-            // 这里应该 do 转 vo，先这样写个示例
-//            List<Institution> institutionList = institutionService.getInstsByCondition(new InstCondition.Builder().status(LYSLDataStatusEnum.UNCHECKED.getCode()).build());
-//            result.setResultObj(institutionList);
             return result;
         }, AuthEnum.IGNORE_VERIFY.getCode());
 
+        return JSON.toJSONString(res);
+    }
+
+    /**
+     * 根据捐赠者名字获取匹配单
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/getMatchOrderByHonorName",method = RequestMethod.GET)
+    public String getMatchOrderByHonorName(HttpServletRequest request){
+        LYSLResult<Object> res = protectController(request,() ->{
+            LYSLResult<Object> result = new LYSLResult<>();
+            String honorName = request.getParameter("honorName");
+            List<MatchOrder> matchOrderList = orderMatchService.getMatchOrderByDonorName(honorName);
+            result.setResultObj(matchOrderList);
+            return result;
+        }, AuthEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);
     }
 }

@@ -11,6 +11,7 @@ import java.util.List;
  * @author Visionary
  * @since 2020/2/8 10:03 PM
  */
+@Mapper
 public interface InstitutionDAO {
 
     /**

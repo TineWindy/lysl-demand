@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableTransactionManagement
 @EnableScheduling
-@MapperScan("com.shiyingpu.yinghuaji.dao")
+@MapperScan("com.whu.lysl.dao")
 public class LyslApplication {
 
 	public static void main(String[] args) {

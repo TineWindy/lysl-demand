@@ -1,5 +1,6 @@
 package com.whu.lysl.base.converters;
 
+import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.entity.dbobj.MatchOrderDo;
@@ -23,7 +24,7 @@ public class MatchOrderConverter {
      * @return 返回matchOrderDo的列表
      */
     public static List<MatchOrderDo> Model2DO(MatchOrder matchOrder){
-        List<MatchOrderDo> matchOrderDo_list = new ArrayList<>();
+        List<MatchOrderDo> matchOrderDoList = new ArrayList<>();
         MatchOrderDo matchOrderDo = new MatchOrderDo();
 
         if (matchOrder.getDemandOrderId() <= 0) {
@@ -62,21 +63,47 @@ public class MatchOrderConverter {
         matchOrderDo.setStatus(matchOrder.getStatus());
         matchOrderDo.setTrackingNumber(matchOrder.getTrackingNumber());
 
-        matchOrderDo_list.add(matchOrderDo);
+        matchOrderDoList.add(matchOrderDo);
         for (int i = 1;i<matchOrder.getMaterialIdList().size();i++){
             try{
                 MatchOrderDo matchOrderDo1 = matchOrderDo.clone();
                 matchOrderDo1.setMaterialId(matchOrder.getMaterialIdList().get(i));
                 matchOrderDo1.setMaterialQuantity(matchOrder.getMaterialQuantityList().get(i));
-                matchOrderDo_list.add(matchOrderDo1);
+                matchOrderDoList.add(matchOrderDo1);
             }
             catch (CloneNotSupportedException e) {
                 throw new LYSLException("读入数据出现异常",LYSLResultCodeEnum.SYSTEM_ERROR);
             }
 
         }
-        return matchOrderDo_list;
+        return matchOrderDoList;
     }
 
+    /**
+     * 将MatchOrderDoList转换成matchOrder
+     * @param matchOrderDoList
+     * @return
+     */
+    public static MatchOrder DO2Model(List<MatchOrderDo> matchOrderDoList){
+        MatchOrder matchOrder = new MatchOrder();
+        if (matchOrderDoList.size()==0){
+            return null;
+        }
+        MatchOrderDo matchOrderDo = new MatchOrderDo();
+        matchOrder.setDemandOrderId(matchOrderDo.getDemandOrderId());
+        matchOrder.setDonationOrderId(matchOrderDo.getDonationOrderId());
+        matchOrder.setDonorId(matchOrderDo.getDonorId());
+        matchOrder.setDoneeId(matchOrderDo.getDoneeId());
+        matchOrder.setGmtCreated(matchOrderDo.getGmtCreated());
+        matchOrder.setStatus(matchOrderDo.getStatus());
+        matchOrder.setTrackingNumber(matchOrderDo.getTrackingNumber());
+        matchOrder.setMaterialIdList(new ArrayList<>());
+        matchOrder.setMaterialQuantityList(new ArrayList<>());
+        for (int i =0;i<matchOrderDoList.size();i++){
+            matchOrder.getMaterialIdList().add(matchOrderDoList.get(i).getMaterialId());
+            matchOrder.getMaterialQuantityList().add(matchOrderDoList.get(i).getMaterialQuantity());
+        }
 
+        return matchOrder;
+    }
 }

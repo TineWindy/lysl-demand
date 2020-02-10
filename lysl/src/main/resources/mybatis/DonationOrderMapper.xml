@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whu.lysl.dao.DonationOrderDAO">
+
+
+    <sql id="DonationOrderCols">
+        donation_type, donor_id, donor_name, donee_id, donee_name, material_id, material_name, material_amount, deleted, status
+     </sql>
+
+    <sql id="DonationOrderTable">
+        lysl_donation_order
+    </sql>
+
+    <select id="selectByCondition" resultType="com.whu.lysl.entity.dbobj.DonationOrderDO"
+          parameterType="com.whu.lysl.entity.condition.DonationOrderCondition">
+    SELECT donation_order_id, gmd_created, gmd_modified,
+    <include refid="DonationOrderCols"/>
+    FROM
+    <include refid="DonationOrderTable"/>
+    <where>
+        <if test="donorId != null">
+            AND donor_id = #{donorId}
+        </if>
+        <if test="donationType != null">
+            AND donation_type = #{donationType}
+        </if>
+        <if test="doneeId != null">
+            AND donee_id = #{doneeId}
+        </if>
+        <if test="doneeName != null">
+            AND donee_name = #{doneeName}
+        </if>
+        <if test="materialId != null">
+            AND material_id = #{materialId}
+        </if>
+        <if test="materialName != null">
+            AND material_name = #{materialName}
+        </if>
+        <if test="materialAmount != null">
+            AND material_amount = #{materialAmount}
+        </if>
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        <if test="deleted != null">
+            AND deleted = #{deleted}
+        </if>
+    </where>
+        order by donation_order_id desc
+  </select>
+
+    <select id="selectAll" resultType="com.whu.lysl.entity.dbobj.DonationOrderDO">
+        SELECT donation_order_id, gmd_created, gmd_modified,
+        <include refid="DonationOrderCols"/>
+        FROM
+        <include refid="DonationOrderTable"/>
+        where 1=1
+    </select>
+
+    <insert id="insertDonationOrder" keyProperty="donation_order_id" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
+    insert into
+    <include refid="DonationOrderTable"/>
+      (donor_id, donor_name, donation_type, donee_id, donee_name, material_id, material_name, material_amount, deleted, status)
+    values
+      (#{donorId}, #{donorName},
+      #{donationType}, #{doneeId}, #{doneeName},
+      #{materialId}, #{materialName}, #{materialAmount},
+      #{deleted}, #{status})
+  </insert>
+
+    <update id="updateDonationOrder" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
+    update
+      <include refid="DonationOrderTable"/>
+      <set>
+          <if test="donorId != null">
+              donor_id = #{donorId},
+          </if>
+          <if test="donationType != null">
+              donation_type = #{donationType},
+          </if>
+          <if test="doneeId != null">
+              donee_id = #{doneeId},
+          </if>
+          <if test="doneeName != null">
+              donee_name = #{doneeName},
+          </if>
+          <if test="materialId != null">
+              material_id = #{materialId},
+          </if>
+          <if test="materialName != null">
+              material_name = #{materialName},
+          </if>
+          <if test="materialAmount != null">
+              material_amount = #{materialAmount},
+          </if>
+          <if test="status != null">
+              status = #{status},
+          </if>
+      </set>
+      where donation_order_id = #{donationOrderId}
+  </update>
+</mapper>
