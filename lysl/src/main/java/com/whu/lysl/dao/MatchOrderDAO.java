@@ -24,5 +24,7 @@ public interface MatchOrderDAO {
      * @param donorId
      * @return
      */
-    List<MatchOrderDo> selectByDonorId(int donorId);
+    List<Integer> selectDonationOrderIdByDonorId(int donorId);
+
+    List<MatchOrderDo> selectByDonorIdAndDonationOrderId(int donorId,int donationOrderId);
 }
