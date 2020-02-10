@@ -2,6 +2,7 @@ package com.whu.lysl.dao;
 
 import com.whu.lysl.entity.condition.DonationOrderCondition;
 import com.whu.lysl.entity.dbobj.DonationOrderDO;
+import com.whu.lysl.entity.dto.DonationOrder;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
@@ -23,5 +24,7 @@ public interface DonationOrderDAO{
     int insertDonationOrder(DonationOrderDO donationOrder);
 
     int updateDonationOrder(DonationOrderDO donationOrder);
+
+    List<DonationOrderDO> selectAll();
 
 }

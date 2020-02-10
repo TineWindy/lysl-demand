@@ -11,7 +11,7 @@
         lysl_donation_order
     </sql>
 
-  <select id="selectByCondition" resultType="com.whu.lysl.entity.dbobj.DonationOrderDO"
+    <select id="selectByCondition" resultType="com.whu.lysl.entity.dbobj.DonationOrderDO"
           parameterType="com.whu.lysl.entity.condition.DonationOrderCondition">
     SELECT donation_order_id, gmd_created, gmd_modified,
     <include refid="DonationOrderCols"/>
@@ -46,7 +46,16 @@
             AND deleted = #{deleted}
         </if>
     </where>
+        order by donation_order_id desc
   </select>
+
+    <select id="selectAll" resultType="com.whu.lysl.entity.dbobj.DonationOrderDO">
+        SELECT donation_order_id, gmd_created, gmd_modified,
+        <include refid="DonationOrderCols"/>
+        FROM
+        <include refid="DonationOrderTable"/>
+        where 1=1
+    </select>
 
     <insert id="insertDonationOrder" keyProperty="donation_order_id" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
     insert into
@@ -59,7 +68,7 @@
       #{deleted}, #{status})
   </insert>
 
-  <update id="updateDonationOrder" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
+    <update id="updateDonationOrder" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
     update
       <include refid="DonationOrderTable"/>
       <set>

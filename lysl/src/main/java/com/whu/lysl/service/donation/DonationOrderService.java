@@ -19,6 +19,8 @@ public interface DonationOrderService {
      */
     List<DonationOrder> getDonationOrderByCondition(DonationOrderCondition donationOrderCondition);
 
+    List<DonationOrder> selectAllDonationOrder();
+
     int insertDonationOrder(DonationOrder donationOrder);
 
     int updateDonationOrder(DonationOrder donationOrder);

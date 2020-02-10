@@ -28,6 +28,11 @@ public class DonationOrderServiceImpl implements DonationOrderService {
     }
 
     @Override
+    public List<DonationOrder> selectAllDonationOrder() {
+        return DonationOrderConverter.batchDo2Model(donationOrderDAO.selectAll());
+    }
+
+    @Override
     public int insertDonationOrder(DonationOrder donationOrder) {
         AssertUtils.AssertNotNull(donationOrder);
         donationOrder.setStatus(0);
