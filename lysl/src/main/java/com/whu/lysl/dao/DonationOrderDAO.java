@@ -1,12 +1,8 @@
 package com.whu.lysl.dao;
 
 import com.whu.lysl.entity.condition.DonationOrderCondition;
-import com.whu.lysl.entity.condition.InstCondition;
 import com.whu.lysl.entity.dbobj.DonationOrderDO;
-import com.whu.lysl.entity.dto.DonationOrder;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 
 /**
@@ -15,7 +11,7 @@ import java.util.List;
  * @Description:
  */
 @Mapper
-public interface DonationOrderDAO {
+public interface DonationOrderDAO{
 
     /**
      * 根据条件查询机构

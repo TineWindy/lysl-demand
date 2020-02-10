@@ -38,7 +38,7 @@ public class DonationOrderController extends LYSLBaseController {
     public String queryDonationOrderByPage(@RequestBody Map<String,Integer> map, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
-            // TODO 参数类型检查
+            // TODO 参数类型检查 分页插件暂时有问题
             PageHelper.startPage(map.get("pageNo"), map.get("pageSize"));
             List<DonationOrder> donationOrderList = donationOrderService.getDonationOrderByCondition(null);
             PageInfo pageInfo = new PageInfo(DonationOrderConverter.batchModel2Vo(donationOrderList));
