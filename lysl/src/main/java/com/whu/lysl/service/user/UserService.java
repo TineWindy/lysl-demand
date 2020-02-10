@@ -2,6 +2,8 @@ package com.whu.lysl.service.user;
 
 import com.whu.lysl.entity.dto.User;
 
+import java.util.List;
+
 /**
  * 主体用户服务
  * @author Visionary
@@ -28,5 +30,11 @@ public interface UserService {
      * @return user
      */
     User getUserByPhone(String phone);
+
+    /**
+     * 获取所有的用户
+     * @return user list
+     */
+    List<User> getAllUser();
 
 }

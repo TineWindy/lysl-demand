@@ -50,4 +50,13 @@
         WHERE phone = #{phone}
     </select>
 
+    <select id="selectAllUser" resultType="com.whu.lysl.entity.dbobj.UserDO" >
+        SELECT id, gmt_created, gmt_modified
+        <include refid="UserCols" />
+        FROM
+        <include refid="UserTable" />
+        WHERE 1=1
+    </select>
+
+
 </mapper>
