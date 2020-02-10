@@ -11,7 +11,7 @@ import java.util.Date;
  **/
 
 @Data
-public class MatchOrderDo {
+public class MatchOrderDo implements Cloneable{
     /**
      * 匹配单id
      */
@@ -19,27 +19,27 @@ public class MatchOrderDo {
     /**
      * 匹配单创建时间
      */
-    Date gmt_created;
+    Date gmtCreated;
     /**
      * 匹配单修改时间
      */
-    Date gmt_modified;
+    Date gmtModified;
     /**
      * 捐赠者id
      */
-    int donor_id;
+    int donorId;
     /**
      * 受赠者id
      */
-    int donee_id;
+    int doneeId;
     /**
      * 物资id
      */
-    int material_id;
+    int materialId;
     /**
      * 物资数量
      */
-    int material_quantity;
+    int materialQuantity;
     /**
      * 匹配单状态
      */
@@ -47,18 +47,22 @@ public class MatchOrderDo {
     /**
      * 匹配方式（包含三种：系统匹配、定向捐赠、志愿者人工匹配）
      */
-    String matching_method;
+    String matchingMethod;
     /**
      * 捐赠单id
      */
-    int donation_order_id;
+    int donationOrderId;
     /**
      * 需求单id
      */
-    int demand_order_id;
+    int demandOrderId;
     /**
      * 物流单号
      */
-    String tracking_number;
+    String trackingNumber;
 
+    @Override
+    public MatchOrderDo clone() throws CloneNotSupportedException {
+        return (MatchOrderDo) super.clone();
+    }
 }
