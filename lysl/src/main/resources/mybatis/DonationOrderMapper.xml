@@ -48,9 +48,7 @@
     </where>
   </select>
 
-
-
-    <insert id="insertDonationOrder" keyProperty="donation_order_id" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO" useGeneratedKeys="true">
+    <insert id="insertDonationOrder" keyProperty="donation_order_id" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
     insert into
     <include refid="DonationOrderTable"/>
       (donor_id, donor_name, donation_type, donee_id, donee_name, material_id, material_name, material_amount, deleted, status)

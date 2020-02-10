@@ -87,7 +87,7 @@ public class DonationOrderController extends LYSLBaseController {
             AssertUtils.AssertNotNull(donationOrderId);
             AssertUtils.AssertNotNull(status);
             if (status!=1 && status!=2) {
-                throw new LYSLException("status must be in [1, 2]", LYSLResultCodeEnum.DATA_INVALID);
+                throw new LYSLException("status must be in {1, 2}", LYSLResultCodeEnum.DATA_INVALID);
             }
 
             List<DonationOrder> listDonationOrder = donationOrderService.getDonationOrderByCondition(
