@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whu.lysl.dao.MatchOrderDAO">
+
+    <sql id="MatchOrderCols">
+        gmt_created, donor_id, donee_id, material_id,material_quantity,status,donation_order_id,demand_order_id,tracking_number
+     </sql>
+
+    <sql id="MatchOrderTable">
+        lysl_match_order
+    </sql>
+
+
+
+    <insert id="saveMatchOrder" parameterType="com.whu.lysl.entity.dbobj.MatchOrderDo">
+        insert into lysl_match_order(gmt_created,gmt_modified,donor_id,donee_id,material_id,material_quantity,status,
+        matching_method,donation_order_id,demand_order_id,tracking_number)
+        values(#{gmtCreated},#{gmtModified},#{donorId},#{doneeId},#{materialId},#{materialQuantity},#{status},#{matchingMethod},#{donationOrderId},
+        #{demandOrderId},#{trackingNumber})
+    </insert>
+
+    <select id="selectDonationOrderIdByDonorId" resultType="int" parameterType="int">
+        SELECT donation_order_id
+        FROM
+        <include refid="MatchOrderTable" />
+        WHERE donor_id = #{donorId} group by donation_order_id
+    </select>
+
+    <select id="selectByDonorIdAndDonationOrderId" resultType="com.whu.lysl.entity.dbobj.MatchOrderDo" parameterType="int">
+        SELECT <include refid="MatchOrderCols"></include>
+        FROM
+        <include refid="MatchOrderTable" />
+        WHERE donor_id = #{donorId} and donation_order_id = #{donationOrderId}
+    </select>
+
+<!--    <resultMap type="com.whu.lysl.entity.dbobj.MatchOrderMaterialListDo" id="matchOrderMaterialListMap">-->
+<!--        <result column="donor_id" property="donorId"/>-->
+<!--        <result column="donee_id" property="doneeId"/>-->
+<!--        <result column="status" property="status"/>-->
+<!--        <result column="donation_order_id" property="donationOrderId"/>-->
+<!--        <result column="demand_order_id" property="demandOrderId"/>-->
+<!--        <result column="tracking_number" property="trackingNumber"/>-->
+<!--        <collection column="material_id" javaType="ArrayList" ofType="int"  property="materialIdList" />-->
+<!--        <collection column="material_quantity" javaType="ArrayList" ofType="int"  property="materialQuantityList" />-->
+<!--    </resultMap>-->
+
+
+</mapper>
