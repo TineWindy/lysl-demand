@@ -30,9 +30,17 @@ public class MatchOrder {
      */
     int donorId;
     /**
+     * 捐赠者的名字
+     */
+    String donorName;
+    /**
      * 受赠者id
      */
     int doneeId;
+    /**
+     * 受赠者的名字
+     */
+    String doneeName;
     /**
      * 物资id列表，对应着一个匹配单
      */

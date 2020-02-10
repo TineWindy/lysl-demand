@@ -8,6 +8,7 @@ import com.whu.lysl.entity.dto.MatchOrder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +36,17 @@ public class OrderMatchServiceImpl implements OrderMatchService{
             // 调用DAO将数据存入数据库
             matchOrderDAO.saveMatchOrder(matchOrderDo);
         }
+
+    }
+
+    @Override
+    public List<MatchOrder> getMatchOrderByHonorName(String honorName) throws LYSLException {
+        // TODO 去捐赠模块检查honorId是否正确
+        int honorId = 1;
+        List<MatchOrderDo> matchOrderDoList = matchOrderDAO.selectByDonorId(honorId);
+        List<MatchOrder> matchOrderList = new ArrayList<>();
+
+        return matchOrderList;
 
     }
 

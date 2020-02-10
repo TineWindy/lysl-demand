@@ -6,9 +6,7 @@ import com.whu.lysl.entity.dto.MatchOrder;
 import com.whu.lysl.service.OrderMatchService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -36,10 +34,10 @@ public class MatchOrderController extends LYSLBaseController {
      * @return
      */
     @RequestMapping(value = "/dispatch",method = RequestMethod.POST)
-    public String artificialDispatch(HttpServletRequest request) {
+    public String artificialDispatch(HttpServletRequest request, @RequestBody MatchOrder matchOrder) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
-            MatchOrder matchOrder = new MatchOrder();
+//            MatchOrder matchOrder = new MatchOrder();
             matchOrder.setDonorId(1);
             matchOrder.setDoneeId(1);
             matchOrder.setDemandOrderId(1);
@@ -57,6 +55,23 @@ public class MatchOrderController extends LYSLBaseController {
             return result;
         }, AuthEnum.IGNORE_VERIFY.getCode());
 
+        return JSON.toJSONString(res);
+    }
+
+    /**
+     * 根据捐赠者名字获取匹配单
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/getMatchOrderByHonorName",method = RequestMethod.POST)
+    public String getMatchOrderByHonorName(HttpServletRequest request){
+        LYSLResult<Object> res = protectController(request,() ->{
+            LYSLResult<Object> result = new LYSLResult<>();
+            String honorName = request.getParameter("honorName");
+            List<MatchOrder> matchOrderList = orderMatchService.getMatchOrderByHonorName(honorName);
+            result.setResultObj(matchOrderList);
+            return result;
+        }, AuthEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);
     }
 }
