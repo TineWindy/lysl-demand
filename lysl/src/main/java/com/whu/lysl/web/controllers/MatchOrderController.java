@@ -1,6 +1,8 @@
 package com.whu.lysl.web.controllers;
 
 import com.alibaba.fastjson.JSON;
+import com.whu.lysl.base.enums.MatchingMethodEnum;
+import com.whu.lysl.base.enums.MatchingStatusEnum;
 import com.whu.lysl.entity.dto.Institution;
 import com.whu.lysl.entity.dto.MatchOrder;
 import com.whu.lysl.service.OrderMatchService;
@@ -37,6 +39,8 @@ public class MatchOrderController extends LYSLBaseController {
     public String artificialDispatch(HttpServletRequest request, @RequestBody MatchOrder matchOrder) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
+            matchOrder.setStatus(MatchingStatusEnum.CHECKED.getCode()); //志愿者默认已审核
+            matchOrder.setMatchingMethod(MatchingMethodEnum.ARTIFICAL_MATCHING.getCode());//人工审核
              orderMatchService.saveMatchOrder(matchOrder);
             return result;
         }, AuthEnum.IGNORE_VERIFY.getCode());

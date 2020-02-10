@@ -46,7 +46,7 @@ public enum MatchingMethodEnum {
      * @param code 枚举code
      * @return 有则返回对应枚举，无则返回null
      */
-    public MatchingMethodEnum getEnumByCode(String code) {
+    public static MatchingMethodEnum getEnumByCode(String code) {
         for(MatchingMethodEnum matchingMethodEnum : MatchingMethodEnum.values()) {
             if(StringUtils.equal(code, matchingMethodEnum.getCode())) {
                 return matchingMethodEnum;

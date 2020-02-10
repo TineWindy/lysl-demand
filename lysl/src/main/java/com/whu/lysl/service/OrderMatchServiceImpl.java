@@ -2,6 +2,7 @@ package com.whu.lysl.service;
 
 import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import com.whu.lysl.base.converters.MatchOrderConverter;
+import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.enums.MatchingMethodEnum;
 import com.whu.lysl.base.enums.MatchingStatusEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
@@ -33,8 +34,7 @@ public class OrderMatchServiceImpl implements OrderMatchService{
     @Override
     public void saveMatchOrder(MatchOrder matchOrder) throws LYSLException {
         // 将DTO转换成DO，同时进行参数检查
-        matchOrder.setStatus(MatchingStatusEnum.CHECKED.getCode()); //志愿者默认已审核
-        matchOrder.setMatchingMethod(MatchingMethodEnum.ARTIFICAL_MATCHING.getCode());//人工审核
+
         List<MatchOrderDo> matchOrderDoList = MatchOrderConverter.Model2DO(matchOrder);
         for (int i = 0;i< matchOrderDoList.size();i++){
             MatchOrderDo matchOrderDo = matchOrderDoList.get(i);
@@ -44,9 +44,15 @@ public class OrderMatchServiceImpl implements OrderMatchService{
 
     }
 
+    /**
+     * 根据捐赠者名字查询匹配单
+     * @param honorName
+     * @return
+     * @throws LYSLException
+     */
     @Override
     public List<MatchOrder> getMatchOrderByDonorName(String honorName) throws LYSLException {
-        // TODO 去捐赠模块检查honorId是否正确
+        // TODO 去捐赠模块检查donorId是否正确
         int donorId = 1;
         List<Integer> donationOrderIdList = matchOrderDAO.selectDonationOrderIdByDonorId(donorId);
         List<MatchOrder> matchOrderList = new ArrayList<>();
@@ -62,9 +68,15 @@ public class OrderMatchServiceImpl implements OrderMatchService{
 
     }
 
+    /**
+     * 根据受赠者名字查询匹配单
+     * @param doneeName 受赠者名字
+     * @return
+     * @throws LYSLException
+     */
     @Override
     public List<MatchOrder> getMatchOrderByDoneeName(String doneeName) throws LYSLException {
-        // TODO 去需求模块检查honorId是否正确
+        // TODO 去需求模块检查donorId是否正确
         int doneeId = 1;
         List<Integer> demandOrderIdList = matchOrderDAO.selectDemandOrderIdByDoneeId(doneeId);
         List<MatchOrder> matchOrderList = new ArrayList<>();
@@ -77,6 +89,23 @@ public class OrderMatchServiceImpl implements OrderMatchService{
 
 
         return matchOrderList;
+    }
+
+    /**
+     * 更新匹配单状态
+     * @param matchOrderId
+     * @param status
+     * @throws LYSLException
+     */
+    @Override
+    public void updateMatchOrderStatus(int matchOrderId, String status) throws LYSLException {
+
+        if (MatchingStatusEnum.getEnumByCode(status) == null){
+            throw new LYSLException("状态值不存在",LYSLResultCodeEnum.DATA_INVALID);
+        }
+
+        matchOrderDAO.updateStatus(matchOrderId,status);
+
     }
 
 

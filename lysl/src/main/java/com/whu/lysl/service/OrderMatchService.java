@@ -28,4 +28,12 @@ public interface OrderMatchService {
      * @throws LYSLException
      */
     List<MatchOrder> getMatchOrderByDoneeName(String doneeName) throws LYSLException;
+
+    /**
+     * 更新匹配单的状态
+     * @param matchOrderId
+     * @param status
+     * @throws LYSLException
+     */
+    void updateMatchOrderStatus(int matchOrderId,String status) throws LYSLException;
 }

@@ -48,6 +48,11 @@
     </select>
 
 
+    <update id="updateStatus">
+        UPDATE <include refid="MatchOrderTable"></include> SET status = #{status} where id = #{matchOrderId}
+    </update>
+
+
 
 
 

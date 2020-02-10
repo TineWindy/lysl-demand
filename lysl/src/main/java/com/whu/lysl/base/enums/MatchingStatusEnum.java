@@ -61,7 +61,7 @@ public enum MatchingStatusEnum {
      * @param code 枚举code
      * @return 有则返回对应枚举，无则返回null
      */
-    public MatchingStatusEnum getEnumByCode(String code) {
+    public static MatchingStatusEnum getEnumByCode(String code) {
         for(MatchingStatusEnum matchingStatusEnum : MatchingStatusEnum.values()) {
             if(StringUtils.equal(code, matchingStatusEnum.getCode())) {
                 return matchingStatusEnum;

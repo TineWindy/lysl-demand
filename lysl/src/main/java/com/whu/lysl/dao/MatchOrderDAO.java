@@ -49,5 +49,10 @@ public interface MatchOrderDAO {
      */
     List<MatchOrderDo> selectByDoneeIdAndDonationOrderId(int doneeId,int demandOrderId);
 
-
+    /**
+     * 更新匹配单状态
+     * @param matchOrderId
+     * @param status
+     */
+    void updateStatus(int matchOrderId,String status);
 }
