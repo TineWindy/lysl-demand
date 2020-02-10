@@ -16,9 +16,16 @@ public interface OrderMatchService {
 
     /**
      * 根据捐赠者Id对匹配单进行查询
-     * @param honorName 捐赠者名字
+     * @param donorName 捐赠者名字
      * @throws LYSLException
      */
-    List<MatchOrder> getMatchOrderByDonorName(String honorName) throws LYSLException;
+    List<MatchOrder> getMatchOrderByDonorName(String donorName) throws LYSLException;
 
+    /**
+     * 根据受赠者Id对匹配单进行查询
+     * @param doneeName 受赠者名字
+     * @return
+     * @throws LYSLException
+     */
+    List<MatchOrder> getMatchOrderByDoneeName(String doneeName) throws LYSLException;
 }

@@ -24,6 +24,9 @@ public class MatchOrderConverter {
      * @return 返回matchOrderDo的列表
      */
     public static List<MatchOrderDo> Model2DO(MatchOrder matchOrder){
+        if (matchOrder == null){
+            return null;
+        }
         List<MatchOrderDo> matchOrderDoList = new ArrayList<>();
         MatchOrderDo matchOrderDo = new MatchOrderDo();
 

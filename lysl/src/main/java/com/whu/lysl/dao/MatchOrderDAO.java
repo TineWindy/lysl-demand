@@ -26,5 +26,28 @@ public interface MatchOrderDAO {
      */
     List<Integer> selectDonationOrderIdByDonorId(int donorId);
 
+    /**
+     * 根据捐赠者id和捐赠单id查询匹配单
+     * @param donorId
+     * @param donationOrderId
+     * @return
+     */
     List<MatchOrderDo> selectByDonorIdAndDonationOrderId(int donorId,int donationOrderId);
+
+    /**
+     * 根据doneeId查匹配单详情
+     * @param doneeId
+     * @return
+     */
+    List<Integer> selectDemandOrderIdByDoneeId(int doneeId);
+
+    /**
+     * 根据受赠者id和捐赠单id查询匹配单
+     * @param doneeId
+     * @param demandOrderId
+     * @return
+     */
+    List<MatchOrderDo> selectByDoneeIdAndDonationOrderId(int doneeId,int demandOrderId);
+
+
 }

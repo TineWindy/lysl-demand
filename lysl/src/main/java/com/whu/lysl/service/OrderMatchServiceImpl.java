@@ -2,6 +2,8 @@ package com.whu.lysl.service;
 
 import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import com.whu.lysl.base.converters.MatchOrderConverter;
+import com.whu.lysl.base.enums.MatchingMethodEnum;
+import com.whu.lysl.base.enums.MatchingStatusEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.dao.MatchOrderDAO;
 import com.whu.lysl.entity.dbobj.MatchOrderDo;
@@ -31,6 +33,8 @@ public class OrderMatchServiceImpl implements OrderMatchService{
     @Override
     public void saveMatchOrder(MatchOrder matchOrder) throws LYSLException {
         // 将DTO转换成DO，同时进行参数检查
+        matchOrder.setStatus(MatchingStatusEnum.CHECKED.getCode()); //志愿者默认已审核
+        matchOrder.setMatchingMethod(MatchingMethodEnum.ARTIFICAL_MATCHING.getCode());//人工审核
         List<MatchOrderDo> matchOrderDoList = MatchOrderConverter.Model2DO(matchOrder);
         for (int i = 0;i< matchOrderDoList.size();i++){
             MatchOrderDo matchOrderDo = matchOrderDoList.get(i);
@@ -56,6 +60,23 @@ public class OrderMatchServiceImpl implements OrderMatchService{
 
         return matchOrderList;
 
+    }
+
+    @Override
+    public List<MatchOrder> getMatchOrderByDoneeName(String doneeName) throws LYSLException {
+        // TODO 去需求模块检查honorId是否正确
+        int doneeId = 1;
+        List<Integer> demandOrderIdList = matchOrderDAO.selectDemandOrderIdByDoneeId(doneeId);
+        List<MatchOrder> matchOrderList = new ArrayList<>();
+        for (int i =0;i<demandOrderIdList.size();i++){
+
+            List<MatchOrderDo> matchOrderDoList = matchOrderDAO.selectByDoneeIdAndDonationOrderId(doneeId,demandOrderIdList.get(i));
+            MatchOrder matchOrder = MatchOrderConverter.DO2Model(matchOrderDoList);
+            matchOrderList.add(matchOrder);
+        }
+
+
+        return matchOrderList;
     }
 
 

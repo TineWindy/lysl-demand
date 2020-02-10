@@ -49,12 +49,30 @@ public class MatchOrderController extends LYSLBaseController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/getMatchOrderByHonorName",method = RequestMethod.GET)
-    public String getMatchOrderByHonorName(HttpServletRequest request){
+    @RequestMapping(value = "/getMatchOrderByDonorName",method = RequestMethod.GET)
+    public String getMatchOrderByDonorName(HttpServletRequest request){
         LYSLResult<Object> res = protectController(request,() ->{
             LYSLResult<Object> result = new LYSLResult<>();
-            String honorName = request.getParameter("honorName");
+            String honorName = request.getParameter("donorName");
             List<MatchOrder> matchOrderList = orderMatchService.getMatchOrderByDonorName(honorName);
+            result.setResultObj(matchOrderList);
+            return result;
+        }, AuthEnum.IGNORE_VERIFY.getCode());
+        return JSON.toJSONString(res);
+    }
+
+
+    /**
+     * 根据受赠者名字获取匹配单
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/getMatchOrderByDoneeName",method = RequestMethod.GET)
+    public String getMatchOrderByDoneeName(HttpServletRequest request){
+        LYSLResult<Object> res = protectController(request,() ->{
+            LYSLResult<Object> result = new LYSLResult<>();
+            String honorName = request.getParameter("doneeName");
+            List<MatchOrder> matchOrderList = orderMatchService.getMatchOrderByDoneeName(honorName);
             result.setResultObj(matchOrderList);
             return result;
         }, AuthEnum.IGNORE_VERIFY.getCode());
