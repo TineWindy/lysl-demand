@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.whu.lysl.base.converters.DonationOrderConverter;
+import com.whu.lysl.base.enums.DonationOrderStatusEnum;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.AssertUtils;
@@ -14,6 +15,7 @@ import com.whu.lysl.entity.vo.DonationOrderVO;
 import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
+import org.apache.commons.lang3.EnumUtils;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +57,6 @@ public class DonationOrderController extends LYSLBaseController {
     public String addDonationOrder(@RequestBody @Valid DonationOrderVO donationOrderVO, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
-//            donationOrder.setDonationOrderId();
             // 根据捐赠类型定向与非定向，判断捐赠对象字段
             AssertUtils.AssertNotNull(donationOrderVO.getDoneeId());
             if (donationOrderVO.getDonationType()==1 ) {
@@ -87,19 +88,22 @@ public class DonationOrderController extends LYSLBaseController {
             String status = map.get("status").toString();
             AssertUtils.AssertNotNull(donationOrderId);
             AssertUtils.AssertNotNull(status);
+            if (!EnumUtils.isValidEnum(DonationOrderStatusEnum.class, status)) {
+                throw new LYSLException("Status 不属于支持的枚举值", LYSLResultCodeEnum.DATA_INVALID);
+            }
 
-              List<DonationOrder> listDonationOrder = donationOrderService.getDonationOrderByCondition(
+            List<DonationOrder> listDonationOrder = donationOrderService.getDonationOrderByCondition(
                     new DonationOrderCondition.Builder().donationOrderId(donationOrderId).build());
             if(listDonationOrder.size()==0) {
                 throw new LYSLException("donationOrderId is invalid",  LYSLResultCodeEnum.DATA_INVALID);
             }
             int update_ans=0;
-            if (StringUtils.equal(status, "APPROVED")) {
+            if (StringUtils.equal(status, DonationOrderStatusEnum.APPROVED.getCode())) {
                 update_ans = donationOrderService.checkPass(listDonationOrder.get(0));
-            } else if (StringUtils.equal(status, "DISAPPROVED")){
+            } else if (StringUtils.equal(status, DonationOrderStatusEnum.DISAPPROVED.getCode())){
                 update_ans = donationOrderService.checkFail(listDonationOrder.get(0));
             } else {
-                throw new LYSLException("status must be in DISAPPROVED or APPROVED", LYSLResultCodeEnum.DATA_INVALID);
+                throw new LYSLException("status must be DISAPPROVED or APPROVED", LYSLResultCodeEnum.DATA_INVALID);
             }
             // TODO 通知捐赠主体 捐赠审核状态
             result.setResultObj(update_ans==1? "更新成功":"更新失败");

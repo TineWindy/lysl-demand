@@ -49,14 +49,6 @@
         order by donation_order_id desc
   </select>
 
-    <select id="selectAll" resultType="com.whu.lysl.entity.dbobj.DonationOrderDO">
-        SELECT donation_order_id, gmd_created, gmd_modified,
-        <include refid="DonationOrderCols"/>
-        FROM
-        <include refid="DonationOrderTable"/>
-        where 1=1
-    </select>
-
     <insert id="insertDonationOrder" keyProperty="donation_order_id" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
     insert into
     <include refid="DonationOrderTable"/>

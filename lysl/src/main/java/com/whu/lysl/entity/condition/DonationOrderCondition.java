@@ -2,12 +2,6 @@ package com.whu.lysl.entity.condition;
 
 import lombok.Data;
 
-
-/**
- * 机构查询
- * @author Visionary
- * @since 2020/2/8 9:43 PM
- */
 @Data
 public class DonationOrderCondition {
 
@@ -29,11 +23,11 @@ public class DonationOrderCondition {
 
     private Integer materialAmount;
 
-    private Integer status;
+    private String status;
 
     private Integer deleted;
 
-    public DonationOrderCondition(Integer donationOrderId, Integer donorId, Integer donationType, Integer doneeId, Integer materialId, Integer status, Integer deleted) {
+    public DonationOrderCondition(Integer donationOrderId, Integer donorId, Integer donationType, Integer doneeId, Integer materialId, String status, Integer deleted) {
         this.donationOrderId = donationOrderId;
         this.donorId = donorId;
         this.donationType = donationType;
@@ -55,7 +49,7 @@ public class DonationOrderCondition {
 
         private Integer materialId;
 
-        private Integer status;
+        private String status;
 
         private Integer deleted;
 
@@ -84,7 +78,7 @@ public class DonationOrderCondition {
             return this;
         }
 
-        public Builder status(Integer status) {
+        public Builder status(String status) {
             this.status = status;
             return this;
         }

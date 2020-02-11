@@ -2,12 +2,15 @@ package com.whu.lysl.service.donation.impl;
 
 import com.whu.lysl.base.converters.DonationOrderConverter;
 import com.whu.lysl.base.enums.DonationOrderStatusEnum;
+import com.whu.lysl.base.enums.LYSLResultCodeEnum;
+import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.AssertUtils;
+import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.dao.DonationOrderDAO;
 import com.whu.lysl.entity.condition.DonationOrderCondition;
-import com.whu.lysl.entity.dbobj.DonationOrderDO;
 import com.whu.lysl.entity.dto.DonationOrder;
 import com.whu.lysl.service.donation.DonationOrderService;
+import org.apache.commons.lang3.EnumUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,8 +32,20 @@ public class DonationOrderServiceImpl implements DonationOrderService {
     }
 
     @Override
-    public List<DonationOrder> selectAllDonationOrder() {
-        return DonationOrderConverter.batchDo2Model(donationOrderDAO.selectAll());
+    public List<DonationOrder> getDonationOrderByDonorId(Integer donorId) {
+        AssertUtils.AssertNotNull(donorId);
+        return DonationOrderConverter.batchDo2Model(
+                donationOrderDAO.selectByCondition(new DonationOrderCondition.Builder().donorId(donorId).build()));
+    }
+
+    @Override
+    public List<DonationOrder> getDonationOrderByDonorId(String status) {
+        AssertUtils.AssertNotNull(status);
+        if (!EnumUtils.isValidEnum(DonationOrderStatusEnum.class, status)) {
+            throw new LYSLException("Status 不属于支持的枚举值", LYSLResultCodeEnum.DATA_INVALID);
+        }
+        return DonationOrderConverter.batchDo2Model(
+                donationOrderDAO.selectByCondition(new DonationOrderCondition.Builder().status(status).build()));
     }
 
     @Override
@@ -63,6 +78,13 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         donationOrder1.setStatus(DonationOrderStatusEnum.DISAPPROVED.getCode());
         donationOrder1.setDonationOrderId(donationOrder.getDonationOrderId());
         return updateDonationOrder(donationOrder1);
+    }
+
+    public void validate(DonationOrder donationOrder) {
+        // TODO 验证方法
+        AssertUtils.AssertNotNull(donationOrder);
+
+
     }
 
 }

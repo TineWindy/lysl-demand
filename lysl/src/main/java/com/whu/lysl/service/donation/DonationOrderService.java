@@ -19,7 +19,19 @@ public interface DonationOrderService {
      */
     List<DonationOrder> getDonationOrderByCondition(DonationOrderCondition donationOrderCondition);
 
-    List<DonationOrder> selectAllDonationOrder();
+    /**
+     * 根据 donorId 查询捐赠订单
+     * @param donorId 查询条件
+     * @return 机构 list
+     */
+    List<DonationOrder> getDonationOrderByDonorId(Integer donorId);
+
+    /**
+     * 根据 status 查询捐赠订单
+     * @param status 查询条件
+     * @return 机构 list
+     */
+    List<DonationOrder> getDonationOrderByDonorId(String status);
 
     int insertDonationOrder(DonationOrder donationOrder);
 
@@ -28,5 +40,9 @@ public interface DonationOrderService {
     int checkPass(DonationOrder donationOrder);
 
     int checkFail(DonationOrder donationOrder);
+
+    void validate(DonationOrder donationOrder);
+
+
 
 }
