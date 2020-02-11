@@ -11,7 +11,7 @@ import com.whu.lysl.base.utils.StringUtils;
 public enum DonationOrderStatusEnum {
 
     /**
-     * 系统自动匹配
+     * 未审核
      */
     UNCHECKED("UNCHECKED", "未审核状态"),
 

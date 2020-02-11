@@ -25,6 +25,4 @@ public interface DonationOrderDAO{
 
     int updateDonationOrder(DonationOrderDO donationOrder);
 
-    List<DonationOrderDO> selectAll();
-
 }

@@ -33,16 +33,67 @@
         WHERE donor_id = #{donorId} and donation_order_id = #{donationOrderId}
     </select>
 
-<!--    <resultMap type="com.whu.lysl.entity.dbobj.MatchOrderMaterialListDo" id="matchOrderMaterialListMap">-->
-<!--        <result column="donor_id" property="donorId"/>-->
-<!--        <result column="donee_id" property="doneeId"/>-->
-<!--        <result column="status" property="status"/>-->
-<!--        <result column="donation_order_id" property="donationOrderId"/>-->
-<!--        <result column="demand_order_id" property="demandOrderId"/>-->
-<!--        <result column="tracking_number" property="trackingNumber"/>-->
-<!--        <collection column="material_id" javaType="ArrayList" ofType="int"  property="materialIdList" />-->
-<!--        <collection column="material_quantity" javaType="ArrayList" ofType="int"  property="materialQuantityList" />-->
-<!--    </resultMap>-->
+    <select id="selectDemandOrderIdByDoneeId" resultType="int" parameterType="int">
+        SELECT demand_order_id
+        FROM
+        <include refid="MatchOrderTable" />
+        WHERE donee_id = #{doneeId} group by demand_order_id
+    </select>
 
+    <select id="selectByDoneeIdAndDonationOrderId" resultType="com.whu.lysl.entity.dbobj.MatchOrderDo" parameterType="int">
+        SELECT <include refid="MatchOrderCols"></include>
+        FROM
+        <include refid="MatchOrderTable" />
+        WHERE donee_id = #{doneeId} and demand_order_id = #{demandOrderId}
+    </select>
+
+
+    <update id="updateStatus">
+        UPDATE <include refid="MatchOrderTable"></include> SET status = #{status} where id = #{matchOrderId}
+    </update>
+
+    <update id="updateTrackingNumber">
+        UPDATE <include refid="MatchOrderTable"></include> SET tracking_number = #{trackingNumber} where id = #{matchOrderId}
+    </update>
+
+    <select id="getMatchOrderGroupList" resultType="com.whu.lysl.entity.condition.MatchOrderCondition" parameterType="com.whu.lysl.entity.condition.MatchOrderCondition">
+        select <include refid="MatchOrderCols"></include>
+        FROM
+        <include refid="MatchOrderTable"></include>
+        <where>
+        <if test="donorId != 0">
+            AND donor_id = #{donorId}
+        </if>
+        <if test="doneeId != 0">
+            AND donee_id = #{doneeId}
+        </if>
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+         <if test="matchingMethod != null">
+             AND matching_method = #{matchingMethod}
+         </if>
+        </where> group by donor_id,donee_id,donation_order_id,demand_order_id
+    </select>
+
+    <select id="selectByDoneeIdAndDonationOrderIdAndDonorIdAndDoneeId" resultType="com.whu.lysl.entity.dbobj.MatchOrderDo" parameterType="com.whu.lysl.entity.condition.MatchOrderCondition">
+        SELECT <include refid="MatchOrderCols"></include>
+        FROM
+        <include refid="MatchOrderTable" />
+        <where>
+            <if test="donorId != null">
+                AND donor_id = #{donorId}
+            </if>
+            <if test="doneeId != null">
+                AND donee_id = #{doneeId}
+            </if>
+            <if test="demandOrderId != null">
+                AND demand_order_id = #{demandOrderId}
+            </if>
+            <if test="donationOrderId != null">
+                AND donation_order_id = #{donationOrderId}
+            </if>
+        </where>
+    </select>
 
 </mapper>

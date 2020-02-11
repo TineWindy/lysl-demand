@@ -3,47 +3,32 @@ package com.whu.lysl.base.enums;
 import com.whu.lysl.base.utils.StringUtils;
 
 /**
- * 匹配状态的枚举类
- *
- * @author Jzh
- * @since 2020-02-10 10:55
- **/
-public enum MatchingStatusEnum {
+ * @Author Caspar
+ * @CreateTime 2020/2/11 17:10
+ * @Description:
+ */
+public enum LovePoolStatusEnum {
+    /**
+     * 不在爱心池中，定向捐赠
+     */
+    NOT_IN_POOL("NOT_IN_POOL", "未加入爱心池"),
 
     /**
-     * 未审核状态
+     * 在爱心池中，待分配
      */
-    UNCHECKED("UNCHECKED", "未审核状态"),
+    IN_POOL("IN_POOL", "在爱心池中，待分配"),
 
     /**
-     * 审核状态
+     * 已人工派单
      */
-    CHECKED("CHECKED", "人工审核完毕"),
+    ARTI_DISPATCHED("ARTI_DISPATCHED", "已人工派单"),
 
     /**
-     * 待发货
+     * 已自动派单
      */
-    READY_FOR_DELIVERY("READY_FOR_DELIVERY", "匹配成功，等待捐赠者发货"),
+    AUTO_DISPATCHED("AUTO_DISPATCHED", "已自动派单");
 
-    /**
-     * 运送中
-     */
-    IN_TRANSIT("IN_TRANSIT", "捐赠者已发货，等待运送"),
 
-    /**
-     * 待收货
-     */
-    WAIT_FOR_RECEIVING("WAIT_FOR_RECEIVING", "捐赠者已送达，等待收货"),
-
-    /**
-     * 已收货
-     */
-    DELIVERED("DELIVERED", "受赠者已收货，配送完成"),
-    ;
-
-    /**
-     * 枚举编码
-     */
     private String code;
 
     /**
@@ -51,7 +36,7 @@ public enum MatchingStatusEnum {
      */
     private String description;
 
-    MatchingStatusEnum(String code, String description) {
+    LovePoolStatusEnum(String code, String description) {
         this.code = code;
         this.description = description;
     }
@@ -61,8 +46,8 @@ public enum MatchingStatusEnum {
      * @param code 枚举code
      * @return 有则返回对应枚举，无则返回null
      */
-    public static MatchingStatusEnum getEnumByCode(String code) {
-        for(MatchingStatusEnum matchingStatusEnum : MatchingStatusEnum.values()) {
+    public DonationOrderStatusEnum getEnumByCode(String code) {
+        for(DonationOrderStatusEnum matchingStatusEnum : DonationOrderStatusEnum.values()) {
             if(StringUtils.equal(code, matchingStatusEnum.getCode())) {
                 return matchingStatusEnum;
             }

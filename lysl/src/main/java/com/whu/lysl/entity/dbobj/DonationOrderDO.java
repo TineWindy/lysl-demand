@@ -29,9 +29,9 @@ public class DonationOrderDO {
     private String donorName;
 
     /**
-     * 捐赠类型 0-定向 1-非定向
+     * 捐赠类型 DIRECTED-定向 UNDIRECTED-非定向
      */
-    private Integer donationType;
+    private String donationType;
 
     /**
      * 捐赠对象机构id
@@ -64,5 +64,10 @@ public class DonationOrderDO {
      * 审核状态 UNCHECKED-未审核 APPROVED-已审核 DISAPPROVED-审核未通过
      */
     private String status;
+
+    /**
+     * 爱心池状态 NOT_IN_POOL-未加入爱心池 IN_POOL-已加入爱心池 ARTI_DISPATCHED-人工派单 AUTO_DISPATCHED-人工派单
+     */
+    private String lovePoolStatus;
 
 }

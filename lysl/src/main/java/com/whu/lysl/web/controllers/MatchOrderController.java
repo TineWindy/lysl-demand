@@ -1,6 +1,13 @@
 package com.whu.lysl.web.controllers;
 
 import com.alibaba.fastjson.JSON;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.whu.lysl.base.enums.MatchingMethodEnum;
+import com.whu.lysl.base.enums.MatchingStatusEnum;
+
+import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dto.MatchOrder;
 import com.whu.lysl.service.match.OrderMatchService;
 import com.whu.lysl.web.LYSLBaseController;
@@ -21,7 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/matchOrder")
 public class MatchOrderController extends LYSLBaseController {
-    /** 机构服务 */
+
     @Resource
     private OrderMatchService orderMatchService;
 
@@ -35,7 +42,9 @@ public class MatchOrderController extends LYSLBaseController {
     public String artificialDispatch(HttpServletRequest request, @RequestBody MatchOrder matchOrder) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
-             orderMatchService.saveMatchOrder(matchOrder);
+            matchOrder.setStatus(MatchingStatusEnum.CHECKED.getCode()); //志愿者默认已审核
+            matchOrder.setMatchingMethod(MatchingMethodEnum.ARTIFICAL_MATCHING.getCode());//人工审核
+            orderMatchService.saveMatchOrder(matchOrder);
             return result;
         }, AuthEnum.IGNORE_VERIFY.getCode());
 
@@ -47,15 +56,69 @@ public class MatchOrderController extends LYSLBaseController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/getMatchOrderByHonorName",method = RequestMethod.GET)
-    public String getMatchOrderByHonorName(HttpServletRequest request){
+    @RequestMapping(value = "/getMatchOrderByDonorName",method = RequestMethod.GET)
+    public String getMatchOrderByDonorName(HttpServletRequest request){
         LYSLResult<Object> res = protectController(request,() ->{
             LYSLResult<Object> result = new LYSLResult<>();
-            String honorName = request.getParameter("honorName");
-            List<MatchOrder> matchOrderList = orderMatchService.getMatchOrderByDonorName(honorName);
+            int donorId = Integer.parseInt(request.getParameter("donorId"));
+            List<MatchOrder> matchOrderList = orderMatchService.getMatchOrderByDonorId(donorId);
             result.setResultObj(matchOrderList);
             return result;
         }, AuthEnum.IGNORE_VERIFY.getCode());
+        return JSON.toJSONString(res);
+    }
+
+
+    /**
+     * 根据受赠者名字获取匹配单
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/getMatchOrderByDoneeName",method = RequestMethod.GET)
+    public String getMatchOrderByDoneeName(HttpServletRequest request){
+        LYSLResult<Object> res = protectController(request,() ->{
+            LYSLResult<Object> result = new LYSLResult<>();
+            int doneeId = Integer.parseInt(request.getParameter("doneeId"));
+            List<MatchOrder> matchOrderList = orderMatchService.getMatchOrderByDoneeId(doneeId);
+            result.setResultObj(matchOrderList);
+            return result;
+        }, AuthEnum.IGNORE_VERIFY.getCode());
+        return JSON.toJSONString(res);
+    }
+
+    /**
+     * 通过复合查询获取匹配单
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/getMatchOrder",method = RequestMethod.POST)
+    public String getMatchOrder(HttpServletRequest request, @RequestBody MatchOrderCondition matchOrderCondition){
+        LYSLResult<Object> res = protectController(request,() ->{
+            LYSLResult<Object> result = new LYSLResult<>();
+            PageHelper.startPage(matchOrderCondition.getPageNo(), matchOrderCondition.getPageSize());
+            List<MatchOrder> matchOrderList = orderMatchService.getMatchOrderList(matchOrderCondition);
+            PageInfo pageInfo = new PageInfo(matchOrderList);
+            result.setResultObj(matchOrderList);
+            return result;
+        }, AuthEnum.IGNORE_VERIFY.getCode());
+        return JSON.toJSONString(res);
+    }
+
+
+    /**
+     * 更新物流信息
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/updateCheckingNumber",method = RequestMethod.PUT)
+    public String updateCheckingNumber(HttpServletRequest request){
+        LYSLResult<Object> res = protectController(request,() ->{
+            LYSLResult<Object> result = new LYSLResult<>();
+            String trackingNumber = request.getParameter("trackingNumber");
+            int matchOrderId = Integer.parseInt(request.getParameter("matchOrderId") + "");
+            orderMatchService.updateTrackingNumber(matchOrderId,trackingNumber);
+            return result;
+        },AuthEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);
     }
 }

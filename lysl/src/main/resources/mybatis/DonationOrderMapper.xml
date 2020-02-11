@@ -4,7 +4,7 @@
 
 
     <sql id="DonationOrderCols">
-        donation_type, donor_id, donor_name, donee_id, donee_name, material_id, material_name, material_amount, deleted, status
+        donation_type, donor_id, donor_name, donee_id, donee_name, material_id, material_name, material_amount, deleted, status, love_pool_status
      </sql>
 
     <sql id="DonationOrderTable">
@@ -18,6 +18,9 @@
     FROM
     <include refid="DonationOrderTable"/>
     <where>
+        <if test="donationOrderId != null">
+            AND donation_order_id = #{donationOrderId}
+        </if>
         <if test="donorId != null">
             AND donor_id = #{donorId}
         </if>
@@ -45,27 +48,22 @@
         <if test="deleted != null">
             AND deleted = #{deleted}
         </if>
+        <if test="lovePoolStatus != null">
+            AND love_pool_status = #{lovePoolStatus}
+        </if>
     </where>
         order by donation_order_id desc
   </select>
 
-    <select id="selectAll" resultType="com.whu.lysl.entity.dbobj.DonationOrderDO">
-        SELECT donation_order_id, gmd_created, gmd_modified,
-        <include refid="DonationOrderCols"/>
-        FROM
-        <include refid="DonationOrderTable"/>
-        where 1=1
-    </select>
-
     <insert id="insertDonationOrder" keyProperty="donation_order_id" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
     insert into
     <include refid="DonationOrderTable"/>
-      (donor_id, donor_name, donation_type, donee_id, donee_name, material_id, material_name, material_amount, deleted, status)
+      (donor_id, donor_name, donation_type, donee_id, donee_name, material_id, material_name, material_amount, deleted, status, love_pool_status)
     values
       (#{donorId}, #{donorName},
       #{donationType}, #{doneeId}, #{doneeName},
       #{materialId}, #{materialName}, #{materialAmount},
-      #{deleted}, #{status})
+      #{deleted}, #{status}, #{lovePoolStatus})
   </insert>
 
     <update id="updateDonationOrder" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
@@ -95,6 +93,9 @@
           </if>
           <if test="status != null">
               status = #{status},
+          </if>
+          <if test="lovePoolStatus != null">
+              love_pool_status = #{lovePoolStatus},
           </if>
       </set>
       where donation_order_id = #{donationOrderId}
