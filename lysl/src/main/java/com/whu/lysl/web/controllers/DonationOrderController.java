@@ -75,6 +75,24 @@ public class DonationOrderController extends LYSLBaseController {
         return JSON.toJSONString(res);
     }
 
+    @RequestMapping(value = "queryDonationOrderByDonorIdByPage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String queryDonationOrderByDonorIdByPage(@RequestBody Map<String, Integer> map, HttpServletRequest request) {
+        LYSLResult<Object> res = protectController(request, () -> {
+            LYSLResult<Object> result = new LYSLResult<>();
+            AssertUtils.AssertNotNull(map.get("pageNo"));
+            AssertUtils.AssertNotNull(map.get("pageSize"));
+            AssertUtils.AssertNotNull(map.get("donorId"));
+            PageHelper.startPage(map.get("pageNo"), map.get("pageSize"));
+            List<DonationOrder> donationOrderList = donationOrderService.getDonationOrderByDonorId(map.get("donorId"));
+            PageInfo pageInfo = new PageInfo(DonationOrderConverter.batchModel2Vo(donationOrderList));
+            result.setResultObj(pageInfo);
+            return result;
+        }, AuthEnum.IGNORE_VERIFY.getCode());
+
+        return JSON.toJSONString(res);
+    }
+
 //    爱心池展示
     @RequestMapping(value = "queryLovePoolByPage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
