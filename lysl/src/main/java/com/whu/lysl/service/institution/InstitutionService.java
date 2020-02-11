@@ -19,4 +19,11 @@ public interface InstitutionService {
      */
     List<Institution> getInstsByCondition(InstCondition instCondition);
 
+    /**
+     * 名称模糊查询
+     * @param name name
+     * @return 机构 list
+     */
+    List<Institution> getInstsByPartitionOfName(String name);
+
 }

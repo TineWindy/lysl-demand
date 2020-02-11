@@ -3,6 +3,8 @@ package com.whu.lysl.dao;
 import com.whu.lysl.entity.dbobj.UserDO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * user dao
  * @author Visionary
@@ -37,5 +39,11 @@ public interface UserDAO {
      * @return do
      */
     UserDO selectByPhone(String phone);
+
+    /**
+     * 获取所有 user
+     * @return userdo list
+     */
+    List<UserDO> selectAllUser();
 
 }
