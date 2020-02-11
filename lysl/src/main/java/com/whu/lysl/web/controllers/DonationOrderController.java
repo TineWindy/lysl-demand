@@ -169,7 +169,6 @@ public class DonationOrderController extends LYSLBaseController {
             }
             int update_ans = donationOrderService.check(listDonationOrder.get(0), status);
             // TODO 通知捐赠主体 捐赠审核状态
-            // TODO 加入爱心池
             result.setResultObj(update_ans==1? "更新成功":"更新失败");
             return result;
         }, AuthEnum.IGNORE_VERIFY.getCode());
