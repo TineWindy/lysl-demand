@@ -29,9 +29,9 @@ public class DonationOrder {
     private String donorName;
 
     /**
-     * 捐赠类型 0-定向 1-非定向
+     * 捐赠类型 DIRECTED-定向 UNDIRECTED-非定向
      */
-    private Integer donationType;
+    private String donationType;
 
     /**
      * 捐赠对象id
@@ -61,8 +61,10 @@ public class DonationOrder {
     private Integer deleted;
 
     /**
-     * 审核状态 0-未审核 1-已审核 2-审核未通过
+     * 审核状态 UNCHECKED-未审核 APPROVED-已审核 DISAPPROVED-审核未通过
      */
     private String status;
+
+    private String lovePoolStatus;
 
 }

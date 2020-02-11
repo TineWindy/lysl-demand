@@ -3,31 +3,23 @@ package com.whu.lysl.base.enums;
 import com.whu.lysl.base.utils.StringUtils;
 
 /**
- * 匹配状态的枚举类
- *
- * @author Jzh
- * @since 2020-02-10 10:55
- **/
-public enum DonationOrderStatusEnum {
+ * @Author Caspar
+ * @CreateTime 2020/2/11 11:29
+ * @Description:
+ */
+public enum DonationTypeEnum {
 
     /**
-     * 未审核
+     * 定向捐赠
      */
-    UNCHECKED("UNCHECKED", "未审核状态"),
+    DIRECTED("DIRECTED", "定向捐赠"),
 
     /**
      * 审核状态
      */
-    APPROVED("APPROVED", "人工审核通过"),
+    UNDIRECTED("DIRECTED", "非定向捐赠");
 
-    /**
-     * 审核不通过
-     */
-    DISAPPROVED("DISAPPROVED", "人工审核不通过");
 
-    /**
-     * 枚举编码
-     */
     private String code;
 
     /**
@@ -35,7 +27,7 @@ public enum DonationOrderStatusEnum {
      */
     private String description;
 
-    DonationOrderStatusEnum(String code, String description) {
+    DonationTypeEnum(String code, String description) {
         this.code = code;
         this.description = description;
     }
