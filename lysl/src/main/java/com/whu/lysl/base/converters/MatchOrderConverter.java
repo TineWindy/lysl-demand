@@ -3,9 +3,14 @@ package com.whu.lysl.base.converters;
 import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
+import com.whu.lysl.entity.condition.DonationOrderCondition;
 import com.whu.lysl.entity.dbobj.MatchOrderDo;
+import com.whu.lysl.entity.dto.DonationOrder;
 import com.whu.lysl.entity.dto.MatchOrder;
+import com.whu.lysl.service.donation.DonationOrderService;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +21,10 @@ import java.util.List;
  * @author Jzh
  * @since 2020-02-09 20:25
  **/
+@Component
 public class MatchOrderConverter {
+
+
 
     /**
      * 将matchOrder的Model转换成相应的DO，并包含有参数检查
@@ -33,7 +41,7 @@ public class MatchOrderConverter {
         if (matchOrder.getDemandOrderId() <= 0) {
             throw new LYSLException("需求单id不能为空", LYSLResultCodeEnum.DATA_INVALID);
         }
-        // TODO 去需求模块查询id是否正确
+
         matchOrderDo.setDemandOrderId(matchOrder.getDemandOrderId());
 
         if (matchOrder.getDonationOrderId() <= 0){
@@ -49,6 +57,7 @@ public class MatchOrderConverter {
         if (matchOrder.getDoneeId() <= 0){
             throw new LYSLException("受赠者id不能为空",LYSLResultCodeEnum.DATA_INVALID);
         }
+
         matchOrderDo.setDoneeId(matchOrder.getDoneeId());
         if (matchOrder.getGmtCreated() == null){
             matchOrderDo.setGmtCreated(new Date());

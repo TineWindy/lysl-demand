@@ -2,6 +2,8 @@ package com.whu.lysl.web.controllers;
 
 import com.alibaba.fastjson.JSON;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.whu.lysl.base.enums.MatchingMethodEnum;
 import com.whu.lysl.base.enums.MatchingStatusEnum;
 
@@ -42,7 +44,7 @@ public class MatchOrderController extends LYSLBaseController {
             LYSLResult<Object> result = new LYSLResult<>();
             matchOrder.setStatus(MatchingStatusEnum.CHECKED.getCode()); //志愿者默认已审核
             matchOrder.setMatchingMethod(MatchingMethodEnum.ARTIFICAL_MATCHING.getCode());//人工审核
-             orderMatchService.saveMatchOrder(matchOrder);
+            orderMatchService.saveMatchOrder(matchOrder);
             return result;
         }, AuthEnum.IGNORE_VERIFY.getCode());
 
@@ -93,7 +95,9 @@ public class MatchOrderController extends LYSLBaseController {
     public String getMatchOrder(HttpServletRequest request, @RequestBody MatchOrderCondition matchOrderCondition){
         LYSLResult<Object> res = protectController(request,() ->{
             LYSLResult<Object> result = new LYSLResult<>();
+            PageHelper.startPage(matchOrderCondition.getPageNo(), matchOrderCondition.getPageSize());
             List<MatchOrder> matchOrderList = orderMatchService.getMatchOrderList(matchOrderCondition);
+            PageInfo pageInfo = new PageInfo(matchOrderList);
             result.setResultObj(matchOrderList);
             return result;
         }, AuthEnum.IGNORE_VERIFY.getCode());

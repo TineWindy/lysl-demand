@@ -6,9 +6,12 @@ import com.whu.lysl.base.enums.MatchingMethodEnum;
 import com.whu.lysl.base.enums.MatchingStatusEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.dao.MatchOrderDAO;
+import com.whu.lysl.entity.condition.DonationOrderCondition;
 import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dbobj.MatchOrderDo;
+import com.whu.lysl.entity.dto.DonationOrder;
 import com.whu.lysl.entity.dto.MatchOrder;
+import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.service.institution.InstitutionService;
 import com.whu.lysl.service.match.OrderMatchService;
 import org.springframework.stereotype.Service;
@@ -29,6 +32,8 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     MatchOrderDAO matchOrderDAO;
     @Resource
     InstitutionService institutionService;
+    @Resource
+    DonationOrderService donationOrderService;
 
     /**
      * 定向捐赠后的匹配接口（在人工审核后调用）
@@ -38,8 +43,16 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     @Override
     public void saveMatchOrder(MatchOrder matchOrder) throws LYSLException {
         // 将DTO转换成DO，同时进行参数检查
-
         List<MatchOrderDo> matchOrderDoList = MatchOrderConverter.Model2DO(matchOrder);
+
+
+//        DonationOrderCondition donationOrderCondition = new DonationOrderCondition(matchOrder.getDonationOrderId(),matchOrder.getDonorId(),matchOrder.getDonationType());
+//        List<DonationOrder> donationOrderList = donationOrderService.getDonationOrderByCondition(donationOrderCondition);
+//        if (donationOrderList.size() == 0){
+//            throw new LYSLException("捐赠单不存在",LYSLResultCodeEnum.DATA_INVALID);
+//        }
+
+        // TODO 去需求模块查询需求是否存在
         for (int i = 0;i< matchOrderDoList.size();i++){
             MatchOrderDo matchOrderDo = matchOrderDoList.get(i);
             // 调用DAO将数据存入数据库

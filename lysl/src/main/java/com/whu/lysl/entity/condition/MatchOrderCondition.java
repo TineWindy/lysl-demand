@@ -11,6 +11,10 @@ import lombok.Data;
 @Data
 public class MatchOrderCondition {
 
+    private int pageNo;
+
+    private int pageSize;
+
     private int doneeId;
 
     private int donorId;
