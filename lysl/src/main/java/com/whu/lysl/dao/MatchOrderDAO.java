@@ -55,4 +55,11 @@ public interface MatchOrderDAO {
      * @param status
      */
     void updateStatus(int matchOrderId,String status);
+
+    /**
+     * 更新物流单号
+     * @param matchOrderId
+     * @param trackingNumber
+     */
+    void updateTrackingNumber(int matchOrderId,String trackingNumber);
 }

@@ -108,5 +108,10 @@ public class OrderMatchServiceImpl implements OrderMatchService{
 
     }
 
+    @Override
+    public void updateTrackingNumber(int matchOrderId, String trackingNumber) throws LYSLException {
+        matchOrderDAO.updateTrackingNumber(matchOrderId,trackingNumber);
+    }
+
 
 }

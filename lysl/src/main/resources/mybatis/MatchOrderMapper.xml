@@ -52,7 +52,9 @@
         UPDATE <include refid="MatchOrderTable"></include> SET status = #{status} where id = #{matchOrderId}
     </update>
 
-
+    <update id="updateTrackingNumber">
+        UPDATE <include refid="MatchOrderTable"></include> SET tracking_number = #{trackingNumber} where id = #{matchOrderId}
+    </update>
 
 
 

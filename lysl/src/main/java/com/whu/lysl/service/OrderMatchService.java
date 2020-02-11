@@ -36,4 +36,13 @@ public interface OrderMatchService {
      * @throws LYSLException
      */
     void updateMatchOrderStatus(int matchOrderId,String status) throws LYSLException;
+
+
+    /**
+     * 更新物流单号
+     * @param matchOrderId
+     * @param trackingNumber
+     * @throws LYSLException
+     */
+    void updateTrackingNumber(int matchOrderId,String trackingNumber) throws LYSLException;
 }
