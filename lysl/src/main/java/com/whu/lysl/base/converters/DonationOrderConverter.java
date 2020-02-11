@@ -1,5 +1,6 @@
 package com.whu.lysl.base.converters;
 
+import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.entity.dbobj.DonationOrderDO;
 import com.whu.lysl.entity.dto.DonationOrder;
 import com.whu.lysl.entity.vo.DonationOrderVO;
@@ -38,6 +39,7 @@ public class DonationOrderConverter {
         donationOrder.setStatus(donationOrderDO.getStatus());
         donationOrder.setGmdCreated(donationOrderDO.getGmdCreated());
         donationOrder.setGmdModified(donationOrderDO.getGmdModified());
+        donationOrder.setLovePoolStatus(donationOrderDO.getLovePoolStatus());
 
         return donationOrder;
     }
@@ -66,6 +68,8 @@ public class DonationOrderConverter {
         donationOrderDO.setStatus(donationOrder.getStatus());
         donationOrderDO.setGmdCreated(donationOrder.getGmdCreated());
         donationOrderDO.setGmdModified(donationOrder.getGmdModified());
+        donationOrderDO.setLovePoolStatus(donationOrder.getLovePoolStatus());
+
 
         return donationOrderDO;
     }
@@ -91,6 +95,7 @@ public class DonationOrderConverter {
         donationOrderVO.setMaterialName(donationOrder.getMaterialName());
         donationOrderVO.setMaterialAmount(donationOrder.getMaterialAmount());
         donationOrderVO.setStatus(donationOrder.getStatus());
+        donationOrderVO.setLovePoolStatus(donationOrder.getLovePoolStatus());
 
 
         return donationOrderVO;
@@ -118,6 +123,7 @@ public class DonationOrderConverter {
         donationOrder.setMaterialName(donationOrderVO.getMaterialName());
         donationOrder.setMaterialAmount(donationOrderVO.getMaterialAmount());
         donationOrder.setStatus(donationOrderVO.getStatus());
+        donationOrder.setLovePoolStatus(donationOrderVO.getLovePoolStatus());
 
         return donationOrder;
     }
