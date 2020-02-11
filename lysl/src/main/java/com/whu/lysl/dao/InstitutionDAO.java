@@ -35,4 +35,11 @@ public interface InstitutionDAO {
      */
     void insert(InstitutionDO institutionDO);
 
+    /**
+     * 更新一条数据
+     * @param institutionDO do
+     * @return success
+     */
+    int update(InstitutionDO institutionDO);
+
 }

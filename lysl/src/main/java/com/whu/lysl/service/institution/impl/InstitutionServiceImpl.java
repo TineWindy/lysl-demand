@@ -1,6 +1,7 @@
 package com.whu.lysl.service.institution.impl;
 
 import com.whu.lysl.base.converters.InstConverter;
+import com.whu.lysl.base.enums.DonationOrderStatusEnum;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.AssertUtils;
@@ -64,5 +65,28 @@ public class InstitutionServiceImpl implements InstitutionService {
     @Override
     public void checkInstitutionStatus(int institutionId, boolean isPassed) {
 
+        List<Institution> institutionList = getInstsByCondition(new InstCondition.Builder().id(institutionId).build());
+        if (institutionList.size() > 0) {
+            if (isPassed) {
+                institutionList.get(0).setStatus(DonationOrderStatusEnum.APPROVED.getCode());
+            } else {
+                institutionList.get(0).setStatus(DonationOrderStatusEnum.DISAPPROVED.getCode());
+            }
+            update(institutionList.get(0));
+        }
+
+    }
+
+    /**
+     * 更新数据
+     * @param institution model
+     * @return success
+     */
+    private int update(Institution institution) {
+        if (institution == null) {
+            return -1;
+        }
+
+        return institutionDAO.update(InstConverter.model2Do(institution));
     }
 }

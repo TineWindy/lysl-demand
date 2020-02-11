@@ -1,6 +1,8 @@
 package com.whu.lysl.service.system.impl;
 
 
+import com.qiniu.util.Auth;
+import com.whu.lysl.base.constants.LYSLConstants;
 import com.whu.lysl.base.converters.SystemConfigConverter;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
@@ -48,5 +50,11 @@ public class SystemServiceImpl implements SystemService {
 
         systemConfigDAO.update(SystemConfigConverter.model2DO(systemConfig));
         log.info("更新系统配置参数完成", systemConfig);
+    }
+
+    @Override
+    public String getQiniuToken() {
+        Auth auth = Auth.create(LYSLConstants.QINIU_ACCESS_KEY, LYSLConstants.QINIU_SECRET_KEY);
+        return auth.uploadToken(LYSLConstants.QINIU_BUCKET);
     }
 }
