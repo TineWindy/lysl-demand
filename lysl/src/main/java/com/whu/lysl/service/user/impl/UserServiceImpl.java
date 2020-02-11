@@ -10,6 +10,7 @@ import com.whu.lysl.service.user.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * user service impl
@@ -56,5 +57,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByPhone(String phone) {
         return UserConverter.do2Model(userDAO.selectByPhone(phone));
+    }
+
+    @Override
+    public List<User> getAllUser() {
+        return UserConverter.batchDo2Model(userDAO.selectAllUser());
     }
 }

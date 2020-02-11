@@ -1,4 +1,4 @@
-package com.whu.lysl.service;
+package com.whu.lysl.service.match;
 
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.entity.dto.MatchOrder;

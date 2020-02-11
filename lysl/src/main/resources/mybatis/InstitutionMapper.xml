@@ -24,5 +24,14 @@
         LIMIT 1;
     </select>
 
+    <select id="queryByPartitionOfName" resultType="com.whu.lysl.entity.dbobj.InstitutionDO">
+        SELECT id, gmt_created, gmt_modified,
+        <include refid="InstCols"/>
+        FROM
+        <include refid="InstTable"/>
+        WHERE name LIKE CONCAT('%', #{name}, '%')
+        LIMIT 10
+    </select>
+
 
 </mapper>
