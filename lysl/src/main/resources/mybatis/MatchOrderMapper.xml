@@ -61,10 +61,10 @@
         FROM
         <include refid="MatchOrderTable"></include>
         <where>
-        <if test="donorId != null">
+        <if test="donorId != 0">
             AND donor_id = #{donorId}
         </if>
-        <if test="doneeId != null">
+        <if test="doneeId != 0">
             AND donee_id = #{doneeId}
         </if>
         <if test="status != null">
@@ -80,7 +80,20 @@
         SELECT <include refid="MatchOrderCols"></include>
         FROM
         <include refid="MatchOrderTable" />
-        WHERE donee_id = #{doneeId} and demand_order_id = #{demandOrderId} and donor_id = #{donorId} and donation_order_id = #{donationOrderId}
+        <where>
+            <if test="donorId != null">
+                AND donor_id = #{donorId}
+            </if>
+            <if test="doneeId != null">
+                AND donee_id = #{doneeId}
+            </if>
+            <if test="demandOrderId != null">
+                AND demand_order_id = #{demandOrderId}
+            </if>
+            <if test="donationOrderId != null">
+                AND donation_order_id = #{donationOrderId}
+            </if>
+        </where>
     </select>
 
 </mapper>

@@ -11,7 +11,7 @@ import com.whu.lysl.base.utils.StringUtils;
 public enum MatchingStatusEnum {
 
     /**
-     * 系统自动匹配
+     * 未审核状态
      */
     UNCHECKED("UNCHECKED", "未审核状态"),
 
