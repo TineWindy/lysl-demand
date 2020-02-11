@@ -3,6 +3,7 @@ package com.whu.lysl.dao;
 import com.whu.lysl.entity.condition.InstCondition;
 import com.whu.lysl.entity.dbobj.InstitutionDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,5 +21,12 @@ public interface InstitutionDAO {
      * @return list
      */
     List<InstitutionDO> selectByCondition(InstCondition instCondition);
+
+    /**
+     * 模糊查询 name
+     * @param name name
+     * @return list do
+     */
+    List<InstitutionDO> queryByPartitionOfName(@Param("name") String name);
 
 }

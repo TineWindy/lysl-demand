@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.whu.lysl.dao.SystemConfigDAO">
+
+    <sql id="SystemConfigCols">
+        config_key, config_value, tag, status, param
+    </sql>
+
+    <sql id="SystemConfigTable">
+        lysl_system_config
+    </sql>
+
+    <select id="selectByCondition" resultType="com.whu.lysl.entity.dbobj.SystemConfigDO" parameterType="com.whu.lysl.entity.condition.SystemConfigCondition" >
+        SELECT id, gmt_created, gmt_modified, <include refid="SystemConfigCols" />
+        FROM
+        <include refid="SystemConfigTable" />
+        WHERE
+            config_key = #{configKey}
+            AND status = #{status}
+            <if test="tag != null and tag != ''"> AND tag = #{tag} </if>
+    </select>
+
+    <update id="update" parameterType="com.whu.lysl.entity.dbobj.SystemConfigDO">
+        UPDATE <include refid="SystemConfigTable" />
+        <set>
+            <if test="configKey != null and configKey != ''"> config_key = #{configKey}, </if>
+            <if test="configValue != null and configValue != ''"> config_value = #{configValue}, </if>
+            <if test="tag != null and tag != ''"> tag = #{tag}, </if>
+            <if test="status != null and status != ''"> status = #{status}, </if>
+            <if test="param != null and param != ''"> param = #{param}, </if>
+            gmt_modified = now()
+        </set>
+        WHERE id = #{id}
+    </update>
+
+</mapper>

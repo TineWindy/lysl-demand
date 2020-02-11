@@ -25,4 +25,9 @@ public class InstitutionServiceImpl implements InstitutionService {
     public List<Institution> getInstsByCondition(InstCondition instCondition) {
         return InstConverter.batchDo2Model(institutionDAO.selectByCondition(instCondition));
     }
+
+    @Override
+    public List<Institution> getInstsByPartitionOfName(String name) {
+        return InstConverter.batchDo2Model(institutionDAO.queryByPartitionOfName(name));
+    }
 }

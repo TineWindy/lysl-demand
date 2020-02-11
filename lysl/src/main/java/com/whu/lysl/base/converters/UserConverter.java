@@ -3,6 +3,9 @@ package com.whu.lysl.base.converters;
 import com.whu.lysl.entity.dbobj.UserDO;
 import com.whu.lysl.entity.dto.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * user converter
  * @author Visionary
@@ -30,6 +33,24 @@ public class UserConverter {
         user.setWxNumber(userDO.getWxNumber());
 
         return user;
+    }
+
+    /**
+     * 批量 do 2 model
+     * @param userDOS do list
+     * @return model list
+     */
+    public static List<User> batchDo2Model(List<UserDO> userDOS) {
+        List<User> users = new ArrayList<>();
+
+        if (userDOS == null) {
+            return users;
+        }
+
+        for (UserDO userDO : userDOS) {
+            users.add(UserConverter.do2Model(userDO));
+        }
+        return users;
     }
 
     /**

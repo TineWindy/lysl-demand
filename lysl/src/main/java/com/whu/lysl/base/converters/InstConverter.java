@@ -2,6 +2,7 @@ package com.whu.lysl.base.converters;
 
 import com.whu.lysl.entity.dbobj.InstitutionDO;
 import com.whu.lysl.entity.dto.Institution;
+import com.whu.lysl.entity.vo.InstitutionVO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,47 @@ public class InstConverter {
         }
 
         return institutions;
+    }
+
+    /**
+     * model 2 vo
+     * @param institution model
+     * @return vo
+     */
+    public static InstitutionVO model2VO(Institution institution) {
+        if (institution == null) {
+            return null;
+        }
+
+        InstitutionVO institutionVO = new InstitutionVO();
+
+        institutionVO.setId(institution.getId());
+        institutionVO.setGmtCreated(institution.getGmtCreated());
+        institutionVO.setGmtModified(institution.getGmtModified());
+        institutionVO.setName(institution.getName());
+        institutionVO.setCity(institution.getCity());
+        institutionVO.setAddress(institution.getAddress());
+        institutionVO.setStatus(institution.getStatus());
+        institutionVO.setAuth(institution.getAuth());
+
+        return institutionVO;
+    }
+
+    /**
+     * batch models 2 vos
+     * @param institutionS models
+     * @return vos
+     */
+    public static List<InstitutionVO> batchModel2VO(List<Institution> institutionS) {
+        List<InstitutionVO> institutionVOS = new ArrayList<>();
+
+        if (institutionS != null) {
+            for (Institution institution: institutionS) {
+                institutionVOS.add(model2VO(institution));
+            }
+        }
+
+        return institutionVOS;
     }
 
 }
