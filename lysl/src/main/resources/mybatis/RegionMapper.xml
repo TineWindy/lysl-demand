@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whu.lysl.dao.RegionDAO">
+
+    <select id="getProvinceDOByProvinceId" resultType="com.whu.lysl.entity.dbobj.ProvinceDO">
+        select province_id,
+        province_name,
+        province_create_time,
+        province_modify_time,
+        province_code
+        from lysl_province
+        where province_id = #{provinceId}
+    </select>
+
+    <select id="getCityDOByCityId" resultType="com.whu.lysl.entity.dbobj.CityDO">
+        select city_id,
+        city_name,
+        province_id,
+        city_create_time,
+        city_modify_time,
+        city_code
+        from lysl_city
+        where province_id = #{provinceId}
+        and city_id = #{cityId}
+    </select>
+
+    <select id="getDistrictDOByCityId" resultType="com.whu.lysl.entity.dbobj.DistrictDO">
+        select district_id,
+        city_id,
+        district_name,
+        district_create_time,
+        district_modify_time,
+        district_code
+        from lysl_district
+        where city_id = #{cityId}
+        and district_id = #{districtId}
+    </select>
+
+    <select id="getProvinceDOList" resultType="com.whu.lysl.entity.dbobj.ProvinceDO">
+        select province_id,
+        province_name,
+        province_code
+        from lysl_province
+    </select>
+
+    <select id="getCityDOListByProvinceId" resultType="com.whu.lysl.entity.dbobj.CityDO">
+        select city_id,
+        city_name,
+        province_id,
+        city_code
+        from lysl_city
+        where province_id = #{provinceId}
+    </select>
+
+    <select id="getDistrictDOListByCityId" resultType="com.whu.lysl.entity.dbobj.DistrictDO">
+        select district_id,
+        city_id,
+        district_name,
+        district_code
+        from lysl_district
+        where city_id = #{cityId}
+    </select>
+
+    <select id="getCityDOByCode" resultType="com.whu.lysl.entity.dbobj.CityDO">
+        select * from lysl_city where city_code=#{value}
+    </select>
+
+    <select id="getProvinceDOByCode" resultType="com.whu.lysl.entity.dbobj.ProvinceDO">
+        select * from lysl_province where province_code=#{value}
+    </select>
+
+    <select id="getProvinceDOByName" resultType="com.whu.lysl.entity.dbobj.ProvinceDO">
+        select * from lysl_province where province_name=#{provinceName}
+    </select>
+    <select id="getCityDOByProvinceIdCityName" resultType="com.whu.lysl.entity.dbobj.CityDO">
+        select * from lysl_city where province_id=#{provinceId} and city_name=#{cityName}
+    </select>
+</mapper>
