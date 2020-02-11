@@ -32,6 +32,18 @@
         WHERE name LIKE CONCAT('%', #{name}, '%')
         LIMIT 10
     </select>
+    
+    <insert id="insert" parameterType="com.whu.lysl.entity.dbobj.InstitutionDO" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO
+        <include refid="InstTable" />
+        (
+        <include refid="InstCols" />
+        )
+        VALUES (
+        name = #{name}, province = #{province}, city = #{city},
+        address = #{address}, auth = #{auth}
+        )
+    </insert>
 
 
 </mapper>
