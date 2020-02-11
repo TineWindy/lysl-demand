@@ -1,6 +1,7 @@
 package com.whu.lysl.service.match.impl;
 
 import com.whu.lysl.base.converters.MatchOrderConverter;
+import com.whu.lysl.base.enums.DonationTypeEnum;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.enums.MatchingMethodEnum;
 import com.whu.lysl.base.enums.MatchingStatusEnum;
@@ -45,13 +46,15 @@ public class OrderMatchServiceImpl implements OrderMatchService {
         // 将DTO转换成DO，同时进行参数检查
         List<MatchOrderDo> matchOrderDoList = MatchOrderConverter.Model2DO(matchOrder);
 
+        DonationOrderCondition donationOrderCondition = new DonationOrderCondition.Builder().donationOrderId(matchOrder.getDonationOrderId()).build();
 
-//        DonationOrderCondition donationOrderCondition = new DonationOrderCondition(matchOrder.getDonationOrderId(),matchOrder.getDonorId(),matchOrder.getDonationType());
-//        List<DonationOrder> donationOrderList = donationOrderService.getDonationOrderByCondition(donationOrderCondition);
-//        if (donationOrderList.size() == 0){
-//            throw new LYSLException("捐赠单不存在",LYSLResultCodeEnum.DATA_INVALID);
-//        }
-
+        List<DonationOrder> donationOrderList = donationOrderService.getDonationOrderByCondition(donationOrderCondition);
+        if (donationOrderList.size() == 0){
+            throw new LYSLException("捐赠单不存在",LYSLResultCodeEnum.DATA_INVALID);
+        }
+        if (donationOrderList.get(0).getDonationType() != matchOrder.getDonationType()){
+            throw new LYSLException("捐赠单类型不匹配",LYSLResultCodeEnum.DATA_INVALID);
+        }
         // TODO 去需求模块查询需求是否存在
         for (int i = 0;i< matchOrderDoList.size();i++){
             MatchOrderDo matchOrderDo = matchOrderDoList.get(i);

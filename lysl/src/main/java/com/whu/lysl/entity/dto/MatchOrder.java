@@ -69,5 +69,9 @@ public class MatchOrder {
      * 物流单号
      */
     String trackingNumber;
+    /**
+     * 捐赠类型
+     */
+    String donationType;
 
 }
