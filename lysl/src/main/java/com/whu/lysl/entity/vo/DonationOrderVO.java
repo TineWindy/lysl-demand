@@ -39,9 +39,8 @@ public class DonationOrderVO {
     /**
      * 捐赠类型 0-定向 1-非定向
      */
-    @NotNull(message = "donationType is required")
-    @Min(value = 0, message = "donationType must have the type of Integer and must be positive")
-    private Integer donationType;
+    @NotEmpty(message = "donationType is required")
+    private String donationType;
 
     /**
      * 捐赠对象id
@@ -79,4 +78,7 @@ public class DonationOrderVO {
      * 审核状态 0-未审核 1-已审核 2-审核未通过
      */
     private String status;
+
+    private String lovePoolStatus;
+
 }
