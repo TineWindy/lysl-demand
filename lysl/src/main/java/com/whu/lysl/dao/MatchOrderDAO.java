@@ -1,6 +1,8 @@
 package com.whu.lysl.dao;
 
+import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dbobj.MatchOrderDo;
+import com.whu.lysl.entity.dto.MatchOrder;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -62,4 +64,18 @@ public interface MatchOrderDAO {
      * @param trackingNumber
      */
     void updateTrackingNumber(int matchOrderId,String trackingNumber);
+
+    /**
+     * 通过捐赠者Id，捐赠单号，受赠者id，受赠者单号查询
+     * @param matchOrderCondition
+     * @return
+     */
+    List<MatchOrderDo> selectByDoneeIdAndDonationOrderIdAndDonorIdAndDoneeId(MatchOrderCondition matchOrderCondition);
+
+    /**
+     * 通过捐赠者id，受赠者id，匹配方式，状态复合查询
+     * @param matchOrderCondition
+     * @return 返回通过组查询的结果
+     */
+    List<MatchOrderCondition> getMatchOrderGroupList(MatchOrderCondition matchOrderCondition);
 }

@@ -1,6 +1,7 @@
 package com.whu.lysl.service.match;
 
 import com.whu.lysl.base.exceptions.LYSLException;
+import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dto.MatchOrder;
 
 import java.util.List;
@@ -16,18 +17,18 @@ public interface OrderMatchService {
 
     /**
      * 根据捐赠者Id对匹配单进行查询
-     * @param donorName 捐赠者名字
+     * @param donorId 捐赠者Id
      * @throws LYSLException
      */
-    List<MatchOrder> getMatchOrderByDonorName(String donorName) throws LYSLException;
+    List<MatchOrder> getMatchOrderByDonorId(int donorId) throws LYSLException;
 
     /**
      * 根据受赠者Id对匹配单进行查询
-     * @param doneeName 受赠者名字
+     * @param doneeId 受赠者Id
      * @return
      * @throws LYSLException
      */
-    List<MatchOrder> getMatchOrderByDoneeName(String doneeName) throws LYSLException;
+    List<MatchOrder> getMatchOrderByDoneeId(int doneeId) throws LYSLException;
 
     /**
      * 更新匹配单的状态
@@ -45,4 +46,11 @@ public interface OrderMatchService {
      * @throws LYSLException
      */
     void updateTrackingNumber(int matchOrderId,String trackingNumber) throws LYSLException;
+
+    /**
+     * 根据状态，捐赠人Id，受赠人Id等查询匹配单
+     * @param matchOrderCondition
+     * @return
+     */
+    List<MatchOrder> getMatchOrderList(MatchOrderCondition matchOrderCondition);
 }

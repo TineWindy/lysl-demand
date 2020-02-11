@@ -92,7 +92,7 @@ public class MatchOrderConverter {
         if (matchOrderDoList.size()==0){
             return null;
         }
-        MatchOrderDo matchOrderDo = new MatchOrderDo();
+        MatchOrderDo matchOrderDo = matchOrderDoList.get(0);
         matchOrder.setDemandOrderId(matchOrderDo.getDemandOrderId());
         matchOrder.setDonationOrderId(matchOrderDo.getDonationOrderId());
         matchOrder.setDonorId(matchOrderDo.getDonorId());

@@ -6,8 +6,10 @@ import com.whu.lysl.base.enums.MatchingMethodEnum;
 import com.whu.lysl.base.enums.MatchingStatusEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.dao.MatchOrderDAO;
+import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dbobj.MatchOrderDo;
 import com.whu.lysl.entity.dto.MatchOrder;
+import com.whu.lysl.service.institution.InstitutionService;
 import com.whu.lysl.service.match.OrderMatchService;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,8 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
     @Resource
     MatchOrderDAO matchOrderDAO;
+    @Resource
+    InstitutionService institutionService;
 
     /**
      * 定向捐赠后的匹配接口（在人工审核后调用）
@@ -46,14 +50,12 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
     /**
      * 根据捐赠者名字查询匹配单
-     * @param honorName
+     * @param donorId
      * @return
      * @throws LYSLException
      */
     @Override
-    public List<MatchOrder> getMatchOrderByDonorName(String honorName) throws LYSLException {
-        // TODO 去捐赠模块检查donorId是否正确
-        int donorId = 1;
+    public List<MatchOrder> getMatchOrderByDonorId(int donorId) throws LYSLException {
         List<Integer> donationOrderIdList = matchOrderDAO.selectDonationOrderIdByDonorId(donorId);
         List<MatchOrder> matchOrderList = new ArrayList<>();
         for (int i =0;i<donationOrderIdList.size();i++){
@@ -70,14 +72,12 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
     /**
      * 根据受赠者名字查询匹配单
-     * @param doneeName 受赠者名字
+     * @param doneeId 受赠者名字
      * @return
      * @throws LYSLException
      */
     @Override
-    public List<MatchOrder> getMatchOrderByDoneeName(String doneeName) throws LYSLException {
-        // TODO 去需求模块检查donorId是否正确
-        int doneeId = 1;
+    public List<MatchOrder> getMatchOrderByDoneeId(int doneeId) throws LYSLException {
         List<Integer> demandOrderIdList = matchOrderDAO.selectDemandOrderIdByDoneeId(doneeId);
         List<MatchOrder> matchOrderList = new ArrayList<>();
         for (int i =0;i<demandOrderIdList.size();i++){
@@ -108,9 +108,36 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
     }
 
+    /**
+     * 更新物流单号
+     * @param matchOrderId
+     * @param trackingNumber
+     * @throws LYSLException
+     */
     @Override
     public void updateTrackingNumber(int matchOrderId, String trackingNumber) throws LYSLException {
         matchOrderDAO.updateTrackingNumber(matchOrderId,trackingNumber);
+    }
+
+    /**
+     * 根据状态，捐赠人Id，受赠人Id等查询匹配单
+     * @param matchOrderCondition
+     * @return
+     */
+    @Override
+    public List<MatchOrder> getMatchOrderList(MatchOrderCondition matchOrderCondition) {
+
+        List<MatchOrderCondition> matchOrderConditionList = matchOrderDAO.getMatchOrderGroupList(matchOrderCondition);
+        List<MatchOrder> matchOrderList = new ArrayList<>();
+        for (int i =0;i<matchOrderConditionList.size();i++){
+
+            List<MatchOrderDo> matchOrderDoList = matchOrderDAO.selectByDoneeIdAndDonationOrderIdAndDonorIdAndDoneeId(matchOrderConditionList.get(i));
+            MatchOrder matchOrder = MatchOrderConverter.DO2Model(matchOrderDoList);
+            matchOrderList.add(matchOrder);
+        }
+
+
+        return matchOrderList;
     }
 
 
