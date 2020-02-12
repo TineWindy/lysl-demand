@@ -2,6 +2,7 @@ package com.whu.lysl.dao;
 
 import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dbobj.MatchOrderDo;
+import com.whu.lysl.entity.dto.LogisticInfo;
 import com.whu.lysl.entity.dto.MatchOrder;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -86,4 +87,10 @@ public interface MatchOrderDAO {
      * @return
      */
     List<MatchOrderCondition> selectAllMatchOrder();
+
+    /**
+     * 通过状态获取需要查询物流信息的相关记录
+     * @return
+     */
+    List<LogisticInfo> selectLogisticInfoByStatus(String[] statuse);
 }

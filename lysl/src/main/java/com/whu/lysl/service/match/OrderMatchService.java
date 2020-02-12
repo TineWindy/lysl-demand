@@ -2,6 +2,7 @@ package com.whu.lysl.service.match;
 
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.entity.condition.MatchOrderCondition;
+import com.whu.lysl.entity.dto.ExpressInfo;
 import com.whu.lysl.entity.dto.MatchOrder;
 
 import java.util.List;
@@ -58,5 +59,5 @@ public interface OrderMatchService {
     /**
      * 根据物流单号，获取物流单状态
      */
-    String getStatusFromTrackingNumber(String ShipperCode,String trackingNumber);
+    ExpressInfo getTracesFromTrackingNumber(String ShipperCode, String trackingNumber);
 }
