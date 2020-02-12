@@ -87,4 +87,11 @@ public interface DonationOrderService {
      */
     void validateInsertDonatiionOrder(DonationOrder donationOrder);
 
+    /**
+     * 逻辑删除 捐赠订单
+     * @param donationOrderId 捐赠单号id
+     * @return 1-成功删除 0-未找到该订单
+     */
+    int deleteDonationOrder(Integer donationOrderId);
+
 }

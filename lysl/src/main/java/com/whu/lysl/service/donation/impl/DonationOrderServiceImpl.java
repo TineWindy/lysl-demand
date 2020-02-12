@@ -122,6 +122,8 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         donationOrder.setLovePoolStatus(LovePoolStatusEnum.NOT_IN_POOL.getCode());
         donationOrder.setDeleted(0);
         validateInsertDonatiionOrder(donationOrder);
+        // 测试环境验证机构应该放在validateInsertDonatiionOrder中
+        validateIns(donationOrder.getDoneeId(), donationOrder.getDoneeName());
         DonationOrderDO donationOrderDO = DonationOrderConverter.model2Do(donationOrder);
         donationOrderDAO.insertDonationOrder(donationOrderDO);
         return donationOrderDO.getDonationOrderId();
@@ -234,8 +236,14 @@ public class DonationOrderServiceImpl implements DonationOrderService {
             }
         }
         //TODO 校验 materialId 和 materialName 有效性
-        validateIns(donationOrder.getDoneeId(), donationOrder.getDoneeName());
 
+
+    }
+
+    @Override
+    public int deleteDonationOrder(Integer donationOrderId) {
+        AssertUtils.AssertNotNull(donationOrderId, "donationOrderId is null");
+        return donationOrderDAO.deleteDonationOrder(donationOrderId);
     }
 
     private void validateIns(Integer instId, String isntName) {

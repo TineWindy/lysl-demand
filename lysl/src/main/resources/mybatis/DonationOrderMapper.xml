@@ -44,12 +44,10 @@
         <if test="status != null">
             AND status = #{status}
         </if>
-        <if test="deleted != null">
-            AND deleted = #{deleted}
-        </if>
         <if test="lovePoolStatus != null">
             AND love_pool_status = #{lovePoolStatus}
         </if>
+        AND deleted = 0
     </where>
         order by donation_order_id desc
   </select>
@@ -121,6 +119,15 @@
               love_pool_status = #{lovePoolStatus},
           </if>
       </set>
-      where donation_order_id = #{donationOrderId}
+      where donation_order_id = #{donationOrderId} and deleted = 0
   </update>
+
+    <update id="deleteDonationOrder" parameterType="Integer">
+        update
+        <include refid="DonationOrderTable"/>
+        <set>
+           deleted=1
+        </set>
+        where donation_order_id = #{donationOrderId}
+    </update>
 </mapper>

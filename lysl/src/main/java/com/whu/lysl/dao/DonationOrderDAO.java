@@ -31,4 +31,5 @@ public interface DonationOrderDAO{
 
     List<MaterialOrderDO> selectMaterialOrderByCondition(MaterialOrderCondition donationOrderCondition);
 
+    int deleteDonationOrder(Integer donationOrderId);
 }
