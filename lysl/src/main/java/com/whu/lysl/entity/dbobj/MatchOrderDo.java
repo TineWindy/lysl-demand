@@ -71,7 +71,11 @@ public class MatchOrderDo implements Cloneable{
     /**
      * 物流单号
      */
-    String trackingNumber;
+    String logisticCode;
+    /**
+     * 快递公司缩写
+     */
+    String shipperCode;
 
     @Override
     public MatchOrderDo clone() throws CloneNotSupportedException {

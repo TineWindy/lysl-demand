@@ -42,10 +42,11 @@ public interface OrderMatchService {
     /**
      * 更新物流单号
      * @param matchOrderId
-     * @param trackingNumber
+     * @param logisticCode
+     * @param shipperCode
      * @throws LYSLException
      */
-    void updateTrackingNumber(int matchOrderId,String trackingNumber) throws LYSLException;
+    void updateTrackingNumber(int matchOrderId,String shipperCode,String logisticCode) throws LYSLException;
 
     /**
      * 根据状态，捐赠人Id，受赠人Id等查询匹配单
@@ -53,4 +54,9 @@ public interface OrderMatchService {
      * @return
      */
     List<MatchOrder> getMatchOrderList(MatchOrderCondition matchOrderCondition);
+
+    /**
+     * 根据物流单号，获取物流单状态
+     */
+    String getStatusFromTrackingNumber(String ShipperCode,String trackingNumber);
 }

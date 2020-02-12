@@ -58,12 +58,14 @@ public interface MatchOrderDAO {
      */
     void updateStatus(int matchOrderId,String status);
 
+
     /**
      * 更新物流单号
      * @param matchOrderId
-     * @param trackingNumber
+     * @param logisticCode
+     * @param shipperCode
      */
-    void updateTrackingNumber(int matchOrderId,String trackingNumber);
+    void updateLogisticInfo(int matchOrderId,String logisticCode,String shipperCode);
 
     /**
      * 通过捐赠者Id，捐赠单号，受赠者id，受赠者单号查询
@@ -78,4 +80,10 @@ public interface MatchOrderDAO {
      * @return 返回通过组查询的结果
      */
     List<MatchOrderCondition> getMatchOrderGroupList(MatchOrderCondition matchOrderCondition);
+
+    /**
+     * 获取匹配单列表
+     * @return
+     */
+    List<MatchOrderCondition> selectAllMatchOrder();
 }

@@ -112,13 +112,27 @@ public class MatchOrderController extends LYSLBaseController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/updateCheckingNumber",method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateLogisticInfo",method = RequestMethod.PUT)
     public String updateCheckingNumber(HttpServletRequest request){
         LYSLResult<Object> res = protectController(request,() ->{
             LYSLResult<Object> result = new LYSLResult<>();
-            String trackingNumber = request.getParameter("trackingNumber");
+            String logisticCode = request.getParameter("logisticCode");
+            String shipperCode = request.getParameter("shipperCode");
             int matchOrderId = Integer.parseInt(request.getParameter("matchOrderId") + "");
-            orderMatchService.updateTrackingNumber(matchOrderId,trackingNumber);
+            orderMatchService.updateTrackingNumber(matchOrderId,shipperCode,logisticCode);
+            return result;
+        },AuthEnum.IGNORE_VERIFY.getCode());
+        return JSON.toJSONString(res);
+    }
+
+
+    @RequestMapping(value = "/getStatusFromTrackingNumber",method = RequestMethod.GET)
+    public String getTracesFromTrackingNumber(HttpServletRequest request){
+        LYSLResult<Object> res = protectController(request,() ->{
+            LYSLResult<Object> result = new LYSLResult<>();
+            String shipperCode = request.getParameter("shipperCode");
+            String trackingNumber = request.getParameter("trackingNumber") ;
+            orderMatchService.getStatusFromTrackingNumber(shipperCode,trackingNumber);
             return result;
         },AuthEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);

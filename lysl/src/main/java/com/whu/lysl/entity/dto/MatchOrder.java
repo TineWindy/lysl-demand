@@ -68,7 +68,7 @@ public class MatchOrder {
     /**
      * 物流单号
      */
-    String trackingNumber;
+    String logisticCode;
     /**
      * 捐赠类型
      */
@@ -77,5 +77,8 @@ public class MatchOrder {
      * 物资名字
      */
     List<String> materialNameList;
-
+    /**
+     * 快递公司缩写
+     */
+    String shipperCode;
 }

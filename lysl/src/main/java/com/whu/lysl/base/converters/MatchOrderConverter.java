@@ -78,8 +78,8 @@ public class MatchOrderConverter {
         matchOrderDo.setGmtModified(new Date());
         matchOrderDo.setMatchingMethod(matchOrder.getMatchingMethod());
         matchOrderDo.setStatus(matchOrder.getStatus());
-        matchOrderDo.setTrackingNumber(matchOrder.getTrackingNumber());
-
+        matchOrderDo.setLogisticCode(matchOrder.getLogisticCode());
+        matchOrder.setShipperCode(matchOrder.getShipperCode());
         matchOrderDoList.add(matchOrderDo);
         for (int i = 1;i<matchOrder.getMaterialIdList().size();i++){
             try{
@@ -108,6 +108,7 @@ public class MatchOrderConverter {
             return null;
         }
         MatchOrderDo matchOrderDo = matchOrderDoList.get(0);
+        matchOrder.setId(matchOrderDo.getId());
         matchOrder.setDemandOrderId(matchOrderDo.getDemandOrderId());
         matchOrder.setDonationOrderId(matchOrderDo.getDonationOrderId());
         matchOrder.setDonorId(matchOrderDo.getDonorId());
@@ -116,7 +117,8 @@ public class MatchOrderConverter {
         matchOrder.setDonorName(matchOrderDo.getDonorName());
         matchOrder.setGmtCreated(matchOrderDo.getGmtCreated());
         matchOrder.setStatus(matchOrderDo.getStatus());
-        matchOrder.setTrackingNumber(matchOrderDo.getTrackingNumber());
+        matchOrder.setLogisticCode(matchOrderDo.getLogisticCode());
+        matchOrder.setShipperCode(matchOrderDo.getShipperCode());
         matchOrder.setMaterialIdList(new ArrayList<>());
         matchOrder.setMaterialQuantityList(new ArrayList<>());
         matchOrder.setMaterialNameList(new ArrayList<>());
