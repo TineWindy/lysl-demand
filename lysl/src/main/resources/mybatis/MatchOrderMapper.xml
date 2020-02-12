@@ -3,7 +3,7 @@
 <mapper namespace="com.whu.lysl.dao.MatchOrderDAO">
 
     <sql id="MatchOrderCols">
-        gmt_created, donor_id, donee_id, material_id,material_quantity,status,donation_order_id,demand_order_id,tracking_number
+        gmt_created, donor_id, donee_id, material_id,material_quantity,status,donation_order_id,demand_order_id,tracking_number,donor_name,donee_name,material_name
      </sql>
 
     <sql id="MatchOrderTable">
@@ -14,9 +14,9 @@
 
     <insert id="saveMatchOrder" parameterType="com.whu.lysl.entity.dbobj.MatchOrderDo">
         insert into lysl_match_order(gmt_created,gmt_modified,donor_id,donee_id,material_id,material_quantity,status,
-        matching_method,donation_order_id,demand_order_id,tracking_number)
+        matching_method,donation_order_id,demand_order_id,tracking_number,donor_name,donee_name,material_name)
         values(#{gmtCreated},#{gmtModified},#{donorId},#{doneeId},#{materialId},#{materialQuantity},#{status},#{matchingMethod},#{donationOrderId},
-        #{demandOrderId},#{trackingNumber})
+        #{demandOrderId},#{trackingNumber},#{donorName},#{doneeName},#{materialName})
     </insert>
 
     <select id="selectDonationOrderIdByDonorId" resultType="int" parameterType="int">

@@ -73,5 +73,9 @@ public class MatchOrder {
      * 捐赠类型
      */
     String donationType;
+    /**
+     * 物资名字
+     */
+    List<String> materialNameList;
 
 }

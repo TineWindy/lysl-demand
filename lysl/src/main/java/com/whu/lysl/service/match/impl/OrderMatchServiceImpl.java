@@ -52,7 +52,7 @@ public class OrderMatchServiceImpl implements OrderMatchService {
         if (donationOrderList.size() == 0){
             throw new LYSLException("捐赠单不存在",LYSLResultCodeEnum.DATA_INVALID);
         }
-        if (donationOrderList.get(0).getDonationType() != matchOrder.getDonationType()){
+        if (!donationOrderList.get(0).getDonationType().equals(matchOrder.getDonationType())){
             throw new LYSLException("捐赠单类型不匹配",LYSLResultCodeEnum.DATA_INVALID);
         }
         // TODO 去需求模块查询需求是否存在
