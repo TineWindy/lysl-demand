@@ -13,15 +13,18 @@ import com.whu.lysl.base.utils.AssertUtils;
 import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.entity.condition.DonationOrderCondition;
 import com.whu.lysl.entity.dto.DonationOrder;
+import com.whu.lysl.entity.vo.DonationOrderListVO;
 import com.whu.lysl.entity.vo.DonationOrderVO;
 import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
 import org.apache.commons.lang3.EnumUtils;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -146,6 +149,31 @@ public class DonationOrderController extends LYSLBaseController {
             LYSLResult<Object> result = new LYSLResult<>();
             int donation_insert = donationOrderService.insertDonationOrder(DonationOrderConverter.vo2Model(donationOrderVO));
             result.setResultObj(donation_insert==1?"新增成功":"新增失败");
+            return result;
+        }, AuthEnum.IGNORE_VERIFY.getCode());
+
+        return JSON.toJSONString(res);
+    }
+
+    @Transactional
+    @RequestMapping(value="addDonationOrderList", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String addDonationOrderList(@RequestBody @Valid DonationOrderListVO donationOrderListVO, HttpServletRequest request) {
+        LYSLResult<Object> res = protectController(request, () -> {
+            LYSLResult<Object> result = new LYSLResult<>();
+            List<DonationOrderVO> donationOrderVOList = DonationOrderConverter.donationOrderList2ListDonationOrder(donationOrderListVO);
+            List<Integer> insert_list_ans = new ArrayList();
+            for (DonationOrderVO donationOrderVO : donationOrderVOList) {
+                int donation_insert = donationOrderService.insertDonationOrder(DonationOrderConverter.vo2Model(donationOrderVO));
+                insert_list_ans.add(donation_insert);
+            }
+            boolean isSuccess = true;
+            for (Integer i : insert_list_ans) {
+                if (i!=1) {
+                    isSuccess=false;
+                }
+            }
+                result.setResultObj(isSuccess?"提交捐赠单成功":"提交捐赠单失败");
             return result;
         }, AuthEnum.IGNORE_VERIFY.getCode());
 

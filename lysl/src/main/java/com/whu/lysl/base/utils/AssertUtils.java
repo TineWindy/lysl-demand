@@ -39,4 +39,16 @@ public class AssertUtils {
         }
     }
 
+    /**
+     * 对象不为空
+     * @param object 对象
+//     * @param message
+     */
+    public static void AssertNotNullWithMessage(Object object, String message) {
+        if(object == null) {
+            logger.error("empty object");
+            throw new LYSLException(message, LYSLResultCodeEnum.OBJECT_NULL);
+        }
+    }
+
 }

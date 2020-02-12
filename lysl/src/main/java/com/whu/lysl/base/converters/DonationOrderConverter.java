@@ -3,7 +3,9 @@ package com.whu.lysl.base.converters;
 import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.entity.dbobj.DonationOrderDO;
 import com.whu.lysl.entity.dto.DonationOrder;
+import com.whu.lysl.entity.vo.DonationOrderListVO;
 import com.whu.lysl.entity.vo.DonationOrderVO;
+import com.whu.lysl.entity.vo.MaterialOrderVO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -199,6 +201,34 @@ public class DonationOrderConverter {
 
         for (DonationOrder donationOrder: donationOrders) {
             donationOrdersVOS.add(model2Vo(donationOrder));
+        }
+
+        return donationOrdersVOS;
+    }
+
+    public static List<DonationOrderVO> donationOrderList2ListDonationOrder(DonationOrderListVO donationOrderListVO) {
+        List<DonationOrderVO> donationOrdersVOS = new ArrayList<>();
+
+        if (donationOrderListVO==null) {
+            return donationOrdersVOS;
+        }
+
+        List<MaterialOrderVO> materialOrderVOS = donationOrderListVO.getMaterialOrderList();
+
+        for (MaterialOrderVO materialOrderVO: materialOrderVOS) {
+            DonationOrderVO donationOrderVO = new DonationOrderVO();
+//            donationOrderVO.setDonationOrderId(donationOrderListVO.getDonationOrderId());
+            donationOrderVO.setDonorId(donationOrderListVO.getDonorId());
+            donationOrderVO.setDonorName(donationOrderListVO.getDonorName());
+            donationOrderVO.setDonationType(donationOrderListVO.getDonationType());
+            donationOrderVO.setDoneeId(donationOrderListVO.getDoneeId());
+            donationOrderVO.setDoneeName(donationOrderListVO.getDoneeName());
+
+            donationOrderVO.setMaterialId(materialOrderVO.getMaterialId());
+            donationOrderVO.setMaterialName(materialOrderVO.getMaterialName());
+            donationOrderVO.setMaterialAmount(materialOrderVO.getMaterialAmount());
+
+            donationOrdersVOS.add(donationOrderVO);
         }
 
         return donationOrdersVOS;

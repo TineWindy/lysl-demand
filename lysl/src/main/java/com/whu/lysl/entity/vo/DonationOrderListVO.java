@@ -5,8 +5,8 @@ import lombok.Data;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Map;
 import java.util.List;
+
 /**
  * @Author Caspar
  * @CreateTime 2020/2/9 18:55
@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 @Data
-public class DonationOrderVO {
+public class DonationOrderListVO {
 
 
     private Integer donationOrderId;
@@ -45,34 +45,17 @@ public class DonationOrderVO {
     /**
      * 捐赠对象id
      */
+    @NotNull(message = "doneeId is required")
     private Integer doneeId;
 
     /**
      * 捐赠对象名称
      */
+    @NotEmpty(message = "doneeName is required")
     private String doneeName;
 
-    /**
-     * 物资id
-     */
-    @NotNull(message = "materialId is required")
-    @Min(value = 0, message = "materialId must have the type of Integer and must be positive")
-    private Integer materialId;
-
-    /**
-     * 物资名
-     */
-    @NotEmpty(message = "materialName is required")
-    private String materialName;
-
-    /**
-     * 物资数量
-     */
-    @NotNull(message = "materialAmount is required")
-    @Min(value = 0, message = "materialAmount must have the type of Integer and must be positives")
-    private Integer materialAmount;
-
-//    private Integer deleted;
+    @NotNull(message = "donationOrderVOList is required")
+    private List<MaterialOrderVO> materialOrderList;
 
     /**
      * 审核状态 0-未审核 1-已审核 2-审核未通过

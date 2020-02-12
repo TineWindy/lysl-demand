@@ -153,14 +153,14 @@ public class DonationOrderServiceImpl implements DonationOrderService {
     }
 
     public void validateInsertDonatiionOrder(DonationOrder donationOrder) {
-        AssertUtils.AssertNotNull(donationOrder);
-        AssertUtils.AssertNotNull(donationOrder.getDonorId());
-        AssertUtils.AssertNotNull(donationOrder.getDonorName());
-        AssertUtils.AssertNotNull(donationOrder.getDoneeId());
-        AssertUtils.AssertNotNull(donationOrder.getDoneeName());
-        AssertUtils.AssertNotNull(donationOrder.getMaterialId());
-        AssertUtils.AssertNotNull(donationOrder.getMaterialName());
-        AssertUtils.AssertNotNull(donationOrder.getMaterialAmount());
+        AssertUtils.AssertNotNullWithMessage(donationOrder, "donationOrder is null");
+        AssertUtils.AssertNotNullWithMessage(donationOrder.getDonorId(), "donorId is null");
+        AssertUtils.AssertNotNullWithMessage(donationOrder.getDonorName(), "donorName is null");
+        AssertUtils.AssertNotNullWithMessage(donationOrder.getDoneeId(), "doneeId is null");
+        AssertUtils.AssertNotNullWithMessage(donationOrder.getDoneeName(), "doneeName is null");
+        AssertUtils.AssertNotNullWithMessage(donationOrder.getMaterialId(), "materialId is null");
+        AssertUtils.AssertNotNullWithMessage(donationOrder.getMaterialName(), "materialName is null");
+        AssertUtils.AssertNotNullWithMessage(donationOrder.getMaterialAmount(), "materialAmount is null");
 
         if (!EnumUtils.isValidEnum(DonationTypeEnum.class, donationOrder.getDonationType())) {
             throw new LYSLException("donationType 不属于支持的枚举值 {DIRECTED, UNDIRECTED}", LYSLResultCodeEnum.DATA_INVALID);
