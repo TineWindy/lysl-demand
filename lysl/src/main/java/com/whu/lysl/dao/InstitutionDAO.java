@@ -29,4 +29,17 @@ public interface InstitutionDAO {
      */
     List<InstitutionDO> queryByPartitionOfName(@Param("name") String name);
 
+    /**
+     * 插入一条数据
+     * @param institutionDO do
+     */
+    void insert(InstitutionDO institutionDO);
+
+    /**
+     * 更新一条数据
+     * @param institutionDO do
+     * @return success
+     */
+    int update(InstitutionDO institutionDO);
+
 }

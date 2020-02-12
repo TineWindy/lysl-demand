@@ -54,5 +54,23 @@ public class SystemController extends LYSLBaseController {
         return JSON.toJSONString(result);
     }
 
+    /**
+     * 获取七牛云上传 token
+     * @param request request
+     * @return token str
+     */
+    @GetMapping("getUploadToken")
+    public String getUploadToken(HttpServletRequest request) {
+        LYSLResult<Object> result = protectController(request, () -> {
+            LYSLResult<Object> res = new LYSLResult<>();
+
+            String token = systemService.getQiniuToken();
+
+            res.setResultObj(token);
+            log.info("获取七牛云上传 token");
+            return res;
+        }, AuthEnum.IGNORE_VERIFY.getCode());
+        return JSON.toJSONString(result);
+    }
 
 }

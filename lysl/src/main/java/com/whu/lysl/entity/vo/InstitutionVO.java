@@ -24,6 +24,8 @@ public class InstitutionVO {
 
     private String city;
 
+    private String region;
+
     private String address;
 
     private String status;
