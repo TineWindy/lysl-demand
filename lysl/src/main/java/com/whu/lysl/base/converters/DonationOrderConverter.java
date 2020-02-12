@@ -1,9 +1,8 @@
 package com.whu.lysl.base.converters;
 
-import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.entity.dbobj.DonationOrderDO;
 import com.whu.lysl.entity.dto.DonationOrder;
-import com.whu.lysl.entity.vo.DonationOrderListVO;
+import com.whu.lysl.entity.dto.MaterialOrder;
 import com.whu.lysl.entity.vo.DonationOrderVO;
 import com.whu.lysl.entity.vo.MaterialOrderVO;
 
@@ -34,9 +33,7 @@ public class DonationOrderConverter {
         donationOrder.setDonorName(donationOrderDO.getDonorName());
         donationOrder.setDoneeId(donationOrderDO.getDoneeId());
         donationOrder.setDoneeName(donationOrderDO.getDoneeName());
-        donationOrder.setMaterialId(donationOrderDO.getMaterialId());
-        donationOrder.setMaterialName(donationOrderDO.getMaterialName());
-        donationOrder.setMaterialAmount(donationOrderDO.getMaterialAmount());
+        // 不需要转换  materialOrderDOList
         donationOrder.setDeleted(donationOrderDO.getDeleted());
         donationOrder.setStatus(donationOrderDO.getStatus());
         donationOrder.setGmtCreated(donationOrderDO.getGmtCreated());
@@ -63,9 +60,7 @@ public class DonationOrderConverter {
         donationOrderDO.setDonorName(donationOrder.getDonorName());
         donationOrderDO.setDoneeId(donationOrder.getDoneeId());
         donationOrderDO.setDoneeName(donationOrder.getDoneeName());
-        donationOrderDO.setMaterialId(donationOrder.getMaterialId());
-        donationOrderDO.setMaterialName(donationOrder.getMaterialName());
-        donationOrderDO.setMaterialAmount(donationOrder.getMaterialAmount());
+        // 不需要转换  materialOrderDOList
         donationOrderDO.setDeleted(donationOrder.getDeleted());
         donationOrderDO.setStatus(donationOrder.getStatus());
         donationOrderDO.setGmtCreated(donationOrder.getGmtCreated());
@@ -93,12 +88,16 @@ public class DonationOrderConverter {
         donationOrderVO.setDonorName(donationOrder.getDonorName());
         donationOrderVO.setDoneeId(donationOrder.getDoneeId());
         donationOrderVO.setDoneeName(donationOrder.getDoneeName());
-        donationOrderVO.setMaterialId(donationOrder.getMaterialId());
-        donationOrderVO.setMaterialName(donationOrder.getMaterialName());
-        donationOrderVO.setMaterialAmount(donationOrder.getMaterialAmount());
         donationOrderVO.setStatus(donationOrder.getStatus());
         donationOrderVO.setLovePoolStatus(donationOrder.getLovePoolStatus());
 
+        List<MaterialOrderVO> materialOrderVOList = new ArrayList<>();
+        if (donationOrder.getMaterialOrderList()==null) {
+            donationOrderVO.setMaterialOrderList(materialOrderVOList);
+
+        } else {
+            donationOrderVO.setMaterialOrderList(MaterialOrderConverter.batchModel2VO(donationOrder.getMaterialOrderList()));
+        }
 
         return donationOrderVO;
     }
@@ -121,11 +120,13 @@ public class DonationOrderConverter {
         donationOrder.setDonorName(donationOrderVO.getDonorName());
         donationOrder.setDoneeId(donationOrderVO.getDoneeId());
         donationOrder.setDoneeName(donationOrderVO.getDoneeName());
-        donationOrder.setMaterialId(donationOrderVO.getMaterialId());
-        donationOrder.setMaterialName(donationOrderVO.getMaterialName());
-        donationOrder.setMaterialAmount(donationOrderVO.getMaterialAmount());
-        donationOrder.setStatus(donationOrderVO.getStatus());
-        donationOrder.setLovePoolStatus(donationOrderVO.getLovePoolStatus());
+
+        List<MaterialOrder> materialOrderList = new ArrayList<>();
+        if (donationOrderVO.getMaterialOrderList()==null) {
+            donationOrder.setMaterialOrderList(materialOrderList);
+        } else {
+            donationOrder.setMaterialOrderList(MaterialOrderConverter.batchVo2Model(donationOrderVO.getMaterialOrderList()));
+        }
 
         return donationOrder;
     }
@@ -206,33 +207,28 @@ public class DonationOrderConverter {
         return donationOrdersVOS;
     }
 
-    public static List<DonationOrderVO> donationOrderList2ListDonationOrder(DonationOrderListVO donationOrderListVO) {
-        List<DonationOrderVO> donationOrdersVOS = new ArrayList<>();
-
-        if (donationOrderListVO==null) {
-            return donationOrdersVOS;
-        }
-
-        List<MaterialOrderVO> materialOrderVOS = donationOrderListVO.getMaterialOrderList();
-
-        for (MaterialOrderVO materialOrderVO: materialOrderVOS) {
-            DonationOrderVO donationOrderVO = new DonationOrderVO();
-            donationOrderVO.setDonationOrderId(donationOrderListVO.getDonationOrderId());
-            donationOrderVO.setDonorId(donationOrderListVO.getDonorId());
-            donationOrderVO.setDonorName(donationOrderListVO.getDonorName());
-            donationOrderVO.setDonationType(donationOrderListVO.getDonationType());
-            donationOrderVO.setDoneeId(donationOrderListVO.getDoneeId());
-            donationOrderVO.setDoneeName(donationOrderListVO.getDoneeName());
-
-            donationOrderVO.setDonationOrderId(materialOrderVO.getDonationOrderId());
-            donationOrderVO.setMaterialId(materialOrderVO.getMaterialId());
-            donationOrderVO.setMaterialName(materialOrderVO.getMaterialName());
-            donationOrderVO.setMaterialAmount(materialOrderVO.getMaterialAmount());
-
-            donationOrdersVOS.add(donationOrderVO);
-        }
-
-        return donationOrdersVOS;
-    }
+//    public static List<DonationOrderVO> donationOrderList2ListDonationOrder(DonationOrderListVO donationOrderListVO) {
+//        List<DonationOrderVO> donationOrdersVOS = new ArrayList<>();
+//
+//        if (donationOrderListVO==null) {
+//            return donationOrdersVOS;
+//        }
+//
+//        List<MaterialOrderVO> materialOrderVOS = donationOrderListVO.getMaterialOrderList();
+//
+//        for (MaterialOrderVO materialOrderVO: materialOrderVOS) {
+//            DonationOrderVO donationOrderVO = new DonationOrderVO();
+//            donationOrderVO.setDonationOrderId(donationOrderListVO.getDonationOrderId());
+//            donationOrderVO.setDonorId(donationOrderListVO.getDonorId());
+//            donationOrderVO.setDonorName(donationOrderListVO.getDonorName());
+//            donationOrderVO.setDonationType(donationOrderListVO.getDonationType());
+//            donationOrderVO.setDoneeId(donationOrderListVO.getDoneeId());
+//            donationOrderVO.setDoneeName(donationOrderListVO.getDoneeName());
+//            donationOrderVO.setDonationOrderId(materialOrderVO.getDonationOrderId());
+//            donationOrdersVOS.add(donationOrderVO);
+//        }
+//
+//        return donationOrdersVOS;
+//    }
 
 }

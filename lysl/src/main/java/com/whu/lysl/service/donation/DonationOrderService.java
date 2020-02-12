@@ -1,10 +1,8 @@
 package com.whu.lysl.service.donation;
 
 import com.whu.lysl.entity.condition.DonationOrderCondition;
-import com.whu.lysl.entity.dbobj.MaterialOrderDO;
 import com.whu.lysl.entity.dto.DonationOrder;
 import com.whu.lysl.entity.dto.MaterialOrder;
-import com.whu.lysl.entity.vo.DonationOrderListVO;
 
 import java.util.List;
 
@@ -21,6 +19,13 @@ public interface DonationOrderService {
      * @return 捐赠订单 list
      */
     List<DonationOrder> getDonationOrderByCondition(DonationOrderCondition donationOrderCondition);
+
+    /**
+     * 查询捐赠订单号查询所有物资清单
+     * @param donationOrderId 订单号
+     * @return 捐赠订单 list
+     */
+    List<MaterialOrder> getMaterialOrderByDonationOrderId(Integer donationOrderId);
 
     /**
      * 根据 donorId 查询捐赠订单
@@ -63,18 +68,15 @@ public interface DonationOrderService {
      */
     Boolean validateDonationOrderId(Integer donationOrderId);
 
-
+    // 仅仅插入捐赠单一张表，不插入物资清单表
     int insertDonationOrder(DonationOrder donationOrder);
 
-    void insertDonationOrderDetail(DonationOrderListVO donationOrderListVO);
+    // 不止插入捐赠单一张表，还会插入物资清单表
+    int insertDonationOrderDetail(DonationOrder donationOrder);
 
     int insertMaterialOrder(MaterialOrder materialOrder);
 
     int updateDonationOrder(DonationOrder donationOrder);
-
-//    int checkPass(DonationOrder donationOrder);
-//
-//    int checkFail(DonationOrder donationOrder);
 
     int check(DonationOrder donationOrder, String status);
 
@@ -85,6 +87,4 @@ public interface DonationOrderService {
      */
     void validateInsertDonatiionOrder(DonationOrder donationOrder);
 
-
-    int insertDonationOrderGetId(DonationOrder donationOrder);
 }

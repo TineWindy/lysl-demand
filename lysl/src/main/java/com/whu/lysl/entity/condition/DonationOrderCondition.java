@@ -17,24 +17,17 @@ public class DonationOrderCondition {
 
     private String doneeName;
 
-    private Integer materialId;
-
-    private String materialName;
-
-    private Integer materialAmount;
-
     private String status;
 
     private Integer deleted;
 
     private String lovePoolStatus;
 
-    public DonationOrderCondition(Integer donationOrderId, Integer donorId, String donationType, Integer doneeId, Integer materialId, String status, Integer deleted, String lovePoolStatus) {
+    public DonationOrderCondition(Integer donationOrderId, Integer donorId, String donationType, Integer doneeId, String status, Integer deleted, String lovePoolStatus) {
         this.donationOrderId = donationOrderId;
         this.donorId = donorId;
         this.donationType = donationType;
         this.doneeId = doneeId;
-        this.materialId = materialId;
         this.status = status;
         this.deleted = deleted;
         this.lovePoolStatus = lovePoolStatus;
@@ -49,8 +42,6 @@ public class DonationOrderCondition {
         private String donationType;
 
         private Integer doneeId;
-
-        private Integer materialId;
 
         private String status;
 
@@ -78,11 +69,6 @@ public class DonationOrderCondition {
             return this;
         }
 
-        public Builder materialId(Integer materialId) {
-            this.materialId = materialId;
-            return this;
-        }
-
         public Builder status(String status) {
             this.status = status;
             return this;
@@ -99,7 +85,7 @@ public class DonationOrderCondition {
         }
 
         public DonationOrderCondition build() {
-            return new DonationOrderCondition(this.donationOrderId, this.donorId, this.donationType, this.doneeId, this.materialId, this.status, this.deleted, this.lovePoolStatus);
+            return new DonationOrderCondition(this.donationOrderId, this.donorId, this.donationType, this.doneeId, this.status, this.deleted, this.lovePoolStatus);
         }
     }
 

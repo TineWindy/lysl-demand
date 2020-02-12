@@ -1,8 +1,10 @@
 package com.whu.lysl.entity.dto;
 
+import com.whu.lysl.entity.dbobj.MaterialOrderDO;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author Caspar
@@ -44,19 +46,9 @@ public class DonationOrder {
     private String doneeName;
 
     /**
-     * 物资id
+     * 捐赠对象名称
      */
-    private Integer materialId;
-
-    /**
-     * 物资名
-     */
-    private String materialName;
-
-    /**
-     * 物资数量
-     */
-    private Integer materialAmount;
+    private List<MaterialOrder> materialOrderList;
 
     private Integer deleted;
 

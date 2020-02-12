@@ -5,6 +5,7 @@ import com.whu.lysl.entity.dbobj.MaterialOrderDO;
 import com.whu.lysl.entity.dto.Institution;
 import com.whu.lysl.entity.dto.MaterialOrder;
 import com.whu.lysl.entity.vo.InstitutionVO;
+import com.whu.lysl.entity.vo.MaterialOrderVO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,4 +94,60 @@ public class MaterialOrderConverter {
         return materialOrderDO;
     }
 
+    public static MaterialOrderVO model2Vo(MaterialOrder materialOrder) {
+        if (materialOrder == null) {
+            return null;
+        }
+
+        MaterialOrderVO materialOrderVO = new MaterialOrderVO();
+
+        materialOrderVO.setMaterialOrderId(materialOrder.getMaterialOrderId());
+        materialOrderVO.setDonationOrderId(materialOrder.getDonationOrderId());
+        materialOrderVO.setMaterialId(materialOrder.getMaterialId());
+        materialOrderVO.setMaterialName(materialOrder.getMaterialName());
+        materialOrderVO.setMaterialAmount(materialOrder.getMaterialAmount());
+
+        return materialOrderVO;
+    }
+
+    public static MaterialOrder vo2Model(MaterialOrderVO materialOrderVO) {
+        if (materialOrderVO == null) {
+            return null;
+        }
+
+        MaterialOrder materialOrder = new MaterialOrder();
+        materialOrder.setMaterialOrderId(materialOrderVO.getMaterialOrderId());
+        materialOrder.setMaterialAmount(materialOrderVO.getMaterialAmount());
+        materialOrder.setDonationOrderId(materialOrderVO.getDonationOrderId());
+        materialOrder.setMaterialId(materialOrderVO.getMaterialId());
+        materialOrder.setMaterialName(materialOrderVO.getMaterialName());
+
+        return materialOrder;
+    }
+
+    public static List<MaterialOrderVO> batchModel2VO(List<MaterialOrder> materialOrders) {
+        List<MaterialOrderVO> materialOrderVOS = new ArrayList<>();
+
+        if (materialOrders != null) {
+            for (MaterialOrder materialOrder: materialOrders) {
+                materialOrderVOS.add(model2Vo(materialOrder));
+            }
+        }
+
+        return materialOrderVOS;
+    }
+
+    public static List<MaterialOrder> batchVo2Model(List<MaterialOrderVO> materialOrderVOS) {
+        List<MaterialOrder> materialOrders = new ArrayList<>();
+
+        if(materialOrderVOS == null) {
+            return materialOrders;
+        }
+
+        for (MaterialOrderVO materialOrderVO: materialOrderVOS) {
+            materialOrders.add(vo2Model(materialOrderVO));
+        }
+
+        return materialOrders;
+    }
 }

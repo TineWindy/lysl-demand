@@ -4,7 +4,7 @@
 
 
     <sql id="DonationOrderCols">
-        donation_type, donor_id, donor_name, donee_id, donee_name, material_id, material_name, material_amount, deleted, status, love_pool_status
+        donation_type, donor_id, donor_name, donee_id, donee_name, deleted, status, love_pool_status
      </sql>
 
     <sql id="MaterialOrderCols">
@@ -40,15 +40,6 @@
         </if>
         <if test="doneeName != null">
             AND donee_name = #{doneeName}
-        </if>
-        <if test="materialId != null">
-            AND material_id = #{materialId}
-        </if>
-        <if test="materialName != null">
-            AND material_name = #{materialName}
-        </if>
-        <if test="materialAmount != null">
-            AND material_amount = #{materialAmount}
         </if>
         <if test="status != null">
             AND status = #{status}
@@ -86,17 +77,16 @@
                 AND material_amount = #{materialAmount}
             </if>
         </where>
-        order by gmt_createtime desc
+        order by gmt_created desc
     </select>
 
     <insert id="insertDonationOrder" keyProperty="donationOrderId" useGeneratedKeys="true" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
     insert into
     <include refid="DonationOrderTable"/>
-      (donor_id, donor_name, donation_type, donee_id, donee_name, material_id, material_name, material_amount, deleted, status, love_pool_status)
+      (donor_id, donor_name, donation_type, donee_id, donee_name, deleted, status, love_pool_status)
     values
       (#{donorId}, #{donorName},
       #{donationType}, #{doneeId}, #{doneeName},
-      #{materialId}, #{materialName}, #{materialAmount},
       #{deleted}, #{status}, #{lovePoolStatus})
   </insert>
 
@@ -123,15 +113,6 @@
           </if>
           <if test="doneeName != null">
               donee_name = #{doneeName},
-          </if>
-          <if test="materialId != null">
-              material_id = #{materialId},
-          </if>
-          <if test="materialName != null">
-              material_name = #{materialName},
-          </if>
-          <if test="materialAmount != null">
-              material_amount = #{materialAmount},
           </if>
           <if test="status != null">
               status = #{status},

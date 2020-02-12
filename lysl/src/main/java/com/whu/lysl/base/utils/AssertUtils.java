@@ -44,10 +44,21 @@ public class AssertUtils {
      * @param object 对象
 //     * @param message
      */
-    public static void AssertNotNullWithMessage(Object object, String message) {
+    public static void AssertNotNull(Object object, String message) {
         if(object == null) {
             logger.error("empty object");
             throw new LYSLException(message, LYSLResultCodeEnum.OBJECT_NULL);
+        }
+    }
+
+    /**
+     * 字符串不为空
+     * @param s 字符串
+     */
+    public static void StringNotEmpty(String s, String message) {
+        if(!StringUtils.isNotEmpty(s)) {
+            logger.error("empty string");
+            throw new LYSLException(message, LYSLResultCodeEnum.DATA_INVALID);
         }
     }
 
