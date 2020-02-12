@@ -13,18 +13,18 @@ import java.util.Date;
 @Data
 public class MaterialOrder {
 
-    private Integer donationOrderId;
+    private Integer materialOrderId;
 
     private Date gmtCreated;
 
     private Date gmtModified;
 
-    private Integer donation_order_id;
+    private Integer donationOrderId;
 
-    private Integer material_id;
+    private Integer materialId;
 
-    private String material_name;
+    private String materialName;
 
-    private Integer material_amount;
+    private Integer materialAmount;
 
 }

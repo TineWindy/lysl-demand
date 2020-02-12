@@ -1,7 +1,9 @@
 package com.whu.lysl.service.donation;
 
 import com.whu.lysl.entity.condition.DonationOrderCondition;
+import com.whu.lysl.entity.dbobj.MaterialOrderDO;
 import com.whu.lysl.entity.dto.DonationOrder;
+import com.whu.lysl.entity.dto.MaterialOrder;
 import com.whu.lysl.entity.vo.DonationOrderListVO;
 
 import java.util.List;
@@ -64,7 +66,9 @@ public interface DonationOrderService {
 
     int insertDonationOrder(DonationOrder donationOrder);
 
-    int insertDonationOrderDetail(DonationOrderListVO donationOrderListVO);
+    void insertDonationOrderDetail(DonationOrderListVO donationOrderListVO);
+
+    int insertMaterialOrder(MaterialOrder materialOrder);
 
     int updateDonationOrder(DonationOrder donationOrder);
 
@@ -82,5 +86,5 @@ public interface DonationOrderService {
     void validateInsertDonatiionOrder(DonationOrder donationOrder);
 
 
-
+    int insertDonationOrderGetId(DonationOrder donationOrder);
 }

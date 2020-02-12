@@ -1,6 +1,7 @@
 package com.whu.lysl.service.donation.impl;
 
 import com.whu.lysl.base.converters.DonationOrderConverter;
+import com.whu.lysl.base.converters.MaterialOrderConverter;
 import com.whu.lysl.base.enums.DonationOrderStatusEnum;
 import com.whu.lysl.base.enums.DonationTypeEnum;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
@@ -11,11 +12,15 @@ import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.dao.DonationOrderDAO;
 import com.whu.lysl.entity.condition.DonationOrderCondition;
 import com.whu.lysl.entity.dbobj.DonationOrderDO;
+import com.whu.lysl.entity.dbobj.MaterialOrderDO;
 import com.whu.lysl.entity.dto.DonationOrder;
+import com.whu.lysl.entity.dto.MaterialOrder;
 import com.whu.lysl.entity.vo.DonationOrderListVO;
+import com.whu.lysl.entity.vo.MaterialOrderVO;
 import com.whu.lysl.service.donation.DonationOrderService;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -109,7 +114,19 @@ public class DonationOrderServiceImpl implements DonationOrderService {
     }
 
     @Override
-    public int insertDonationOrderDetail(DonationOrderListVO donationOrderListVO) {
+    public int insertDonationOrderGetId(DonationOrder donationOrder) {
+        donationOrder.setStatus(DonationOrderStatusEnum.UNCHECKED.getCode());
+        donationOrder.setLovePoolStatus(LovePoolStatusEnum.NOT_IN_POOL.getCode());
+        donationOrder.setDeleted(0);
+        validateInsertDonatiionOrder(donationOrder);
+        DonationOrderDO donationOrderDO = DonationOrderConverter.model2Do(donationOrder);
+        donationOrderDAO.insertDonationOrder(donationOrderDO);
+        return donationOrderDO.getDonationOrderId();
+    }
+
+
+    @Override
+    public void insertDonationOrderDetail(DonationOrderListVO donationOrderListVO) {
 
         DonationOrder donationOrder = new DonationOrder();
 
@@ -125,12 +142,27 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         donationOrder.setMaterialId(1);
         donationOrder.setMaterialAmount(1);
 
-        insertDonationOrder(donationOrder);
-        int donationOrderId = donationOrder.getDonationOrderId();
+        int donationOrderId = insertDonationOrderGetId(donationOrder);
 
+        for (MaterialOrderVO materialOrderVO: donationOrderListVO.getMaterialOrderList()) {
+            MaterialOrder materialOrder = new MaterialOrder();
+            materialOrder.setDonationOrderId(donationOrderId);
+            materialOrder.setMaterialId(materialOrderVO.getMaterialId());
+            materialOrder.setMaterialName(materialOrderVO.getMaterialName());
+            materialOrder.setMaterialAmount((materialOrderVO.getMaterialAmount()));
 
+            int ins_ans = insertMaterialOrder(materialOrder);
+            if (ins_ans!=1) {
+                throw new LYSLException("插入物资清单失败:"+materialOrder.toString() ,LYSLResultCodeEnum.SYSTEM_ERROR);
+            }
 
-        return 0;
+        }
+
+    }
+
+    @Override
+    public int insertMaterialOrder(MaterialOrder materialOrder) {
+        return donationOrderDAO.insertMaterialOrder(MaterialOrderConverter.model2Do(materialOrder));
     }
 
     @Override

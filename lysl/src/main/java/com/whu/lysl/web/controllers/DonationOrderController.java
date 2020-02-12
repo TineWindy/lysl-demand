@@ -62,7 +62,7 @@ public class DonationOrderController extends LYSLBaseController {
     @ResponseBody
     public String queryDonationOrderByStatusByPage(@RequestBody Map<String, Object> map, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
-            LYSLResult<Object> result = new LYSLResult<>();
+            LYSLResult<Object> result = new LYSLResult();
             Integer pageNo = (Integer)map.get("pageNo");
             Integer pageSize = (Integer)map.get("pageSize");
             String status = (String)map.get("status");

@@ -8,7 +8,7 @@
      </sql>
 
     <sql id="MaterialOrderCols">
-        donation_order_id, material_id, material_name, maerial_amount
+        donation_order_id, material_id, material_name, material_amount
      </sql>
 
     <sql id="DonationOrderTable">
@@ -89,7 +89,7 @@
         order by gmt_createtime desc
     </select>
 
-    <insert id="insertDonationOrder" keyProperty="donation_order_id" useGeneratedKeys="true" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
+    <insert id="insertDonationOrder" keyProperty="donationOrderId" useGeneratedKeys="true" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
     insert into
     <include refid="DonationOrderTable"/>
       (donor_id, donor_name, donation_type, donee_id, donee_name, material_id, material_name, material_amount, deleted, status, love_pool_status)
@@ -100,13 +100,12 @@
       #{deleted}, #{status}, #{lovePoolStatus})
   </insert>
 
-    <insert id="insertMaterialOrder" keyProperty="material_order_id" parameterType="com.whu.lysl.entity.dbobj.MaterialOrderDO">
+    <insert id="insertMaterialOrder" keyProperty="materialOrderId" parameterType="com.whu.lysl.entity.dbobj.MaterialOrderDO" useGeneratedKeys="true">
         insert into
         <include refid="MaterialOrderTable"/>
-        (donation_order_id, material_id, material_name, maerial_amount)
+        (donation_order_id, material_id, material_name, material_amount)
         values
-        (#{donationOrderId}, #{materialId},
-        #{materialName}, #{materialAmount})
+        (#{donationOrderId}, #{materialId}, #{materialName}, #{materialAmount})
     </insert>
 
     <update id="updateDonationOrder" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">

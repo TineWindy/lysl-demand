@@ -2,6 +2,8 @@ package com.whu.lysl.entity.condition;
 
 import com.whu.lysl.entity.dto.MaterialOrder;
 
+import java.util.Date;
+
 /**
  * @Author Caspar
  * @CreateTime 2020/2/12 16:15
@@ -9,18 +11,18 @@ import com.whu.lysl.entity.dto.MaterialOrder;
  */
 public class MaterialOrderCondition {
 
-    private Integer maaterialOrderId;
+    private Integer materialOrderId;
 
     private Integer donationOrderId;
 
-    private Integer materialId;
-
     private String materialName;
+
+    private Integer materialId;
 
     private Integer materialAmount;
 
-    public MaterialOrderCondition(Integer maaterialOrderId, Integer donationOrderId, Integer materialId, String materialName, Integer materialAmount) {
-        this.maaterialOrderId = maaterialOrderId;
+    public MaterialOrderCondition(Integer materialOrderId, Integer donationOrderId, Integer materialId, String materialName, Integer materialAmount) {
+        this.materialOrderId = materialOrderId;
         this.donationOrderId = donationOrderId;
         this.materialId = materialId;
         this.materialName = materialName;

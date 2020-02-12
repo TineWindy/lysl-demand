@@ -27,7 +27,7 @@ public interface DonationOrderDAO{
 
     int updateDonationOrder(DonationOrderDO donationOrder);
 
-    int insertMaterialOrder(MaterialOrderDO materialOrderDO);
+    int insertMaterialOrder(MaterialOrderDO materialOrder);
 
     List<MaterialOrderDO> selectMaterialOrderByCondition(MaterialOrderCondition donationOrderCondition);
 
