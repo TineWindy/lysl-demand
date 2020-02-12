@@ -1,5 +1,6 @@
 package com.whu.lysl.entity.condition;
 
+import com.whu.lysl.base.utils.StringUtils;
 import lombok.Data;
 
 /**
@@ -26,5 +27,9 @@ public class MatchOrderCondition {
     private String status;
 
     private String matchingMethod;
+
+    public boolean isAllNull(){
+        return doneeId == 0 && donorId == 0 && !StringUtils.isNotEmpty(status) && !StringUtils.isNotEmpty(matchingMethod);
+    }
 
 }

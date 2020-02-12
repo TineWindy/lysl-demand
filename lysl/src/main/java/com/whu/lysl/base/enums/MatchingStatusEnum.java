@@ -16,24 +16,24 @@ public enum MatchingStatusEnum {
     UNCHECKED("UNCHECKED", "未审核状态"),
 
     /**
-     * 审核状态
+     * 审核通过
      */
-    CHECKED("CHECKED", "人工审核完毕"),
+    CHECKED("CHECKED", "人工审核通过"),
 
     /**
-     * 待发货
+     * 审核不通过
      */
-    READY_FOR_DELIVERY("READY_FOR_DELIVERY", "匹配成功，等待捐赠者发货"),
+    CHECKEDFAILED("CHECKEDFAILED","审核不通过"),
 
     /**
      * 运送中
      */
-    IN_TRANSIT("IN_TRANSIT", "捐赠者已发货，等待运送"),
+    IN_TRANSIT("IN_TRANSIT", "快递运送途中"),
 
     /**
      * 待收货
      */
-    WAIT_FOR_RECEIVING("WAIT_FOR_RECEIVING", "捐赠者已送达，等待收货"),
+    WAIT_FOR_RECEIVING("WAIT_FOR_RECEIVING", "快递已送达，等待收货"),
 
     /**
      * 已收货

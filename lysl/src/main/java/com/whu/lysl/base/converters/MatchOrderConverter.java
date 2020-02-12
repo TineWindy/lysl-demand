@@ -57,7 +57,8 @@ public class MatchOrderConverter {
         if (matchOrder.getDoneeId() <= 0){
             throw new LYSLException("受赠者id不能为空",LYSLResultCodeEnum.DATA_INVALID);
         }
-
+        matchOrderDo.setDoneeName(matchOrder.getDoneeName());
+        matchOrderDo.setDonorName(matchOrder.getDonorName());
         matchOrderDo.setDoneeId(matchOrder.getDoneeId());
         if (matchOrder.getGmtCreated() == null){
             matchOrderDo.setGmtCreated(new Date());
@@ -65,22 +66,27 @@ public class MatchOrderConverter {
         else{
             matchOrderDo.setGmtCreated(matchOrder.getGmtCreated());
         }
-        if (matchOrder.getMaterialIdList().size()!=matchOrder.getMaterialQuantityList().size()){
+        if (matchOrder.getMaterialNameList().size() == 0){
+            throw new LYSLException("物资名称列表不能为空",LYSLResultCodeEnum.DATA_INVALID);
+        }
+        if (matchOrder.getMaterialNameList().size()!=matchOrder.getMaterialQuantityList().size()){
             throw new LYSLException("物资名称列表与物资数量列表不匹配",LYSLResultCodeEnum.DATA_INVALID);
         }
         matchOrderDo.setMaterialId(matchOrder.getMaterialIdList().get(0));
         matchOrderDo.setMaterialQuantity(matchOrder.getMaterialQuantityList().get(0));
+        matchOrderDo.setMaterialName(matchOrder.getMaterialNameList().get(0));
         matchOrderDo.setGmtModified(new Date());
         matchOrderDo.setMatchingMethod(matchOrder.getMatchingMethod());
         matchOrderDo.setStatus(matchOrder.getStatus());
-        matchOrderDo.setTrackingNumber(matchOrder.getTrackingNumber());
-
+        matchOrderDo.setLogisticCode(matchOrder.getLogisticCode());
+        matchOrder.setShipperCode(matchOrder.getShipperCode());
         matchOrderDoList.add(matchOrderDo);
         for (int i = 1;i<matchOrder.getMaterialIdList().size();i++){
             try{
                 MatchOrderDo matchOrderDo1 = matchOrderDo.clone();
                 matchOrderDo1.setMaterialId(matchOrder.getMaterialIdList().get(i));
                 matchOrderDo1.setMaterialQuantity(matchOrder.getMaterialQuantityList().get(i));
+                matchOrderDo1.setMaterialName(matchOrder.getMaterialNameList().get(i));
                 matchOrderDoList.add(matchOrderDo1);
             }
             catch (CloneNotSupportedException e) {
@@ -102,18 +108,24 @@ public class MatchOrderConverter {
             return null;
         }
         MatchOrderDo matchOrderDo = matchOrderDoList.get(0);
+        matchOrder.setId(matchOrderDo.getId());
         matchOrder.setDemandOrderId(matchOrderDo.getDemandOrderId());
         matchOrder.setDonationOrderId(matchOrderDo.getDonationOrderId());
         matchOrder.setDonorId(matchOrderDo.getDonorId());
         matchOrder.setDoneeId(matchOrderDo.getDoneeId());
+        matchOrder.setDoneeName(matchOrderDo.getDoneeName());
+        matchOrder.setDonorName(matchOrderDo.getDonorName());
         matchOrder.setGmtCreated(matchOrderDo.getGmtCreated());
         matchOrder.setStatus(matchOrderDo.getStatus());
-        matchOrder.setTrackingNumber(matchOrderDo.getTrackingNumber());
+        matchOrder.setLogisticCode(matchOrderDo.getLogisticCode());
+        matchOrder.setShipperCode(matchOrderDo.getShipperCode());
         matchOrder.setMaterialIdList(new ArrayList<>());
         matchOrder.setMaterialQuantityList(new ArrayList<>());
+        matchOrder.setMaterialNameList(new ArrayList<>());
         for (int i =0;i<matchOrderDoList.size();i++){
             matchOrder.getMaterialIdList().add(matchOrderDoList.get(i).getMaterialId());
             matchOrder.getMaterialQuantityList().add(matchOrderDoList.get(i).getMaterialQuantity());
+            matchOrder.getMaterialNameList().add(matchOrderDoList.get(i).getMaterialName());
         }
 
         return matchOrder;

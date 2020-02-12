@@ -1,15 +1,19 @@
 package com.whu.lysl.service.match.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.whu.lysl.base.converters.MatchOrderConverter;
+import com.whu.lysl.base.enums.DonationTypeEnum;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.enums.MatchingMethodEnum;
 import com.whu.lysl.base.enums.MatchingStatusEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
+import com.whu.lysl.base.utils.KdniaoTrackQueryAPI;
 import com.whu.lysl.dao.MatchOrderDAO;
 import com.whu.lysl.entity.condition.DonationOrderCondition;
 import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dbobj.MatchOrderDo;
 import com.whu.lysl.entity.dto.DonationOrder;
+import com.whu.lysl.entity.dto.ExpressInfo;
 import com.whu.lysl.entity.dto.MatchOrder;
 import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.service.institution.InstitutionService;
@@ -45,13 +49,15 @@ public class OrderMatchServiceImpl implements OrderMatchService {
         // 将DTO转换成DO，同时进行参数检查
         List<MatchOrderDo> matchOrderDoList = MatchOrderConverter.Model2DO(matchOrder);
 
+        DonationOrderCondition donationOrderCondition = new DonationOrderCondition.Builder().donationOrderId(matchOrder.getDonationOrderId()).build();
 
-//        DonationOrderCondition donationOrderCondition = new DonationOrderCondition(matchOrder.getDonationOrderId(),matchOrder.getDonorId(),matchOrder.getDonationType());
-//        List<DonationOrder> donationOrderList = donationOrderService.getDonationOrderByCondition(donationOrderCondition);
-//        if (donationOrderList.size() == 0){
-//            throw new LYSLException("捐赠单不存在",LYSLResultCodeEnum.DATA_INVALID);
-//        }
-
+        List<DonationOrder> donationOrderList = donationOrderService.getDonationOrderByCondition(donationOrderCondition);
+        if (donationOrderList.size() == 0){
+            throw new LYSLException("捐赠单不存在",LYSLResultCodeEnum.DATA_INVALID);
+        }
+        if (!donationOrderList.get(0).getDonationType().equals(matchOrder.getDonationType())){
+            throw new LYSLException("捐赠单类型不匹配",LYSLResultCodeEnum.DATA_INVALID);
+        }
         // TODO 去需求模块查询需求是否存在
         for (int i = 0;i< matchOrderDoList.size();i++){
             MatchOrderDo matchOrderDo = matchOrderDoList.get(i);
@@ -124,12 +130,14 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     /**
      * 更新物流单号
      * @param matchOrderId
-     * @param trackingNumber
+     * @param shipperCode
+     * @param logisticCode
      * @throws LYSLException
      */
     @Override
-    public void updateTrackingNumber(int matchOrderId, String trackingNumber) throws LYSLException {
-        matchOrderDAO.updateTrackingNumber(matchOrderId,trackingNumber);
+    public void updateTrackingNumber(int matchOrderId,String shipperCode,String logisticCode) throws LYSLException {
+        // TODO : 更改完所有记录
+        matchOrderDAO.updateLogisticInfo(matchOrderId,shipperCode,logisticCode);
     }
 
     /**
@@ -140,8 +148,16 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     @Override
     public List<MatchOrder> getMatchOrderList(MatchOrderCondition matchOrderCondition) {
 
-        List<MatchOrderCondition> matchOrderConditionList = matchOrderDAO.getMatchOrderGroupList(matchOrderCondition);
         List<MatchOrder> matchOrderList = new ArrayList<>();
+        List<MatchOrderCondition> matchOrderConditionList = new ArrayList<>();
+        if (matchOrderCondition.isAllNull()){
+            matchOrderConditionList = matchOrderDAO.selectAllMatchOrder();
+        }
+        else{
+            matchOrderConditionList = matchOrderDAO.getMatchOrderGroupList(matchOrderCondition);
+        }
+
+
         for (int i =0;i<matchOrderConditionList.size();i++){
 
             List<MatchOrderDo> matchOrderDoList = matchOrderDAO.selectByDoneeIdAndDonationOrderIdAndDonorIdAndDoneeId(matchOrderConditionList.get(i));
@@ -151,6 +167,20 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
 
         return matchOrderList;
+    }
+
+    @Override
+    public ExpressInfo getTracesFromTrackingNumber(String ShipperCode,String trackingNumber) {
+        KdniaoTrackQueryAPI api = new KdniaoTrackQueryAPI();
+        String result = "";
+        try {
+            result = api.getOrderTracesByJson(ShipperCode, trackingNumber);
+            ExpressInfo expressInfo = JSON.parseObject(result,ExpressInfo.class);
+            return expressInfo;
+        } catch (Exception e) {
+            throw new LYSLException("查询物流单号接口调用失败",LYSLResultCodeEnum.SYSTEM_ERROR);
+        }
+
     }
 
 

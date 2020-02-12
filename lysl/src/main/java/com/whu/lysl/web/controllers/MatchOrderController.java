@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.whu.lysl.base.enums.DonationTypeEnum;
 import com.whu.lysl.base.enums.MatchingMethodEnum;
 import com.whu.lysl.base.enums.MatchingStatusEnum;
 
@@ -44,6 +45,7 @@ public class MatchOrderController extends LYSLBaseController {
             LYSLResult<Object> result = new LYSLResult<>();
             matchOrder.setStatus(MatchingStatusEnum.CHECKED.getCode()); //志愿者默认已审核
             matchOrder.setMatchingMethod(MatchingMethodEnum.ARTIFICAL_MATCHING.getCode());//人工审核
+            matchOrder.setDonationType(DonationTypeEnum.UNDIRECTED.getCode());
             orderMatchService.saveMatchOrder(matchOrder);
             return result;
         }, AuthEnum.IGNORE_VERIFY.getCode());
@@ -110,13 +112,27 @@ public class MatchOrderController extends LYSLBaseController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/updateCheckingNumber",method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateLogisticInfo",method = RequestMethod.PUT)
     public String updateCheckingNumber(HttpServletRequest request){
         LYSLResult<Object> res = protectController(request,() ->{
             LYSLResult<Object> result = new LYSLResult<>();
-            String trackingNumber = request.getParameter("trackingNumber");
+            String logisticCode = request.getParameter("logisticCode");
+            String shipperCode = request.getParameter("shipperCode");
             int matchOrderId = Integer.parseInt(request.getParameter("matchOrderId") + "");
-            orderMatchService.updateTrackingNumber(matchOrderId,trackingNumber);
+            orderMatchService.updateTrackingNumber(matchOrderId,shipperCode,logisticCode);
+            return result;
+        },AuthEnum.IGNORE_VERIFY.getCode());
+        return JSON.toJSONString(res);
+    }
+
+
+    @RequestMapping(value = "/getExpressInfo",method = RequestMethod.GET)
+    public String getTracesFromTrackingNumber(HttpServletRequest request){
+        LYSLResult<Object> res = protectController(request,() ->{
+            LYSLResult<Object> result = new LYSLResult<>();
+            String shipperCode = request.getParameter("shipperCode");
+            String trackingNumber = request.getParameter("trackingNumber") ;
+            result.setResultObj(orderMatchService.getTracesFromTrackingNumber(shipperCode,trackingNumber));
             return result;
         },AuthEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);
