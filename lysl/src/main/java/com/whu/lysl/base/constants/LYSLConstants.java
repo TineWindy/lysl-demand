@@ -8,4 +8,13 @@ package com.whu.lysl.base.constants;
  */
 public class LYSLConstants {
 
+    /** 七牛存储 ak */
+    public static final String QINIU_ACCESS_KEY = "jdPlajguEGrxj4EkkUDOi25m0xKwYgBvRGMP7cVo";
+
+    /** 七牛存储 sk */
+    public static final String QINIU_SECRET_KEY = "onUskAiK6GBssy-fQ31XDI0aUKEfUJCvxj9Ghm5P";
+
+    /** 七牛存储 bucket */
+    public static final String QINIU_BUCKET = "lysl-object";
+
 }

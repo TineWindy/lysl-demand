@@ -26,4 +26,17 @@ public interface InstitutionService {
      */
     List<Institution> getInstsByPartitionOfName(String name);
 
+    /**
+     * 新增一条机构数据
+     * @param institution 机构
+     */
+    int addAnInstitution(Institution institution);
+
+    /**
+     * 机构审核回调
+     * @param institutionId id
+     * @param isPassed 通过为true
+     */
+    void checkInstitutionStatus(int institutionId, boolean isPassed);
+
 }

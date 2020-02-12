@@ -11,8 +11,8 @@
         <property name="LOG_PATTERN" value="%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
         <!-- 定义日志存储的路径 -->
         <!--<property name="FILE_PATH" value="/Users/Visionary/Desktop/Magic/log/yhj_log" />-->
-        <property name="FILE_PATH" value="/home/ubuntu/log/yhj_log" />
-        <property name="FILE_NAME" value="yhj" />
+        <property name="FILE_PATH" value="/root/log/lysl" />
+        <property name="FILE_NAME" value="lysl" />
     </Properties>
 
     <appenders>
