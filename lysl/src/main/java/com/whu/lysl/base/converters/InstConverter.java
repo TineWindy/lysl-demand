@@ -30,6 +30,7 @@ public class InstConverter {
         institution.setGmtModified(institutionDO.getGmtModified());
         institution.setName(institutionDO.getName());
         institution.setCity(institutionDO.getCity());
+        institution.setRegion(institutionDO.getRegion());
         institution.setAddress(institutionDO.getAddress());
         institution.setStatus(institutionDO.getStatus());
         institution.setAuth(institutionDO.getAuth());
@@ -72,6 +73,7 @@ public class InstConverter {
         institutionVO.setGmtModified(institution.getGmtModified());
         institutionVO.setName(institution.getName());
         institutionVO.setCity(institution.getCity());
+        institutionVO.setRegion(institution.getRegion());
         institutionVO.setAddress(institution.getAddress());
         institutionVO.setStatus(institution.getStatus());
         institutionVO.setAuth(institution.getAuth());
@@ -94,6 +96,49 @@ public class InstConverter {
         }
 
         return institutionVOS;
+    }
+
+    /**
+     * vo 2 model
+     * @param institutionVO vo
+     * @return model
+     */
+    public static Institution vo2Model(InstitutionVO institutionVO) {
+        if (institutionVO == null) {
+            return null;
+        }
+
+        Institution institution = new Institution();
+        institution.setId(institutionVO.getId());
+        institution.setGmtCreated(institutionVO.getGmtCreated());
+        institution.setGmtModified(institutionVO.getGmtModified());
+        institution.setName(institutionVO.getName());
+        institution.setCity(institutionVO.getCity());
+        institution.setRegion(institutionVO.getRegion());
+        institution.setAddress(institutionVO.getAddress());
+        institution.setStatus(institutionVO.getStatus());
+        institution.setAuth(institutionVO.getAuth());
+        return institution;
+    }
+
+    public static InstitutionDO model2Do(Institution institution) {
+        if (institution == null) {
+            return null;
+        }
+
+        InstitutionDO institutionDO = new InstitutionDO();
+
+        institutionDO.setId(institution.getId());
+        institutionDO.setGmtCreated(institution.getGmtCreated());
+        institutionDO.setGmtModified(institution.getGmtModified());
+        institutionDO.setName(institution.getName());
+        institutionDO.setCity(institution.getCity());
+        institutionDO.setRegion(institution.getRegion());
+        institutionDO.setAddress(institution.getAddress());
+        institutionDO.setStatus(institution.getStatus());
+        institutionDO.setAuth(institution.getAuth());
+
+        return institutionDO;
     }
 
 }

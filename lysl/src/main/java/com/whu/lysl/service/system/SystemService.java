@@ -17,7 +17,7 @@ public interface SystemService {
      * @param configKey config key
      * @param status status
      * @param tag tag
-     * @return
+     * @return system config list
      */
     List<SystemConfig> getConfigsByKeyStatusTag(String configKey, String status, String tag);
 
@@ -27,5 +27,11 @@ public interface SystemService {
      * @param systemConfig systemConfig to be updated
      */
     void updateConfig(SystemConfig systemConfig);
+
+    /**
+     * 获取 七牛存储 token
+     * @return str token
+     */
+    String getQiniuToken();
 
 }
