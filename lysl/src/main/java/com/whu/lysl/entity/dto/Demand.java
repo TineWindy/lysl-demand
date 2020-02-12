@@ -11,9 +11,9 @@ import java.util.Date;
 @Data
 public class Demand {
 
-    private Integer id;
-
     private String gmtCreated;
+
+    private String gmtModified;
 
     private String demandId;
 
@@ -21,11 +21,11 @@ public class Demand {
 
     private int doneeId;
 
-    private String material;
+    private String materialName;
+
+    private int materialId;
 
     private int materialNum;
-
-    private String address;
 
     private String status;
 

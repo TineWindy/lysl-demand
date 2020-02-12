@@ -1,12 +1,25 @@
 package com.whu.lysl.service.demand.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.whu.lysl.base.converters.DemandConverter;
+import com.whu.lysl.base.converters.InstConverter;
+import com.whu.lysl.base.converters.UserConverter;
 import com.whu.lysl.dao.DemandDAO;
-import com.whu.lysl.entity.dto.Demand;
+import com.whu.lysl.dao.InstitutionDAO;
+import com.whu.lysl.dao.UserDAO;
+import com.whu.lysl.entity.dbobj.DemandDO;
+import com.whu.lysl.entity.dto.Institution;
+import com.whu.lysl.entity.dto.User;
+import com.whu.lysl.entity.vo.DemandVO;
 import com.whu.lysl.service.demand.DemandService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,18 +33,50 @@ public class DemandServiceImpl implements DemandService {
     @Resource
     private DemandDAO demandDAO;
 
+    @Resource
+    private InstitutionDAO institutionDAO;
+
+    @Resource
+    private UserDAO userDAO;
+
     @Override
-    public List<Demand> getUnreviewedDemands() {
-        return DemandConverter.batchDo2Model(demandDAO.showUnreviewedDemands());
+    @Transactional(rollbackFor = Exception.class)
+    public List<DemandVO> getUnreviewedDemands() {
+        List<DemandDO> demandDOList = demandDAO.showUnreviewedDemands();
+        return DemandConverter.installVO(demandDOList, institutionDAO, userDAO);
     }
 
     @Override
-    public void insertDemand(Demand demand){
-        demandDAO.insertDemand(DemandConverter.model2Do(demand));
+    @Transactional(rollbackFor = Exception.class)
+    public List<DemandVO> getUnreviewedDemandsById(String jsonString) {
+        List<DemandDO> demandDOList = demandDAO.showUnreviewedDemandsById(
+                (int) JSON.parseObject(jsonString).get("institutionId"));
+        return DemandConverter.installVO(demandDOList, institutionDAO, userDAO);
     }
 
     @Override
-    public void modifyStatus(String demandId, String status){
-        demandDAO.modifyStatus(demandId, status);
+    @Transactional(rollbackFor = Exception.class)
+    public void insertDemand(String jsonString){
+        JSONObject jsonObject = JSON.parseObject(jsonString);
+        Institution institution = jsonObject.toJavaObject(Institution.class);
+        User user = jsonObject.toJavaObject(User.class);
+        JSONArray materials = (JSONArray) jsonObject.get("materials");
+        String description = jsonObject.getString("description");
+        int institutionId = institutionDAO.update(InstConverter.model2Do(institution));
+        user.setInstitutionId(institutionId);
+        int userId = userDAO.update(UserConverter.model2DO(user));
+        List<DemandDO> demandDOList = DemandConverter.json2DO(institutionId, userId, description, materials);
+        for(DemandDO demandDO : demandDOList)
+            demandDAO.insertDemand(demandDO);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void modifyStatus(String jsonString){
+        JSONObject jsonObject = JSON.parseObject(jsonString);
+        String demandId = jsonObject.getString("demandId");
+        String status = jsonObject.getString("status");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        demandDAO.modifyStatus(demandId, status, df.format(new Date()));
     }
 }
