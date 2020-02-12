@@ -7,13 +7,21 @@
         donation_type, donor_id, donor_name, donee_id, donee_name, material_id, material_name, material_amount, deleted, status, love_pool_status
      </sql>
 
+    <sql id="MaterialOrderCols">
+        donation_order_id, material_id, material_name, maerial_amount
+     </sql>
+
     <sql id="DonationOrderTable">
         lysl_donation_order
     </sql>
 
+    <sql id="MaterialOrderTable">
+        lysl_material_order
+    </sql>
+
     <select id="selectByCondition" resultType="com.whu.lysl.entity.dbobj.DonationOrderDO"
           parameterType="com.whu.lysl.entity.condition.DonationOrderCondition">
-    SELECT donation_order_id, gmd_created, gmd_modified,
+    SELECT donation_order_id, gmt_created, gmt_modified,
     <include refid="DonationOrderCols"/>
     FROM
     <include refid="DonationOrderTable"/>
@@ -55,7 +63,33 @@
         order by donation_order_id desc
   </select>
 
-    <insert id="insertDonationOrder" keyProperty="donation_order_id" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
+    <select id="selectMaterialOrderByCondition" resultType="com.whu.lysl.entity.dbobj.MaterialOrderDO"
+            parameterType="com.whu.lysl.entity.condition.MaterialOrderCondition">
+        SELECT material_order_id, gmt_created, gmt_modified,
+        <include refid="MaterialOrderCols"/>
+        FROM
+        <include refid="MaterialOrderTable"/>
+        <where>
+            <if test="materialOrderId != null">
+                AND material_order_id = #{materialOrderId}
+            </if>
+            <if test="donationOrderId != null">
+                AND donation_order_id = #{donationOrderId}
+            </if>
+            <if test="materialId != null">
+                AND material_id = #{materialId}
+            </if>
+            <if test="materialName != null">
+                AND material_name = #{materialName}
+            </if>
+            <if test="materialAmount != null">
+                AND material_amount = #{materialAmount}
+            </if>
+        </where>
+        order by gmt_createtime desc
+    </select>
+
+    <insert id="insertDonationOrder" keyProperty="donation_order_id" useGeneratedKeys="true" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
     insert into
     <include refid="DonationOrderTable"/>
       (donor_id, donor_name, donation_type, donee_id, donee_name, material_id, material_name, material_amount, deleted, status, love_pool_status)
@@ -65,6 +99,15 @@
       #{materialId}, #{materialName}, #{materialAmount},
       #{deleted}, #{status}, #{lovePoolStatus})
   </insert>
+
+    <insert id="insertMaterialOrder" keyProperty="material_order_id" parameterType="com.whu.lysl.entity.dbobj.MaterialOrderDO">
+        insert into
+        <include refid="MaterialOrderTable"/>
+        (donation_order_id, material_id, material_name, maerial_amount)
+        values
+        (#{donationOrderId}, #{materialId},
+        #{materialName}, #{materialAmount})
+    </insert>
 
     <update id="updateDonationOrder" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
     update

@@ -203,4 +203,20 @@ public class DonationOrderController extends LYSLBaseController {
 
         return JSON.toJSONString(res);
     }
+
+    @RequestMapping(value="addTest", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String addTest(@RequestBody @Valid DonationOrderListVO donationOrderListVO, HttpServletRequest request) {
+        LYSLResult<Object> res = protectController(request, () -> {
+            LYSLResult<Object> result = new LYSLResult<>();
+            List<DonationOrderVO> donationOrderVOList = DonationOrderConverter.donationOrderList2ListDonationOrder(donationOrderListVO);
+
+            donationOrderService.insertDonationOrderDetail(donationOrderListVO);
+
+            result.setResultObj("提交捐赠单成功");
+            return result;
+        }, AuthEnum.IGNORE_VERIFY.getCode());
+
+        return JSON.toJSONString(res);
+    }
 }

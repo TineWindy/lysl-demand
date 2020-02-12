@@ -14,6 +14,11 @@ import javax.validation.constraints.NotNull;
 @Data
 public class MaterialOrderVO {
 
+
+    private Integer materialOrderId;
+
+    private Integer donationOrderId;
+
     /**
      * 物资id
      */

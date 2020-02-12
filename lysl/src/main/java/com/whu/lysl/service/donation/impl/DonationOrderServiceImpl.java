@@ -12,6 +12,7 @@ import com.whu.lysl.dao.DonationOrderDAO;
 import com.whu.lysl.entity.condition.DonationOrderCondition;
 import com.whu.lysl.entity.dbobj.DonationOrderDO;
 import com.whu.lysl.entity.dto.DonationOrder;
+import com.whu.lysl.entity.vo.DonationOrderListVO;
 import com.whu.lysl.service.donation.DonationOrderService;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.stereotype.Service;
@@ -105,6 +106,31 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         donationOrder.setDeleted(0);
         validateInsertDonatiionOrder(donationOrder);
         return donationOrderDAO.insertDonationOrder(DonationOrderConverter.model2Do(donationOrder));
+    }
+
+    @Override
+    public int insertDonationOrderDetail(DonationOrderListVO donationOrderListVO) {
+
+        DonationOrder donationOrder = new DonationOrder();
+
+        donationOrder.setDonorId(donationOrderListVO.getDonorId());
+        donationOrder.setDonorName(donationOrderListVO.getDonorName());
+        donationOrder.setDonationType(donationOrderListVO.getDonationType());
+
+        donationOrder.setDoneeName(donationOrderListVO.getDonorName());
+        donationOrder.setDoneeId(donationOrderListVO.getDoneeId());
+        donationOrder.setDoneeName(donationOrderListVO.getDoneeName());
+        // TODO prepare to remove
+        donationOrder.setMaterialName("null");
+        donationOrder.setMaterialId(1);
+        donationOrder.setMaterialAmount(1);
+
+        insertDonationOrder(donationOrder);
+        int donationOrderId = donationOrder.getDonationOrderId();
+
+
+
+        return 0;
     }
 
     @Override

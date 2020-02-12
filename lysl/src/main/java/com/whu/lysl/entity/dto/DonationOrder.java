@@ -14,9 +14,9 @@ public class DonationOrder {
 
     private Integer donationOrderId;
 
-    private Date gmdCreated;
+    private Date gmtCreated;
 
-    private Date gmdModified;
+    private Date gmtModified;
 
     /**
      * 捐赠主体 id

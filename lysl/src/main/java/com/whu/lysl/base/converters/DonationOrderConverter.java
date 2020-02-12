@@ -39,8 +39,8 @@ public class DonationOrderConverter {
         donationOrder.setMaterialAmount(donationOrderDO.getMaterialAmount());
         donationOrder.setDeleted(donationOrderDO.getDeleted());
         donationOrder.setStatus(donationOrderDO.getStatus());
-        donationOrder.setGmdCreated(donationOrderDO.getGmdCreated());
-        donationOrder.setGmdModified(donationOrderDO.getGmdModified());
+        donationOrder.setGmtCreated(donationOrderDO.getGmtCreated());
+        donationOrder.setGmtModified(donationOrderDO.getGmtModified());
         donationOrder.setLovePoolStatus(donationOrderDO.getLovePoolStatus());
 
         return donationOrder;
@@ -68,8 +68,8 @@ public class DonationOrderConverter {
         donationOrderDO.setMaterialAmount(donationOrder.getMaterialAmount());
         donationOrderDO.setDeleted(donationOrder.getDeleted());
         donationOrderDO.setStatus(donationOrder.getStatus());
-        donationOrderDO.setGmdCreated(donationOrder.getGmdCreated());
-        donationOrderDO.setGmdModified(donationOrder.getGmdModified());
+        donationOrderDO.setGmtCreated(donationOrder.getGmtCreated());
+        donationOrderDO.setGmtModified(donationOrder.getGmtModified());
         donationOrderDO.setLovePoolStatus(donationOrder.getLovePoolStatus());
 
 
@@ -217,13 +217,14 @@ public class DonationOrderConverter {
 
         for (MaterialOrderVO materialOrderVO: materialOrderVOS) {
             DonationOrderVO donationOrderVO = new DonationOrderVO();
-//            donationOrderVO.setDonationOrderId(donationOrderListVO.getDonationOrderId());
+            donationOrderVO.setDonationOrderId(donationOrderListVO.getDonationOrderId());
             donationOrderVO.setDonorId(donationOrderListVO.getDonorId());
             donationOrderVO.setDonorName(donationOrderListVO.getDonorName());
             donationOrderVO.setDonationType(donationOrderListVO.getDonationType());
             donationOrderVO.setDoneeId(donationOrderListVO.getDoneeId());
             donationOrderVO.setDoneeName(donationOrderListVO.getDoneeName());
 
+            donationOrderVO.setDonationOrderId(materialOrderVO.getDonationOrderId());
             donationOrderVO.setMaterialId(materialOrderVO.getMaterialId());
             donationOrderVO.setMaterialName(materialOrderVO.getMaterialName());
             donationOrderVO.setMaterialAmount(materialOrderVO.getMaterialAmount());
