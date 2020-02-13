@@ -61,10 +61,27 @@ public class DonationOrderVO {
 //    private Integer deleted;
 
     /**
-     * 审核状态 0-未审核 1-已审核 2-审核未通过
+     * 审核状态
      */
     private String status;
 
     private String lovePoolStatus;
+
+    /**
+     * 备注
+     */
+    private String remark;
+
+    /**
+     * 发货地
+     */
+    private String origin;
+
+    /**
+     * 目的地
+     */
+    private String destination;
+
+    private Integer userId;
 
 }

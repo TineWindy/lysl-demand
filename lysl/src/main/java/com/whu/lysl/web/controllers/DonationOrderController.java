@@ -1,6 +1,7 @@
 package com.whu.lysl.web.controllers;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.whu.lysl.base.converters.DonationOrderConverter;
@@ -9,8 +10,10 @@ import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.AssertUtils;
 import com.whu.lysl.entity.condition.DonationOrderCondition;
 import com.whu.lysl.entity.dto.DonationOrder;
+import com.whu.lysl.entity.dto.User;
 import com.whu.lysl.entity.vo.DonationOrderVO;
 import com.whu.lysl.service.donation.DonationOrderService;
+import com.whu.lysl.service.user.UserService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +35,8 @@ public class DonationOrderController extends LYSLBaseController {
 
     @Resource
     DonationOrderService donationOrderService;
+    @Resource
+    UserService userService;
 
     @RequestMapping(value = "queryDonationOrderByPage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
@@ -187,9 +192,18 @@ public class DonationOrderController extends LYSLBaseController {
     // TODO 修正文档
     @RequestMapping(value="addDonationOrder", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String addDonationOrder(@RequestBody @Valid DonationOrderVO donationOrderVO, HttpServletRequest request) {
+    public String addDonationOrder(@RequestBody String requestStr, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
+            JSONObject requestBody = JSON.parseObject(requestStr);
+            DonationOrderVO donationOrderVO = requestBody.getObject("donationOrder", DonationOrderVO.class);
+            AssertUtils.AssertNotNull(donationOrderVO, "donationOrder is null");
+            User user = requestBody.getObject("user", User.class);
+            AssertUtils.AssertNotNull(user, "user is null");
+
+            int userId = userService.addAnUser(user);
+            donationOrderVO.setUserId(userId);
+
             DonationOrder donationOrder = DonationOrderConverter.vo2Model(donationOrderVO);
             int donationOrderId = donationOrderService.insertDonationOrderDetail(donationOrder);
             result.setResultObj("捐赠清单ID: "+donationOrderId);

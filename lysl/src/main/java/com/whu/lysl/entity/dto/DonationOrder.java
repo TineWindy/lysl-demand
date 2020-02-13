@@ -59,4 +59,21 @@ public class DonationOrder {
 
     private String lovePoolStatus;
 
+    /**
+     * 备注
+     */
+    private String remark;
+
+    /**
+     * 发货地
+     */
+    private String origin;
+
+    /**
+     * 目的地
+     */
+    private String destination;
+
+    private Integer userId;
+
 }

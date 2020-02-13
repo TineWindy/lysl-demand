@@ -39,6 +39,11 @@ public class DonationOrderConverter {
         donationOrder.setGmtCreated(donationOrderDO.getGmtCreated());
         donationOrder.setGmtModified(donationOrderDO.getGmtModified());
         donationOrder.setLovePoolStatus(donationOrderDO.getLovePoolStatus());
+        donationOrder.setUserId(donationOrderDO.getUserId());
+
+        donationOrder.setOrigin(donationOrderDO.getOrigin());
+        donationOrder.setDestination(donationOrderDO.getDestination());
+        donationOrder.setRemark(donationOrderDO.getRemark());
 
         return donationOrder;
     }
@@ -66,6 +71,10 @@ public class DonationOrderConverter {
         donationOrderDO.setGmtCreated(donationOrder.getGmtCreated());
         donationOrderDO.setGmtModified(donationOrder.getGmtModified());
         donationOrderDO.setLovePoolStatus(donationOrder.getLovePoolStatus());
+        donationOrderDO.setUserId(donationOrder.getUserId());
+        donationOrderDO.setOrigin(donationOrder.getOrigin());
+        donationOrderDO.setDestination(donationOrder.getDestination());
+        donationOrderDO.setRemark(donationOrder.getRemark());
 
 
         return donationOrderDO;
@@ -90,6 +99,10 @@ public class DonationOrderConverter {
         donationOrderVO.setDoneeName(donationOrder.getDoneeName());
         donationOrderVO.setStatus(donationOrder.getStatus());
         donationOrderVO.setLovePoolStatus(donationOrder.getLovePoolStatus());
+        donationOrderVO.setUserId(donationOrder.getUserId());
+        donationOrderVO.setOrigin(donationOrder.getOrigin());
+        donationOrderVO.setDestination(donationOrder.getDestination());
+        donationOrderVO.setRemark(donationOrder.getRemark());
 
         List<MaterialOrderVO> materialOrderVOList = new ArrayList<>();
         if (donationOrder.getMaterialOrderList()==null) {
@@ -120,6 +133,11 @@ public class DonationOrderConverter {
         donationOrder.setDonorName(donationOrderVO.getDonorName());
         donationOrder.setDoneeId(donationOrderVO.getDoneeId());
         donationOrder.setDoneeName(donationOrderVO.getDoneeName());
+        donationOrder.setUserId(donationOrderVO.getUserId());
+
+        donationOrder.setOrigin(donationOrderVO.getOrigin());
+        donationOrder.setDestination(donationOrderVO.getDestination());
+        donationOrder.setRemark(donationOrderVO.getRemark());
 
         List<MaterialOrder> materialOrderList = new ArrayList<>();
         if (donationOrderVO.getMaterialOrderList()==null) {

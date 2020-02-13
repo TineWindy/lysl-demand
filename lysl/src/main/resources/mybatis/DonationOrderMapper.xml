@@ -4,7 +4,7 @@
 
 
     <sql id="DonationOrderCols">
-        donation_type, donor_id, donor_name, donee_id, donee_name, deleted, status, love_pool_status
+        donation_type, donor_id, donor_name, donee_id, donee_name, deleted, status, love_pool_status, user_id, origin, destination, remarkk
      </sql>
 
     <sql id="MaterialOrderCols">
@@ -47,6 +47,18 @@
         <if test="lovePoolStatus != null">
             AND love_pool_status = #{lovePoolStatus}
         </if>
+        <if test="userId != null">
+            AND user_id = #{userId}
+        </if>
+        <if test="origin != null">
+            AND origin = #{origin}
+        </if>
+        <if test="destination != null">
+            AND destination = #{destination}
+        </if>
+        <if test="remark != null">
+            AND remark = #{remark}
+        </if>
         AND deleted = 0
     </where>
         order by donation_order_id desc
@@ -81,11 +93,11 @@
     <insert id="insertDonationOrder" keyProperty="donationOrderId" useGeneratedKeys="true" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
     insert into
     <include refid="DonationOrderTable"/>
-      (donor_id, donor_name, donation_type, donee_id, donee_name, deleted, status, love_pool_status)
+      (donor_id, donor_name, donation_type, donee_id, donee_name, deleted, status, love_pool_status, user_id, origin, destination, remark)
     values
       (#{donorId}, #{donorName},
       #{donationType}, #{doneeId}, #{doneeName},
-      #{deleted}, #{status}, #{lovePoolStatus})
+      #{deleted}, #{status}, #{lovePoolStatus}, #{userId}, #{origin}, #{destination}, #{remark})
   </insert>
 
     <insert id="insertMaterialOrder" keyProperty="materialOrderId" parameterType="com.whu.lysl.entity.dbobj.MaterialOrderDO" useGeneratedKeys="true">
@@ -117,6 +129,18 @@
           </if>
           <if test="lovePoolStatus != null">
               love_pool_status = #{lovePoolStatus},
+          </if>
+          <if test="userId != null">
+              user_id = #{userId},
+          </if>
+          <if test="origin != null">
+              origin = #{origin},
+          </if>
+          <if test="destination != null">
+              destination = #{destination},
+          </if>
+          <if test="remark != null">
+              remark = #{remark},
           </if>
       </set>
       where donation_order_id = #{donationOrderId} and deleted = 0

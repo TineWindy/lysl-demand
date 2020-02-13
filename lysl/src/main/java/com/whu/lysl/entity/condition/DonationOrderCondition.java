@@ -23,7 +23,9 @@ public class DonationOrderCondition {
 
     private String lovePoolStatus;
 
-    public DonationOrderCondition(Integer donationOrderId, Integer donorId, String donationType, Integer doneeId, String status, Integer deleted, String lovePoolStatus) {
+    private Integer userId;
+
+    public DonationOrderCondition(Integer donationOrderId, Integer donorId, String donationType, Integer doneeId, String status, Integer deleted, String lovePoolStatus, Integer userId) {
         this.donationOrderId = donationOrderId;
         this.donorId = donorId;
         this.donationType = donationType;
@@ -31,6 +33,8 @@ public class DonationOrderCondition {
         this.status = status;
         this.deleted = deleted;
         this.lovePoolStatus = lovePoolStatus;
+        this.userId = userId;
+
     }
 
     public static final class Builder {
@@ -48,6 +52,8 @@ public class DonationOrderCondition {
         private Integer deleted;
 
         private String lovePoolStatus;
+
+        private Integer userId;
 
         public Builder donationOrderId(Integer donationOrderId) {
             this.donationOrderId = donationOrderId;
@@ -83,9 +89,13 @@ public class DonationOrderCondition {
             this.lovePoolStatus = lovePoolStatus;
             return this;
         }
+        public Builder userId(Integer userId) {
+            this.userId = userId;
+            return this;
+        }
 
         public DonationOrderCondition build() {
-            return new DonationOrderCondition(this.donationOrderId, this.donorId, this.donationType, this.doneeId, this.status, this.deleted, this.lovePoolStatus);
+            return new DonationOrderCondition(this.donationOrderId, this.donorId, this.donationType, this.doneeId, this.status, this.deleted, this.lovePoolStatus, this.userId);
         }
     }
 
