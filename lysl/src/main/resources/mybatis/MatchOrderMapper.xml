@@ -100,7 +100,7 @@
         </where>
     </select>
 
-    <select id="selectLogisticInfoByStatus" resultMap="com.whu.lysl.entity.dto.LogisticInfo" parameterType="string">
+    <select id="selectLogisticInfoByStatus" resultType="com.whu.lysl.entity.dto.LogisticInfo" parameterType="string">
         select id,logstic_code,shipper_code from <include refid="MatchOrderTable" />
         WHERE status in
         <foreach collection="statuses" item="status" open="(" separator="," close=")">

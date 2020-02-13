@@ -30,15 +30,9 @@ public class UserServiceImpl implements UserService {
 
         checkUser(user);
 
-        User oldUser = UserConverter.do2Model(userDAO.selectByPhone(user.getPhone()));
         UserDO userDO = UserConverter.model2DO(user);
-        if (oldUser == null) {
-            userDAO.insert(userDO);
-            return userDO.getId();
-        } else {
-            userDAO.update(UserConverter.model2DO(user));
-            return oldUser.getId();
-        }
+        userDAO.insert(userDO);
+        return userDO.getId();
 
     }
 
