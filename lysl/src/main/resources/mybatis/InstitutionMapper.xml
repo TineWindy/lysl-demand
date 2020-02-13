@@ -3,7 +3,7 @@
 <mapper namespace="com.whu.lysl.dao.InstitutionDAO">
 
     <sql id="InstCols">
-        name, province, city, address, status, auth
+        name, type, province, city, district, address, status, auth
      </sql>
 
     <sql id="InstTable">
@@ -37,11 +37,11 @@
         INSERT INTO
         <include refid="InstTable" />
         (
-        <include refid="InstCols" />
+        name, type, province, city, district, address, auth
         )
         VALUES (
-        name = #{name}, province = #{province}, city = #{city},
-        address = #{address}, auth = #{auth}
+        #{name}, #{type}, #{province}, #{city}, #{district},
+        #{address}, #{auth}
         )
     </insert>
 
@@ -49,10 +49,11 @@
         UPDATE <include refid="InstTable" />
         <set>
             <if test="name != null"> name = #{name}, </if>
+            <if test="type != null"> type = #{name}, </if>
             <if test="status != null"> status = #{status}, </if>
             <if test="province != null"> province = #{province}, </if>
             <if test="city != null"> city = #{city}, </if>
-            <if test="region != null"> region = #{region}, </if>
+            <if test="district != null"> district = #{district}, </if>
             <if test="address != null"> address = #{address}, </if>
             <if test="auth != null"> auth = #{auth}, </if>
         </set>
