@@ -3,7 +3,7 @@
 <mapper namespace="com.whu.lysl.dao.MatchOrderDAO">
 
     <sql id="MatchOrderCols">
-        gmt_created, donor_id, donee_id, material_id,material_quantity,status,donation_order_id,demand_order_id,tracking_number
+        id,gmt_created, donor_id, donee_id, material_id,material_quantity,status,donation_order_id,demand_order_id,logistic_code,shipper_code,donor_name,donee_name,material_name
      </sql>
 
     <sql id="MatchOrderTable">
@@ -14,9 +14,9 @@
 
     <insert id="saveMatchOrder" parameterType="com.whu.lysl.entity.dbobj.MatchOrderDo">
         insert into lysl_match_order(gmt_created,gmt_modified,donor_id,donee_id,material_id,material_quantity,status,
-        matching_method,donation_order_id,demand_order_id,tracking_number)
+        matching_method,donation_order_id,demand_order_id,tracking_number,donor_name,donee_name,material_name)
         values(#{gmtCreated},#{gmtModified},#{donorId},#{doneeId},#{materialId},#{materialQuantity},#{status},#{matchingMethod},#{donationOrderId},
-        #{demandOrderId},#{trackingNumber})
+        #{demandOrderId},#{trackingNumber},#{donorName},#{doneeName},#{materialName})
     </insert>
 
     <select id="selectDonationOrderIdByDonorId" resultType="int" parameterType="int">
@@ -47,13 +47,17 @@
         WHERE donee_id = #{doneeId} and demand_order_id = #{demandOrderId}
     </select>
 
+    <select id="selectAllMatchOrder" resultType="com.whu.lysl.entity.condition.MatchOrderCondition">
+        SELECT <include refid="MatchOrderCols"></include> FROM <include refid="MatchOrderTable" />
+        group by donor_id,donee_id,donation_order_id,demand_order_id
+    </select>
 
     <update id="updateStatus">
         UPDATE <include refid="MatchOrderTable"></include> SET status = #{status} where id = #{matchOrderId}
     </update>
 
-    <update id="updateTrackingNumber">
-        UPDATE <include refid="MatchOrderTable"></include> SET tracking_number = #{trackingNumber} where id = #{matchOrderId}
+    <update id="updateLogisticInfo">
+        UPDATE <include refid="MatchOrderTable"></include> SET logistic_code = #{logisticCode} , shipper_code = #{shipperCode} where id = #{matchOrderId}
     </update>
 
     <select id="getMatchOrderGroupList" resultType="com.whu.lysl.entity.condition.MatchOrderCondition" parameterType="com.whu.lysl.entity.condition.MatchOrderCondition">
@@ -94,6 +98,14 @@
                 AND donation_order_id = #{donationOrderId}
             </if>
         </where>
+    </select>
+
+    <select id="selectLogisticInfoByStatus" resultMap="com.whu.lysl.entity.dto.LogisticInfo" parameterType="string">
+        select id,logstic_code,shipper_code from <include refid="MatchOrderTable" />
+        WHERE status in
+        <foreach collection="statuses" item="status" open="(" separator="," close=")">
+            #{status}
+        </foreach>
     </select>
 
 </mapper>

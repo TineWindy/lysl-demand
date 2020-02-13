@@ -15,9 +15,9 @@ public enum DonationTypeEnum {
     DIRECTED("DIRECTED", "定向捐赠"),
 
     /**
-     * 审核状态
+     * 非定向捐赠
      */
-    UNDIRECTED("DIRECTED", "非定向捐赠");
+    UNDIRECTED("UNDIRECTED", "非定向捐赠");
 
 
     private String code;
