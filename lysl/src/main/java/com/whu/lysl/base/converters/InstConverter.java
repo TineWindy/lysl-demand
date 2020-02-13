@@ -136,6 +136,8 @@ public class InstConverter {
         institutionDO.setGmtModified(institution.getGmtModified());
         institutionDO.setName(institution.getName());
         institutionDO.setCity(institution.getCity());
+        institutionDO.setProvince(institution.getProvince());
+        institutionDO.setType(institution.getType());
         institutionDO.setDistrict(institution.getDistrict());
         institutionDO.setAddress(institution.getAddress());
         institutionDO.setStatus(institution.getStatus());
