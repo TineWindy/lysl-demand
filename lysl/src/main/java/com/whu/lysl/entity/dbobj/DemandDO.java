@@ -12,9 +12,9 @@ import java.util.Date;
 @Data
 public class DemandDO {
 
-    private Integer id;
-
     private String gmtCreated;
+
+    private String gmtModified;
 
     private String demandId;
 
@@ -22,11 +22,11 @@ public class DemandDO {
 
     private int doneeId;
 
-    private String material;
+    private int materialId;
+
+    private String materialName;
 
     private int materialNum;
-
-    private String address;
 
     private String status;
 

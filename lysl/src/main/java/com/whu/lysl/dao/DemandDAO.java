@@ -14,8 +14,10 @@ public interface DemandDAO {
 
     List<DemandDO> showUnreviewedDemands();
 
+    List<DemandDO> showUnreviewedDemandsById(int institutionId);
+
     void insertDemand(DemandDO demandDO);
 
-    void modifyStatus(String demandId, String status);
+    void modifyStatus(String demandId, String status, String gmtModified);
 
 }

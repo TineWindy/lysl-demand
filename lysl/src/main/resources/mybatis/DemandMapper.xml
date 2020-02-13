@@ -3,13 +3,14 @@
 <mapper namespace="com.whu.lysl.dao.DemandDAO">
 
     <insert id="insertDemand">
-      insert into lysl_demand_object (id,gmt_created,demand_id,institution_id,donee_id,material,material_num,address,status,description)
-      values (#{id},#{gmtCreated},#{demandId},#{institutionId},#{doneeId},#{material},#{materialNum},#{address},#{status},#{description})
+      insert into lysl_demand_object (gmt_created,gmt_modified,demand_id,institution_id,donee_id,material_name,material_id,material_num,status,description)
+      values (#{gmtCreated},#{gmtModified},#{demandId},#{institutionId},#{doneeId},#{materialName},#{materialId},#{materialNum},#{status},#{description})
     </insert>
 
     <update id="modifyStatus" parameterType="string">
       update lysl_demand_object set
-      status = #{param2}
+      status = #{param2},
+      gmt_modified = #{param3}
       where demand_id = #{param1}
     </update>
 
@@ -17,6 +18,12 @@
       select *
       from lysl_demand_object
       where status = '未审核'
+    </select>
+
+    <select id="showUnreviewedDemandsById" resultType="com.whu.lysl.entity.dbobj.DemandDO">
+      select *
+      from lysl_demand_object
+      where status = '未审核' AND institution_id = #{param1}
     </select>
 
 
