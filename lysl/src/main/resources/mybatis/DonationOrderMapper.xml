@@ -4,100 +4,159 @@
 
 
     <sql id="DonationOrderCols">
-        donation_type, donor_id, donor_name, donee_id, donee_name, material_id, material_name, material_amount, deleted, status, love_pool_status
+        donation_type, donor_id, donor_name, donee_id, donee_name, deleted, status, love_pool_status, user_id, origin, destination, remark
+     </sql>
+
+    <sql id="MaterialOrderCols">
+        donation_order_id, material_id, material_name, material_amount
      </sql>
 
     <sql id="DonationOrderTable">
         lysl_donation_order
     </sql>
 
-    <select id="selectByCondition" resultType="com.whu.lysl.entity.dbobj.DonationOrderDO"
-          parameterType="com.whu.lysl.entity.condition.DonationOrderCondition">
-    SELECT donation_order_id, gmd_created, gmd_modified,
-    <include refid="DonationOrderCols"/>
-    FROM
-    <include refid="DonationOrderTable"/>
-    <where>
-        <if test="donationOrderId != null">
-            AND donation_order_id = #{donationOrderId}
-        </if>
-        <if test="donorId != null">
-            AND donor_id = #{donorId}
-        </if>
-        <if test="donationType != null">
-            AND donation_type = #{donationType}
-        </if>
-        <if test="doneeId != null">
-            AND donee_id = #{doneeId}
-        </if>
-        <if test="doneeName != null">
-            AND donee_name = #{doneeName}
-        </if>
-        <if test="materialId != null">
-            AND material_id = #{materialId}
-        </if>
-        <if test="materialName != null">
-            AND material_name = #{materialName}
-        </if>
-        <if test="materialAmount != null">
-            AND material_amount = #{materialAmount}
-        </if>
-        <if test="status != null">
-            AND status = #{status}
-        </if>
-        <if test="deleted != null">
-            AND deleted = #{deleted}
-        </if>
-        <if test="lovePoolStatus != null">
-            AND love_pool_status = #{lovePoolStatus}
-        </if>
-    </where>
-        order by donation_order_id desc
-  </select>
+    <sql id="MaterialOrderTable">
+        lysl_material_order
+    </sql>
 
-    <insert id="insertDonationOrder" keyProperty="donation_order_id" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
-    insert into
-    <include refid="DonationOrderTable"/>
-      (donor_id, donor_name, donation_type, donee_id, donee_name, material_id, material_name, material_amount, deleted, status, love_pool_status)
-    values
-      (#{donorId}, #{donorName},
-      #{donationType}, #{doneeId}, #{doneeName},
-      #{materialId}, #{materialName}, #{materialAmount},
-      #{deleted}, #{status}, #{lovePoolStatus})
-  </insert>
+    <select id="selectByCondition" resultType="com.whu.lysl.entity.dbobj.DonationOrderDO"
+            parameterType="com.whu.lysl.entity.condition.DonationOrderCondition">
+        SELECT donation_order_id, gmt_created, gmt_modified,
+        <include refid="DonationOrderCols"/>
+        FROM
+        <include refid="DonationOrderTable"/>
+        <where>
+            <if test="donationOrderId != null">
+                AND donation_order_id = #{donationOrderId}
+            </if>
+            <if test="donorId != null">
+                AND donor_id = #{donorId}
+            </if>
+            <if test="donationType != null">
+                AND donation_type = #{donationType}
+            </if>
+            <if test="doneeId != null">
+                AND donee_id = #{doneeId}
+            </if>
+            <if test="doneeName != null">
+                AND donee_name = #{doneeName}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="lovePoolStatus != null">
+                AND love_pool_status = #{lovePoolStatus}
+            </if>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="origin != null">
+                AND origin = #{origin}
+            </if>
+            <if test="destination != null">
+                AND destination = #{destination}
+            </if>
+            <if test="remark != null">
+                AND remark = #{remark}
+            </if>
+            AND deleted = 0
+        </where>
+        order by donation_order_id desc
+    </select>
+
+    <select id="selectMaterialOrderByCondition" resultType="com.whu.lysl.entity.dbobj.MaterialOrderDO"
+            parameterType="com.whu.lysl.entity.condition.MaterialOrderCondition">
+        SELECT material_order_id, gmt_created, gmt_modified,
+        <include refid="MaterialOrderCols"/>
+        FROM
+        <include refid="MaterialOrderTable"/>
+        <where>
+            <if test="materialOrderId != null">
+                AND material_order_id = #{materialOrderId}
+            </if>
+            <if test="donationOrderId != null">
+                AND donation_order_id = #{donationOrderId}
+            </if>
+            <if test="materialId != null">
+                AND material_id = #{materialId}
+            </if>
+            <if test="materialName != null">
+                AND material_name = #{materialName}
+            </if>
+            <if test="materialAmount != null">
+                AND material_amount = #{materialAmount}
+            </if>
+        </where>
+        order by gmt_created desc
+    </select>
+
+    <insert id="insertDonationOrder" keyProperty="donationOrderId" useGeneratedKeys="true"
+            parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
+        insert into
+        <include refid="DonationOrderTable"/>
+        (donor_id, donor_name, donation_type, donee_id, donee_name, deleted, status, love_pool_status, user_id, origin,
+        destination, remark, auth_pic)
+        values
+        (
+        #{donorId}, #{donorName},
+        #{donationType}, #{doneeId}, #{doneeName},
+        #{deleted}, #{status}, #{lovePoolStatus}, #{userId}, #{origin}, #{destination}, #{remark}, #{authPic}
+        )
+    </insert>
+
+    <insert id="insertMaterialOrder" keyProperty="materialOrderId"
+            parameterType="com.whu.lysl.entity.dbobj.MaterialOrderDO" useGeneratedKeys="true">
+        insert into
+        <include refid="MaterialOrderTable"/>
+        (donation_order_id, material_id, material_name, material_amount)
+        values
+        (#{donationOrderId}, #{materialId}, #{materialName}, #{materialAmount})
+    </insert>
 
     <update id="updateDonationOrder" parameterType="com.whu.lysl.entity.dbobj.DonationOrderDO">
-    update
-      <include refid="DonationOrderTable"/>
-      <set>
-          <if test="donorId != null">
-              donor_id = #{donorId},
-          </if>
-          <if test="donationType != null">
-              donation_type = #{donationType},
-          </if>
-          <if test="doneeId != null">
-              donee_id = #{doneeId},
-          </if>
-          <if test="doneeName != null">
-              donee_name = #{doneeName},
-          </if>
-          <if test="materialId != null">
-              material_id = #{materialId},
-          </if>
-          <if test="materialName != null">
-              material_name = #{materialName},
-          </if>
-          <if test="materialAmount != null">
-              material_amount = #{materialAmount},
-          </if>
-          <if test="status != null">
-              status = #{status},
-          </if>
-          <if test="lovePoolStatus != null">
-              love_pool_status = #{lovePoolStatus},
-          </if>
-      </set>
-      where donation_order_id = #{donationOrderId}
-  </update>
+        update
+        <include refid="DonationOrderTable"/>
+        <set>
+            <if test="donorId != null">
+                donor_id = #{donorId},
+            </if>
+            <if test="donationType != null">
+                donation_type = #{donationType},
+            </if>
+            <if test="doneeId != null">
+                donee_id = #{doneeId},
+            </if>
+            <if test="doneeName != null">
+                donee_name = #{doneeName},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="lovePoolStatus != null">
+                love_pool_status = #{lovePoolStatus},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="origin != null">
+                origin = #{origin},
+            </if>
+            <if test="destination != null">
+                destination = #{destination},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </set>
+        where donation_order_id = #{donationOrderId} and deleted = 0
+    </update>
+
+    <update id="deleteDonationOrder" parameterType="Integer">
+        update
+        <include refid="DonationOrderTable"/>
+        <set>
+            deleted=1
+        </set>
+        where donation_order_id = #{donationOrderId}
+    </update>
 </mapper>

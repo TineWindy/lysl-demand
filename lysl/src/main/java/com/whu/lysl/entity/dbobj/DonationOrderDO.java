@@ -14,9 +14,9 @@ public class DonationOrderDO {
 
     private Integer donationOrderId;
 
-    private Date gmdCreated;
+    private Date gmtCreated;
 
-    private Date gmdModified;
+    private Date gmtModified;
 
     /**
      * 捐赠主体 id
@@ -69,5 +69,24 @@ public class DonationOrderDO {
      * 爱心池状态 NOT_IN_POOL-未加入爱心池 IN_POOL-已加入爱心池 ARTI_DISPATCHED-人工派单 AUTO_DISPATCHED-人工派单
      */
     private String lovePoolStatus;
+
+    /**
+     * 备注
+     */
+    private String remark;
+
+    /**
+     * 发货地
+     */
+    private String origin;
+
+    /**
+     * 目的地
+     */
+    private String destination;
+
+    private Integer userId;
+
+    private String authPic;
 
 }

@@ -1,12 +1,13 @@
 package com.whu.lysl.entity.vo;
 
+import com.whu.lysl.entity.dbobj.MaterialOrderDO;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-
+import java.util.Map;
+import java.util.List;
 /**
  * @Author Caspar
  * @CreateTime 2020/2/9 18:55
@@ -53,32 +54,37 @@ public class DonationOrderVO {
     private String doneeName;
 
     /**
-     * 物资id
+     * 捐赠对象名称
      */
-    @NotNull(message = "materialId is required")
-    @Min(value = 0, message = "materialId must have the type of Integer and must be positive")
-    private Integer materialId;
-
-    /**
-     * 物资名
-     */
-    @NotEmpty(message = "materialName is required")
-    private String materialName;
-
-    /**
-     * 物资数量
-     */
-    @NotNull(message = "materialAmount is required")
-    @Min(value = 0, message = "materialAmount must have the type of Integer and must be positives")
-    private Integer materialAmount;
+    private List<MaterialOrderVO> materialOrderList;
 
 //    private Integer deleted;
 
     /**
-     * 审核状态 0-未审核 1-已审核 2-审核未通过
+     * 审核状态
      */
     private String status;
 
     private String lovePoolStatus;
+
+    /**
+     * 备注
+     */
+    private String remark;
+
+    /**
+     * 发货地
+     */
+    private String origin;
+
+    /**
+     * 目的地
+     */
+    private String destination;
+
+    private Integer userId;
+
+    private String authPic;
+
 
 }
