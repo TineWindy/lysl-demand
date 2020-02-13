@@ -9,6 +9,8 @@ import com.whu.lysl.entity.dbobj.DemandDO;
 import com.whu.lysl.entity.dbobj.InstitutionDO;
 import com.whu.lysl.entity.dbobj.UserDO;
 import com.whu.lysl.entity.vo.DemandVO;
+import com.whu.lysl.service.institution.InstitutionService;
+import com.whu.lysl.service.user.UserService;
 
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
@@ -39,16 +41,17 @@ public class DemandConverter {
         return demandDOList;
     }
 
-    public static List<DemandVO> installVO(List<DemandDO> demandDOList, InstitutionDAO institutionDAO, UserDAO userDAO){
+    public static List<DemandVO> installVO(List<DemandDO> demandDOList,
+                                           InstitutionService institutionService, UserService userService){
         Map<String, DemandVO> demandVOMap = new HashMap<>();
         for(DemandDO demandDO : demandDOList) {
             String demandID = demandDO.getDemandId();
             if(demandVOMap.keySet().contains(demandID))
                 demandVOMap.get(demandID).addMaterial(demandDO);
             else{
-                InstitutionDO institutionDO = institutionDAO.
-                        selectByCondition(new InstCondition.Builder().id(demandDO.getInstitutionId()).build()).get(0);
-                UserDO userDO = userDAO.selectById(demandDO.getDoneeId());
+                InstitutionDO institutionDO = InstConverter.model2Do(institutionService.getInstsByCondition(
+                        new InstCondition.Builder().id(demandDO.getInstitutionId()).build()).get(0));
+                UserDO userDO = UserConverter.model2DO(userService.getUserById(demandDO.getDoneeId()));
                 DemandVO demandVO = new DemandVO(institutionDO, userDO, demandDO);
                 demandVOMap.put(demandID, demandVO);
             }

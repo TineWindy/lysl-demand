@@ -25,8 +25,8 @@ public class DemandController extends LYSLBaseController {
     @Resource
     private DemandService demandService;
 
-    @RequestMapping("getReviewedDemands")
-    public String getReviewedDemands(HttpServletRequest request) {
+    @RequestMapping("getUnreviewedDemands")
+    public String getUnreviewedDemands(HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
             List<DemandVO> demandList = demandService.getUnreviewedDemands();
@@ -37,8 +37,8 @@ public class DemandController extends LYSLBaseController {
         return JSON.toJSONString(res);
     }
 
-    @RequestMapping("getReviewedDemandsById")
-    public String getReviewedDemandsById(@RequestBody String jsonString, HttpServletRequest request) {
+    @RequestMapping("getUnreviewedDemandsById")
+    public String getUnreviewedDemandsById(@RequestBody String jsonString, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
             List<DemandVO> demandList = demandService.

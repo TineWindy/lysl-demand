@@ -1,33 +1,20 @@
 package com.whu.lysl;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.whu.lysl.base.utils.DateUtils;
-import com.whu.lysl.dao.DemandDAO;
-import com.whu.lysl.entity.dbobj.DemandDO;
-import com.whu.lysl.entity.dto.Institution;
-import com.whu.lysl.entity.dto.User;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.annotation.Resource;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 public class DemandTest {
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String args[]) {
         String jsonString = txt2String(new File("/Users/paul/Desktop/modify_request.txt"));
+//        JSONObject jsonObject = JSON.parseObject(jsonString);
+//        JSONObject institution = jsonObject.getJSONObject("institution");
+//        System.out.println(institution);
         sendRequest("http://localhost:8080/demand/modifyStatus", jsonString);
     }
 
@@ -55,7 +42,7 @@ public class DemandTest {
             URL realUrl = new URL(url);
             URLConnection con = realUrl.openConnection();
             HttpURLConnection conn = (HttpURLConnection) con;
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod("POST");
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");

@@ -49,7 +49,7 @@
         UPDATE <include refid="InstTable" />
         <set>
             <if test="name != null"> name = #{name}, </if>
-            <if test="type != null"> type = #{name}, </if>
+            <if test="type != null"> type = #{type}, </if>
             <if test="status != null"> status = #{status}, </if>
             <if test="province != null"> province = #{province}, </if>
             <if test="city != null"> city = #{city}, </if>

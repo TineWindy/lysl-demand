@@ -14,6 +14,8 @@ import com.whu.lysl.entity.dto.Institution;
 import com.whu.lysl.entity.dto.User;
 import com.whu.lysl.entity.vo.DemandVO;
 import com.whu.lysl.service.demand.DemandService;
+import com.whu.lysl.service.institution.InstitutionService;
+import com.whu.lysl.service.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,16 +36,16 @@ public class DemandServiceImpl implements DemandService {
     private DemandDAO demandDAO;
 
     @Resource
-    private InstitutionDAO institutionDAO;
+    private InstitutionService institutionService;
 
     @Resource
-    private UserDAO userDAO;
+    private UserService userService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public List<DemandVO> getUnreviewedDemands() {
         List<DemandDO> demandDOList = demandDAO.showUnreviewedDemands();
-        return DemandConverter.installVO(demandDOList, institutionDAO, userDAO);
+        return DemandConverter.installVO(demandDOList, institutionService, userService);
     }
 
     @Override
@@ -51,20 +53,22 @@ public class DemandServiceImpl implements DemandService {
     public List<DemandVO> getUnreviewedDemandsById(String jsonString) {
         List<DemandDO> demandDOList = demandDAO.showUnreviewedDemandsById(
                 (int) JSON.parseObject(jsonString).get("institutionId"));
-        return DemandConverter.installVO(demandDOList, institutionDAO, userDAO);
+        return DemandConverter.installVO(demandDOList, institutionService, userService);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void insertDemand(String jsonString){
         JSONObject jsonObject = JSON.parseObject(jsonString);
-        Institution institution = jsonObject.toJavaObject(Institution.class);
-        User user = jsonObject.toJavaObject(User.class);
+        JSONObject jsonInstitution = jsonObject.getJSONObject("institution");
+        JSONObject jsonUser = jsonObject.getJSONObject("donee");
+        Institution institution = jsonInstitution.toJavaObject(Institution.class);
+        User user = jsonUser.toJavaObject(User.class);
         JSONArray materials = (JSONArray) jsonObject.get("materials");
         String description = jsonObject.getString("description");
-        int institutionId = institutionDAO.update(InstConverter.model2Do(institution));
+        int institutionId = institutionService.addAnInstitution(institution);
         user.setInstitutionId(institutionId);
-        int userId = userDAO.update(UserConverter.model2DO(user));
+        int userId = userService.addAnUser(user);
         List<DemandDO> demandDOList = DemandConverter.json2DO(institutionId, userId, description, materials);
         for(DemandDO demandDO : demandDOList)
             demandDAO.insertDemand(demandDO);

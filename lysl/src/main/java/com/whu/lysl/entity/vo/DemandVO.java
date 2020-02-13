@@ -17,7 +17,7 @@ public class DemandVO {
 
     private String city;
 
-    private String region;
+    private String district;
 
     private String address;
 
@@ -42,7 +42,7 @@ public class DemandVO {
         institutionType = "hospital";
         province = institutionDO.getProvince();
         city = institutionDO.getCity();
-        region = institutionDO.getRegion();
+        district = institutionDO.getDistrict();
         address = institutionDO.getAddress();
         auth = institutionDO.getAuth();
         doneeName = userDO.getName();
