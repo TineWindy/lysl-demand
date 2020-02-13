@@ -202,7 +202,8 @@ public class DonationOrderController extends LYSLBaseController {
             AssertUtils.AssertNotNull(user, "user is null");
 
             int userId = userService.addAnUser(user);
-            donationOrderVO.setUserId(userId);
+            AssertUtils.AssertNotNull(userId, "user 插入失败！");
+            donationOrderVO.setUserId(6);
 
             DonationOrder donationOrder = DonationOrderConverter.vo2Model(donationOrderVO);
             int donationOrderId = donationOrderService.insertDonationOrderDetail(donationOrder);

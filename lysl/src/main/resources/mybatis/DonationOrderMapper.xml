@@ -4,7 +4,7 @@
 
 
     <sql id="DonationOrderCols">
-        donation_type, donor_id, donor_name, donee_id, donee_name, deleted, status, love_pool_status, user_id, origin, destination, remarkk
+        donation_type, donor_id, donor_name, donee_id, donee_name, deleted, status, love_pool_status, user_id, origin, destination, remark
      </sql>
 
     <sql id="MaterialOrderCols">

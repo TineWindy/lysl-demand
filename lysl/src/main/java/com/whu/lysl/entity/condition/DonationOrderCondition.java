@@ -25,6 +25,13 @@ public class DonationOrderCondition {
 
     private Integer userId;
 
+    private String origin;
+
+    private String destination;
+
+    private String remark;
+
+
     public DonationOrderCondition(Integer donationOrderId, Integer donorId, String donationType, Integer doneeId, String status, Integer deleted, String lovePoolStatus, Integer userId) {
         this.donationOrderId = donationOrderId;
         this.donorId = donorId;
@@ -54,6 +61,7 @@ public class DonationOrderCondition {
         private String lovePoolStatus;
 
         private Integer userId;
+
 
         public Builder donationOrderId(Integer donationOrderId) {
             this.donationOrderId = donationOrderId;

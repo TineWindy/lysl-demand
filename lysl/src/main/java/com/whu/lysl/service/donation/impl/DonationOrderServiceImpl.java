@@ -21,6 +21,8 @@ import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.service.institution.InstitutionService;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.RollbackRuleAttribute;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -140,10 +142,13 @@ public class DonationOrderServiceImpl implements DonationOrderService {
 //        return donationOrderDO.getDonationOrderId();
 //    }
 
-
+    @Transactional(rollbackFor = LYSLException.class)
     @Override
     public int insertDonationOrderDetail(DonationOrder donationOrder) {
-        int donationOrderId = insertDonationOrder(donationOrder);
+        Integer donationOrderId = insertDonationOrder(donationOrder);
+        if (donationOrderId==null || donationOrderId<=0) {
+            throw new LYSLException("插入捐赠清单失败" ,LYSLResultCodeEnum.SYSTEM_ERROR);
+        }
         for (MaterialOrder materialOrder: donationOrder.getMaterialOrderList()) {
             materialOrder.setDonationOrderId(donationOrderId);
             int ins_ans = insertMaterialOrder(materialOrder);
