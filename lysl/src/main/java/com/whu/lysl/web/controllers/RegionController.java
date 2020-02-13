@@ -34,10 +34,10 @@ public class RegionController extends LYSLBaseController {
 
     /**
      * 获取所有省份
-     * @param request
-     * @return
+     * @param request request
+     * @return json
      */
-    @RequestMapping(value = "/getProvinceList",method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/getProvinceList",method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String getProvinceList(HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
@@ -52,16 +52,15 @@ public class RegionController extends LYSLBaseController {
 
     /**
      * 获取指定省份城市列表
-     * @param request
-     * @return
+     * @param request request
+     * @return json
      */
-    @RequestMapping(value = "/getCityListByProvinceId",method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/getCityListByProvinceId",method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String getCityListByProvinceId(@RequestBody Map<String, Integer> map, HttpServletRequest request) {
+    public String getCityListByProvinceId( HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
-            AssertUtils.AssertNotNull(map.get("provinceId"));
-            List<City> listCity = regionService.getCityListByProvinceId(map.get("provinceId"));
+            List<City> listCity = regionService.getCityListByProvinceId(Integer.parseInt(request.getParameter("provinceId")));
             result.setResultObj(listCity);
             return result;
         }, AuthEnum.IGNORE_VERIFY.getCode());

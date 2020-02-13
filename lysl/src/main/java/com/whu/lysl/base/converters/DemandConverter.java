@@ -1,100 +1,75 @@
 package com.whu.lysl.base.converters;
 
-import com.whu.lysl.base.utils.DateUtils;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.whu.lysl.dao.InstitutionDAO;
+import com.whu.lysl.dao.UserDAO;
+import com.whu.lysl.entity.condition.InstCondition;
 import com.whu.lysl.entity.dbobj.DemandDO;
-import com.whu.lysl.entity.dto.Demand;
+import com.whu.lysl.entity.dbobj.InstitutionDO;
+import com.whu.lysl.entity.dbobj.UserDO;
+import com.whu.lysl.entity.vo.DemandVO;
+import com.whu.lysl.service.institution.InstitutionService;
+import com.whu.lysl.service.user.UserService;
 
-import javax.servlet.http.HttpServletRequest;
+import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DemandConverter {
-    /**
-     * do 2 model
-     * @param demandDO do
-     * @return model
-     */
-    public static Demand do2Model(DemandDO demandDO) {
-        if (demandDO == null) {
-            return null;
-        }
 
-        Demand demand = new Demand();
-        demand.setId(demandDO.getId());
-        demand.setMaterial(demandDO.getMaterial());
-        demand.setMaterialNum(demandDO.getMaterialNum());
-        demand.setGmtCreated(demandDO.getGmtCreated());
-        demand.setDemandId(demandDO.getDemandId());
-        demand.setInstitutionId(demandDO.getInstitutionId());
-        demand.setDoneeId(demandDO.getDoneeId());
-        demand.setAddress(demandDO.getAddress());
-        demand.setStatus(demandDO.getStatus());
-        demand.setDescription(demandDO.getDescription());
-        return demand;
-    }
+    public static List<DemandDO> json2DO(int institutionId, int userId, String description, JSONArray materials){
 
-    public static DemandDO model2Do(Demand demand) {
-        if (demand == null) {
-            return null;
-        }
-
-        DemandDO demandDO = new DemandDO();
-        demandDO.setId(demand.getId());
-        demandDO.setMaterial(demand.getMaterial());
-        demandDO.setMaterialNum(demand.getMaterialNum());
-        demandDO.setGmtCreated(demand.getGmtCreated());
-        demandDO.setDemandId(demand.getDemandId());
-        demandDO.setInstitutionId(demand.getInstitutionId());
-        demandDO.setDoneeId(demand.getDoneeId());
-        demandDO.setAddress(demand.getAddress());
-        demandDO.setStatus(demand.getStatus());
-        demandDO.setDescription(demand.getDescription());
-        return demandDO;
-    }
-
-    public static List<Demand> request2Models(HttpServletRequest request){
-        if (request == null) {
-            return null;
-        }
-        List<Demand> demandList = new ArrayList<>();
-        String[] materials = request.getParameter("material").split("and");
+        List<DemandDO> demandDOList = new ArrayList<>();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        for(String material : materials){
-            Demand demand = new Demand();
-            String[] materialMessage = material.split("in");
-            demand.setMaterial(materialMessage[0]);
-            demand.setMaterialNum(Integer.valueOf(materialMessage[1]));
-            demand.setGmtCreated(df.format(new Date()));
-            demand.setDemandId(request.getParameter("demandId"));
-            demand.setInstitutionId(Integer.valueOf(request.getParameter("institutionId")));
-            demand.setDoneeId(Integer.valueOf(request.getParameter("doneeId")));
-            demand.setAddress(request.getParameter("address"));
-            demand.setStatus(request.getParameter("status"));
-            demand.setDescription(request.getParameter("description"));
-            demandList.add(demand);
+        String demandId = generateRandom();
+        for(Object object : materials){
+            JSONObject material = (JSONObject) object;
+            DemandDO demandDO = new DemandDO();
+            demandDO.setGmtCreated(df.format(new Date()));
+            demandDO.setGmtModified(df.format(new Date()));
+            demandDO.setDemandId(demandId);
+            demandDO.setInstitutionId(institutionId);
+            demandDO.setDoneeId(userId);
+            demandDO.setMaterialName(material.getString("materialName"));
+            demandDO.setMaterialNum((int) material.get("materialNum"));
+            demandDO.setMaterialId((int) material.get("materialId"));
+            demandDO.setStatus("未审核");
+            demandDO.setDescription(description);
+            demandDOList.add(demandDO);
         }
-        return demandList;
+        return demandDOList;
     }
 
-    /**
-     * batch do 2 model
-     * @param demandDOS do list
-     * @return model list
-     */
-    public static List<Demand> batchDo2Model(List<DemandDO> demandDOS) {
-        List<Demand> demands = new ArrayList<>();
-
-        if(demandDOS == null) {
-            return demands;
+    public static List<DemandVO> installVO(List<DemandDO> demandDOList,
+                                           InstitutionService institutionService, UserService userService){
+        Map<String, DemandVO> demandVOMap = new HashMap<>();
+        for(DemandDO demandDO : demandDOList) {
+            String demandID = demandDO.getDemandId();
+            if(demandVOMap.keySet().contains(demandID))
+                demandVOMap.get(demandID).addMaterial(demandDO);
+            else{
+                InstitutionDO institutionDO = InstConverter.model2Do(institutionService.getInstsByCondition(
+                        new InstCondition.Builder().id(demandDO.getInstitutionId()).build()).get(0));
+                UserDO userDO = UserConverter.model2DO(userService.getUserById(demandDO.getDoneeId()));
+                DemandVO demandVO = new DemandVO(institutionDO, userDO, demandDO);
+                demandVOMap.put(demandID, demandVO);
+            }
         }
+        List<DemandVO> demandVOList = new ArrayList<>(demandVOMap.values());
+        for(DemandVO demandVO : demandVOList)
+            demandVO.encapsulation();
+        return demandVOList;
+    }
 
-        for (DemandDO demandDO: demandDOS) {
-            demands.add(do2Model(demandDO));
+    private static String generateRandom(){
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[31];
+        random.nextBytes(salt);
+        StringBuilder sb = new StringBuilder();
+        for (byte b : salt) {
+            sb.append(Math.abs(Byte.valueOf(b).intValue()) % 10);
         }
-
-        return demands;
+        return sb.toString();
     }
 }
