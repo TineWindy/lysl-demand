@@ -38,7 +38,7 @@ public class scheduleService {
 
         for(int i=0;i<logisticInfoList.size();i++){
             LogisticInfo logisticInfo = new LogisticInfo();
-            ExpressInfo expressInfo = orderMatchService.getTracesFromTrackingNumber(logisticInfo.getShipperCode(),logisticInfo.getLogisticCode());
+            ExpressInfo expressInfo = orderMatchService.getTracingFromExpressInfo(logisticInfo.getShipperCode(),logisticInfo.getLogisticCode());
             // 物件已签收
             if(expressInfo.getState() == 3){
                 orderMatchService.updateMatchOrderStatus(logisticInfo.getId(),MatchingStatusEnum.DELIVERED.getCode());

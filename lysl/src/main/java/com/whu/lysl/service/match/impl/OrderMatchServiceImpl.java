@@ -170,7 +170,7 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     }
 
     @Override
-    public ExpressInfo getTracesFromTrackingNumber(String ShipperCode,String trackingNumber) {
+    public ExpressInfo getTracingFromExpressInfo(String ShipperCode,String trackingNumber) {
         KdniaoTrackQueryAPI api = new KdniaoTrackQueryAPI();
         String result = "";
         try {
