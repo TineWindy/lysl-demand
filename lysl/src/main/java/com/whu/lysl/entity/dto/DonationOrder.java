@@ -76,4 +76,7 @@ public class DonationOrder {
 
     private Integer userId;
 
+    private String authPic;
+
+
 }

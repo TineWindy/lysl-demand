@@ -19,6 +19,7 @@ import com.whu.lysl.entity.dto.Institution;
 import com.whu.lysl.entity.dto.MaterialOrder;
 import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.service.institution.InstitutionService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,7 @@ import java.util.List;
  * @Description:
  */
 @Service
+@Slf4j
 public class DonationOrderServiceImpl implements DonationOrderService {
     @Resource
     private DonationOrderDAO donationOrderDAO;
@@ -124,8 +126,6 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         donationOrder.setLovePoolStatus(LovePoolStatusEnum.NOT_IN_POOL.getCode());
         donationOrder.setDeleted(0);
         validateInsertDonatiionOrder(donationOrder);
-        // 测试环境验证机构应该放在validateInsertDonatiionOrder中
-        validateIns(donationOrder.getDoneeId(), donationOrder.getDoneeName());
         DonationOrderDO donationOrderDO = DonationOrderConverter.model2Do(donationOrder);
         donationOrderDAO.insertDonationOrder(donationOrderDO);
         return donationOrderDO.getDonationOrderId();
@@ -145,6 +145,8 @@ public class DonationOrderServiceImpl implements DonationOrderService {
     @Transactional(rollbackFor = LYSLException.class)
     @Override
     public int insertDonationOrderDetail(DonationOrder donationOrder) {
+        log.info("开始新增一条捐赠：" + donationOrder);
+
         Integer donationOrderId = insertDonationOrder(donationOrder);
         if (donationOrderId==null || donationOrderId<=0) {
             throw new LYSLException("插入捐赠清单失败" ,LYSLResultCodeEnum.SYSTEM_ERROR);
@@ -156,8 +158,9 @@ public class DonationOrderServiceImpl implements DonationOrderService {
                 throw new LYSLException("插入物资清单失败:"+materialOrder.toString() ,LYSLResultCodeEnum.SYSTEM_ERROR);
             }
         }
-        return donationOrderId;
 
+        log.info("成功新增一条捐赠：" + donationOrder);
+        return donationOrderId;
     }
 
     @Override
@@ -212,10 +215,6 @@ public class DonationOrderServiceImpl implements DonationOrderService {
 
     public void validateInsertDonatiionOrder(DonationOrder donationOrder) {
         AssertUtils.AssertNotNull(donationOrder, "donationOrder is null");
-        AssertUtils.AssertNotNull(donationOrder.getDonorId(), "donorId is null");
-        AssertUtils.AssertNotNull(donationOrder.getDonorName(), "donorName is null");
-        AssertUtils.AssertNotNull(donationOrder.getDoneeId(), "doneeId is null");
-        AssertUtils.AssertNotNull(donationOrder.getDoneeName(), "doneeName is null");
         AssertUtils.AssertNotNull(donationOrder.getMaterialOrderList(), "materialOrderList is null");
 
         if (!EnumUtils.isValidEnum(DonationTypeEnum.class, donationOrder.getDonationType())) {
@@ -229,19 +228,11 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         }
 //        定向捐赠 donorId 非空， 非定向捐赠 donorId=-1
         if (StringUtils.equal(donationOrder.getDonationType(), DonationTypeEnum.DIRECTED.getCode())) {
-            if (donationOrder.getDoneeId()==-1) {
-                throw new LYSLException("定向捐赠 donorId 无效", LYSLResultCodeEnum.DATA_INVALID);
-            }
-            //TODO 校验donorId donorName 有效性 是否需要校验？
-
-
+            validateIns(donationOrder.getDoneeId(), donationOrder.getDoneeName());
         } else {
-            if (donationOrder.getDoneeId()!=-1) {
-                throw new LYSLException("非定向捐赠 donorId应当为 -1", LYSLResultCodeEnum.DATA_INVALID);
-            }
+            donationOrder.setDoneeId(-1);
         }
         //TODO 校验 materialId 和 materialName 有效性
-
 
     }
 
@@ -255,7 +246,7 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         List<Institution> institutionList = institutionService.getInstsByCondition(
                 new InstCondition.Builder().id(instId).name(isntName).build());
 
-        if (institutionList==null || institutionList.isEmpty()) {
+        if (institutionList == null || institutionList.isEmpty()) {
             throw new LYSLException("doneeId and doneeName do not match!", LYSLResultCodeEnum.DATA_INVALID);
         } else if (!StringUtils.equal(institutionList.get(0).getStatus()
                 , DonationOrderStatusEnum.APPROVED.getCode())) {

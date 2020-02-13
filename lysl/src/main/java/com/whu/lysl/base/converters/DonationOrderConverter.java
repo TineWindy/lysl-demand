@@ -44,6 +44,7 @@ public class DonationOrderConverter {
         donationOrder.setOrigin(donationOrderDO.getOrigin());
         donationOrder.setDestination(donationOrderDO.getDestination());
         donationOrder.setRemark(donationOrderDO.getRemark());
+        donationOrder.setAuthPic(donationOrderDO.getAuthPic());
 
         return donationOrder;
     }
@@ -75,6 +76,7 @@ public class DonationOrderConverter {
         donationOrderDO.setOrigin(donationOrder.getOrigin());
         donationOrderDO.setDestination(donationOrder.getDestination());
         donationOrderDO.setRemark(donationOrder.getRemark());
+        donationOrderDO.setAuthPic(donationOrder.getAuthPic());
 
 
         return donationOrderDO;
@@ -103,6 +105,7 @@ public class DonationOrderConverter {
         donationOrderVO.setOrigin(donationOrder.getOrigin());
         donationOrderVO.setDestination(donationOrder.getDestination());
         donationOrderVO.setRemark(donationOrder.getRemark());
+        donationOrderVO.setAuthPic(donationOrder.getAuthPic());
 
         List<MaterialOrderVO> materialOrderVOList = new ArrayList<>();
         if (donationOrder.getMaterialOrderList()==null) {
@@ -138,6 +141,7 @@ public class DonationOrderConverter {
         donationOrder.setOrigin(donationOrderVO.getOrigin());
         donationOrder.setDestination(donationOrderVO.getDestination());
         donationOrder.setRemark(donationOrderVO.getRemark());
+        donationOrder.setAuthPic(donationOrderVO.getAuthPic());
 
         List<MaterialOrder> materialOrderList = new ArrayList<>();
         if (donationOrderVO.getMaterialOrderList()==null) {

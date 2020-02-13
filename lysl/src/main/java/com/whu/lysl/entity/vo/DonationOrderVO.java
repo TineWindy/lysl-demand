@@ -84,4 +84,7 @@ public class DonationOrderVO {
 
     private Integer userId;
 
+    private String authPic;
+
+
 }
