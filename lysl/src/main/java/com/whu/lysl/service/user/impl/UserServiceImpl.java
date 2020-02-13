@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
      */
     private void checkUser(User user) {
         if (user == null || !StringUtils.isNotEmpty(user.getPhone()) ||
-                !StringUtils.isNotEmpty(user.getName()) || user.getInstitutionId() == null) {
+                !StringUtils.isNotEmpty(user.getName())) {
             throw new LYSLException("用户信息不完整", LYSLResultCodeEnum.DATA_INVALID);
         }
     }

@@ -1,7 +1,9 @@
 package com.whu.lysl.dao;
 
 import com.whu.lysl.entity.condition.DonationOrderCondition;
+import com.whu.lysl.entity.condition.MaterialOrderCondition;
 import com.whu.lysl.entity.dbobj.DonationOrderDO;
+import com.whu.lysl.entity.dbobj.MaterialOrderDO;
 import com.whu.lysl.entity.dto.DonationOrder;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
@@ -25,4 +27,9 @@ public interface DonationOrderDAO{
 
     int updateDonationOrder(DonationOrderDO donationOrder);
 
+    int insertMaterialOrder(MaterialOrderDO materialOrder);
+
+    List<MaterialOrderDO> selectMaterialOrderByCondition(MaterialOrderCondition donationOrderCondition);
+
+    int deleteDonationOrder(Integer donationOrderId);
 }
