@@ -20,8 +20,10 @@
             <if test="id != null">AND id = #{id}</if>
             <if test="name != null">AND name = #{name}</if>
             <if test="status != null">AND status = #{status}</if>
+            <if test="province != null">AND province = #{province}</if>
+            <if test="city != null">AND city = #{city}</if>
+            <if test="district != null">AND district = #{district}</if>
         </where>
-        LIMIT 1;
     </select>
 
     <select id="queryByPartitionOfName" resultType="com.whu.lysl.entity.dbobj.InstitutionDO">

@@ -38,19 +38,27 @@ public class DemandVO {
     private String description;
 
     public DemandVO(InstitutionDO institutionDO, UserDO userDO, DemandDO demandDO){
-        institutionName = institutionDO.getName();
-        institutionType = "hospital";
-        province = institutionDO.getProvince();
-        city = institutionDO.getCity();
-        district = institutionDO.getDistrict();
-        address = institutionDO.getAddress();
-        auth = institutionDO.getAuth();
-        doneeName = userDO.getName();
-        phone = userDO.getPhone();
-        wxNumber = userDO.getWxNumber();
-        demandId = demandDO.getDemandId();
-        addMaterial(demandDO);
-        description = demandDO.getDescription();
+        if (institutionDO != null) {
+            institutionName = institutionDO.getName();
+            institutionType = "hospital";
+            province = institutionDO.getProvince();
+            city = institutionDO.getCity();
+            district = institutionDO.getDistrict();
+            address = institutionDO.getAddress();
+            auth = institutionDO.getAuth();
+        }
+
+        if (userDO != null) {
+            doneeName = userDO.getName();
+            phone = userDO.getPhone();
+            wxNumber = userDO.getWxNumber();
+        }
+
+        if(demandDO != null) {
+            demandId = demandDO.getDemandId();
+            addMaterial(demandDO);
+            description = demandDO.getDescription();
+        }
     }
 
     public void addMaterial(DemandDO demandDO){

@@ -17,13 +17,24 @@
     <select id="showUnreviewedDemands" resultType="com.whu.lysl.entity.dbobj.DemandDO">
       select *
       from lysl_demand_object
-      where status = '未审核'
+      where status = 'UNCHECKED'
     </select>
 
     <select id="showUnreviewedDemandsById" resultType="com.whu.lysl.entity.dbobj.DemandDO">
       select *
       from lysl_demand_object
-      where status = '未审核' AND institution_id = #{param1}
+      where status = 'UNCHECKED' AND institution_id = #{param1}
+    </select>
+
+    <!--todo 建议不要使用 select *-->
+    <select id="selectByCondition" resultType="com.whu.lysl.entity.dbobj.DemandDO" >
+        SELECT *
+        FROM lysl_demand_object
+        <where>
+            <if test="demandId != null" > AND demand_id = #{demandId} </if>
+            <if test="status != null" > AND status = #{status} </if>
+            <if test="institutionId != null"> AND institution_id = #{institutionId}</if>
+        </where>
     </select>
 
 

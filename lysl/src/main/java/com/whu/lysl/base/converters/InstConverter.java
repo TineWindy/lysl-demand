@@ -30,6 +30,7 @@ public class InstConverter {
         institution.setGmtModified(institutionDO.getGmtModified());
         institution.setName(institutionDO.getName());
         institution.setType(institutionDO.getType());
+        institution.setProvince(institutionDO.getProvince());
         institution.setCity(institutionDO.getCity());
         institution.setDistrict(institutionDO.getDistrict());
         institution.setAddress(institutionDO.getAddress());
@@ -74,6 +75,7 @@ public class InstConverter {
         institutionVO.setGmtModified(institution.getGmtModified());
         institutionVO.setName(institution.getName());
         institutionVO.setType(institution.getType());
+        institutionVO.setProvince(institution.getProvince());
         institutionVO.setCity(institution.getCity());
         institutionVO.setDistrict(institution.getDistrict());
         institutionVO.setAddress(institution.getAddress());
@@ -116,6 +118,7 @@ public class InstConverter {
         institution.setGmtModified(institutionVO.getGmtModified());
         institution.setName(institutionVO.getName());
         institution.setType(institutionVO.getType());
+        institution.setProvince(institutionVO.getProvince());
         institution.setCity(institutionVO.getCity());
         institution.setDistrict(institutionVO.getDistrict());
         institution.setAddress(institutionVO.getAddress());
