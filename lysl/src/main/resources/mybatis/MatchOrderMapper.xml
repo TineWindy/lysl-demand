@@ -101,12 +101,12 @@
     </select>
 
 
-    <select id="selectLogisticInfoByStatus" resultType="com.whu.lysl.entity.dto.LogisticInfo" parameterType="string">
-        select id,logstic_code,shipper_code from <include refid="MatchOrderTable" />
+    <select id="selectLogisticInfoByStatus" resultType="com.whu.lysl.entity.dto.LogisticInfo" parameterType="list">
+        select id,logistic_code,shipper_code from <include refid="MatchOrderTable" />
         WHERE status in
-        <foreach collection="statuses" item="status" open="(" separator="," close=")">
+        <foreach collection="list" index="index" item="status" open="(" separator="," close=")">
             #{status}
-        </foreach>
+        </foreach> group by donor_id,donee_id,donation_order_id,demand_order_id
     </select>
 
 </mapper>

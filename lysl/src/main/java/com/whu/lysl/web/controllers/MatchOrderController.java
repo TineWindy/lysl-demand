@@ -126,13 +126,13 @@ public class MatchOrderController extends LYSLBaseController {
     }
 
 
-    @RequestMapping(value = "/getTracingFromExpressInfo",method = RequestMethod.GET)
-    public String getTracingFromExpressInfo(HttpServletRequest request){
+    @RequestMapping(value = "/getTracingByExpressInfo",method = RequestMethod.GET)
+    public String getTracingByExpressInfo(HttpServletRequest request){
         LYSLResult<Object> res = protectController(request,() ->{
             LYSLResult<Object> result = new LYSLResult<>();
             String shipperCode = request.getParameter("shipperCode");
             String trackingNumber = request.getParameter("trackingNumber") ;
-            result.setResultObj(orderMatchService.getTracingFromExpressInfo(shipperCode,trackingNumber));
+            result.setResultObj(orderMatchService.getTracingByExpressInfoFromRedis(shipperCode,trackingNumber));
             return result;
         },AuthEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);

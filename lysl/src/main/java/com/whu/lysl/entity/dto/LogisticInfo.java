@@ -14,4 +14,12 @@ public class LogisticInfo {
     private String logisticCode;
     private String shipperCode;
 
+    public String getKey(){
+        return shipperCode+logisticCode;
+    }
+
+    public LogisticInfo(String shipperCode,String logisticCode){
+        this.logisticCode = logisticCode;
+        this.shipperCode = shipperCode;
+    }
 }
