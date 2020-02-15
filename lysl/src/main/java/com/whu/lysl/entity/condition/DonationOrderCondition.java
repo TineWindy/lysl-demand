@@ -17,27 +17,31 @@ public class DonationOrderCondition {
 
     private String doneeName;
 
-    private Integer materialId;
-
-    private String materialName;
-
-    private Integer materialAmount;
-
     private String status;
 
     private Integer deleted;
 
     private String lovePoolStatus;
 
-    public DonationOrderCondition(Integer donationOrderId, Integer donorId, String donationType, Integer doneeId, Integer materialId, String status, Integer deleted, String lovePoolStatus) {
+    private Integer userId;
+
+    private String origin;
+
+    private String destination;
+
+    private String remark;
+
+
+    public DonationOrderCondition(Integer donationOrderId, Integer donorId, String donationType, Integer doneeId, String status, Integer deleted, String lovePoolStatus, Integer userId) {
         this.donationOrderId = donationOrderId;
         this.donorId = donorId;
         this.donationType = donationType;
         this.doneeId = doneeId;
-        this.materialId = materialId;
         this.status = status;
         this.deleted = deleted;
         this.lovePoolStatus = lovePoolStatus;
+        this.userId = userId;
+
     }
 
     public static final class Builder {
@@ -50,13 +54,14 @@ public class DonationOrderCondition {
 
         private Integer doneeId;
 
-        private Integer materialId;
-
         private String status;
 
         private Integer deleted;
 
         private String lovePoolStatus;
+
+        private Integer userId;
+
 
         public Builder donationOrderId(Integer donationOrderId) {
             this.donationOrderId = donationOrderId;
@@ -78,11 +83,6 @@ public class DonationOrderCondition {
             return this;
         }
 
-        public Builder materialId(Integer materialId) {
-            this.materialId = materialId;
-            return this;
-        }
-
         public Builder status(String status) {
             this.status = status;
             return this;
@@ -97,9 +97,13 @@ public class DonationOrderCondition {
             this.lovePoolStatus = lovePoolStatus;
             return this;
         }
+        public Builder userId(Integer userId) {
+            this.userId = userId;
+            return this;
+        }
 
         public DonationOrderCondition build() {
-            return new DonationOrderCondition(this.donationOrderId, this.donorId, this.donationType, this.doneeId, this.materialId, this.status, this.deleted, this.lovePoolStatus);
+            return new DonationOrderCondition(this.donationOrderId, this.donorId, this.donationType, this.doneeId, this.status, this.deleted, this.lovePoolStatus, this.userId);
         }
     }
 

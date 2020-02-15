@@ -61,15 +61,14 @@ public class LYSLBaseController {
             // 2. 核心处理逻辑
             result = logicCallBack.execute();
         } catch (LYSLException ge) {
+            log.error(ge.getMessage());
             result.setSuccess(false);
             result.setResultCode(ge.getErrorCode().getCode());
             result.setResultDesc(ge.getMessage());
 
             return result;
         } catch (Exception e) {
-
-            e.printStackTrace();
-
+            log.error(e.getMessage());
             result.setSuccess(false);
             result.setResultCode(LYSLResultCodeEnum.SYSTEM_ERROR.getCode());
             result.setResultDesc(LYSLResultCodeEnum.SYSTEM_ERROR.getDescription());

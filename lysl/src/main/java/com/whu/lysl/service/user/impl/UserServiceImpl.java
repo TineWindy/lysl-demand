@@ -5,6 +5,7 @@ import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.dao.UserDAO;
+import com.whu.lysl.entity.dbobj.UserDO;
 import com.whu.lysl.entity.dto.User;
 import com.whu.lysl.service.user.UserService;
 import org.springframework.stereotype.Service;
@@ -25,16 +26,13 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
 
     @Override
-    public void addAnUser(User user) {
+    public int addAnUser(User user) {
 
         checkUser(user);
 
-        User oldUser = UserConverter.do2Model(userDAO.selectByPhone(user.getPhone()));
-        if (oldUser == null) {
-            userDAO.insert(UserConverter.model2DO(user));
-        } else {
-            userDAO.update(UserConverter.model2DO(user));
-        }
+        UserDO userDO = UserConverter.model2DO(user);
+        userDAO.insert(userDO);
+        return userDO.getId();
 
     }
 
@@ -44,7 +42,7 @@ public class UserServiceImpl implements UserService {
      */
     private void checkUser(User user) {
         if (user == null || !StringUtils.isNotEmpty(user.getPhone()) ||
-                !StringUtils.isNotEmpty(user.getName()) || user.getInstitutionId() == null) {
+                !StringUtils.isNotEmpty(user.getName())) {
             throw new LYSLException("用户信息不完整", LYSLResultCodeEnum.DATA_INVALID);
         }
     }

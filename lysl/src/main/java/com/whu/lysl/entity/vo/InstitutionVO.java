@@ -20,11 +20,13 @@ public class InstitutionVO {
 
     private String name;
 
+    private String type;
+
     private String province;
 
     private String city;
 
-    private String region;
+    private String district;
 
     private String address;
 
