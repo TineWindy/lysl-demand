@@ -38,6 +38,7 @@ public class scheduleService {
         // 查询需要获取物流信息的相关记录
         List<String> statuses = new ArrayList<String>();
         statuses.add(MatchingStatusEnum.IN_TRANSIT.getCode());
+        statuses.add(MatchingStatusEnum.CHECKED.getCode());
         List<LogisticInfo> logisticInfoList = matchOrderDAO.selectLogisticInfoByStatus(statuses);
 
         for(int i=0;i<logisticInfoList.size();i++){
@@ -46,6 +47,10 @@ public class scheduleService {
             // 物件已签收
             if(expressInfo.getState() == 3){
                 orderMatchService.updateMatchOrderStatus(logisticInfo.getId(),MatchingStatusEnum.DELIVERED.getCode());
+            }
+            // 快递在运送中
+            if(expressInfo.getState() == 2){
+                orderMatchService.updateMatchOrderStatus(logisticInfo.getId(),MatchingStatusEnum.IN_TRANSIT.getCode());
             }
             // 存入缓存中，等待查询
             cacheService.addByKey("EXPRESSINFO",logisticInfo.getKey(),expressInfo,0);

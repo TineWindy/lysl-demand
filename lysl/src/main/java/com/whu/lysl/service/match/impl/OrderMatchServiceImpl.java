@@ -140,9 +140,7 @@ public class OrderMatchServiceImpl implements OrderMatchService {
      */
     @Override
     public void updateTrackingNumber(int matchOrderId,String shipperCode,String logisticCode) throws LYSLException {
-        // TODO : 更改完所有记录
         matchOrderDAO.updateLogisticInfo(matchOrderId,shipperCode,logisticCode);
-        matchOrderDAO.updateStatus(matchOrderId,MatchingStatusEnum.IN_TRANSIT.getCode());
     }
 
     /**
