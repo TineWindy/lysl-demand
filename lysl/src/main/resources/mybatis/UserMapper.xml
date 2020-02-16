@@ -35,7 +35,7 @@
     </update>
 
     <select id="selectById" resultType="com.whu.lysl.entity.dbobj.UserDO" >
-        SELECT id, gmt_created, gmt_modified
+        SELECT id, gmt_created, gmt_modified,
         <include refid="UserCols" />
         FROM
         <include refid="UserTable" />
@@ -43,7 +43,7 @@
     </select>
 
     <select id="selectByPhone" resultType="com.whu.lysl.entity.dbobj.UserDO" >
-        SELECT id, gmt_created, gmt_modified
+        SELECT id, gmt_created, gmt_modified,
         <include refid="UserCols" />
         FROM
         <include refid="UserTable" />
@@ -51,7 +51,7 @@
     </select>
 
     <select id="selectAllUser" resultType="com.whu.lysl.entity.dbobj.UserDO" >
-        SELECT id, gmt_created, gmt_modified
+        SELECT id, gmt_created, gmt_modified,
         <include refid="UserCols" />
         FROM
         <include refid="UserTable" />

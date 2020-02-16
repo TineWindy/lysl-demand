@@ -112,7 +112,7 @@ public class MatchOrderController extends LYSLBaseController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/updateLogisticInfo",method = RequestMethod.PUT)
+    @GetMapping(value = "/updateLogisticInfo")
     public String updateCheckingNumber(HttpServletRequest request){
         LYSLResult<Object> res = protectController(request,() ->{
             LYSLResult<Object> result = new LYSLResult<>();

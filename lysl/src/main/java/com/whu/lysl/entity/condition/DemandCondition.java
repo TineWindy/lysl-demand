@@ -9,32 +9,35 @@ import lombok.Data;
 @Data
 public class DemandCondition {
 
-    private Integer id;
-
-    private String Recipient;
+    private String demandId;
 
     private String status;
 
-    public DemandCondition(Integer id, String Recipient, String status) {
-        this.id = id;
-        this.Recipient = Recipient;
+    private Integer institutionId;
+
+    public DemandCondition(String demandId, String status, Integer institutionId) {
+        this.demandId = demandId;
         this.status = status;
+        this.institutionId = institutionId;
+    }
+
+    public DemandCondition() {
     }
 
     public static final class Builder {
-        private Integer id;
+        private Integer institutionId;
 
-        private String Recipient;
+        private String demandId;
 
         private String status;
 
-        public DemandCondition.Builder id(Integer id) {
-            this.id = id;
+        public DemandCondition.Builder institutionId(Integer institutionId) {
+            this.institutionId = institutionId;
             return this;
         }
 
-        public DemandCondition.Builder Recipient(String Recipient) {
-            this.Recipient = Recipient;
+        public DemandCondition.Builder demandId(String demandId) {
+            this.demandId = demandId;
             return this;
         }
 
@@ -44,7 +47,7 @@ public class DemandCondition {
         }
 
         public DemandCondition build() {
-            return new DemandCondition(this.id, this.Recipient, this.status);
+            return new DemandCondition(this.demandId, this.status, this.institutionId);
         }
     }
 }
