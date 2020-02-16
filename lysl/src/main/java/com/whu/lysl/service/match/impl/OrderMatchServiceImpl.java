@@ -163,11 +163,11 @@ public class OrderMatchServiceImpl implements OrderMatchService {
      * @throws LYSLException
      */
     @Override
-    public void updateTrackingNumber(int matchOrderId,String logisticCode,String remark) throws LYSLException {
+    public void updateTrackingNumber(int matchOrderId,String logisticCode,String remark,String picList) throws LYSLException {
         String result = "";
         try {
             if (!StringUtils.isNotEmpty(logisticCode)){
-                matchOrderDAO.updateLogisticInfo(matchOrderId,null,null,remark);
+                matchOrderDAO.updateLogisticInfo(matchOrderId,null,null,remark,null);
                 return;
             }
             KdniaoTrackQueryAPI api = new KdniaoTrackQueryAPI();
@@ -175,7 +175,7 @@ public class OrderMatchServiceImpl implements OrderMatchService {
             IdentifyOrderResponse identifyOrderResponse = JSON.parseObject(result,IdentifyOrderResponse.class);
             if(identifyOrderResponse != null && identifyOrderResponse.getShippers() != null && identifyOrderResponse.getShippers().size() != 0){
                 IdentifyOrderResponse.Shipper shipper = identifyOrderResponse.getShippers().get(0);
-                matchOrderDAO.updateLogisticInfo(matchOrderId,shipper.getShipperCode(),logisticCode,remark);
+                matchOrderDAO.updateLogisticInfo(matchOrderId,shipper.getShipperCode(),logisticCode,remark,picList);
             }
             else{
                 throw new LYSLException("物流单号查询失败",LYSLResultCodeEnum.DATA_INVALID);

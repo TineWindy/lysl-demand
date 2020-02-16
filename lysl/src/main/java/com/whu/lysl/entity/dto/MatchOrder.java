@@ -89,4 +89,8 @@ public class MatchOrder {
      * 捐赠者联系方式
      */
     String donorPhone;
+    /**
+     * 图片列表
+     */
+    String[] picList;
 }

@@ -48,7 +48,7 @@ public interface OrderMatchService {
      * @return
      * @throws LYSLException
      */
-    void updateTrackingNumber(int matchOrderId,String logisticCode,String remark) throws LYSLException;
+    void updateTrackingNumber(int matchOrderId,String logisticCode,String remark,String picList) throws LYSLException;
 
     /**
      * 根据状态，捐赠人Id，受赠人Id等查询匹配单

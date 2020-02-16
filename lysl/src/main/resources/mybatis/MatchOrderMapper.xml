@@ -4,7 +4,7 @@
 
     <sql id="MatchOrderCols">
         id,gmt_created, donor_id, donee_id, material_id,material_quantity,status,donation_order_id,demand_order_id,logistic_code,shipper_code,donor_name,donee_name,material_name
-        ,remark
+        ,remark,picList
      </sql>
 
     <sql id="MatchOrderTable">
@@ -58,7 +58,7 @@
     </update>
 
     <update id="updateLogisticInfo">
-        UPDATE <include refid="MatchOrderTable"></include> SET logistic_code = #{logisticCode} , shipper_code = #{shipperCode},remark = #{remark} where id = #{matchOrderId}
+        UPDATE <include refid="MatchOrderTable"></include> SET logistic_code = #{logisticCode} , shipper_code = #{shipperCode},remark = #{remark},picList = #{picList} where id = #{matchOrderId}
     </update>
 
     <select id="getMatchOrderGroupList" resultType="com.whu.lysl.entity.condition.MatchOrderCondition" parameterType="com.whu.lysl.entity.condition.MatchOrderCondition">
