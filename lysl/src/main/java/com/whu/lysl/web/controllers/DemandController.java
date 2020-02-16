@@ -43,7 +43,7 @@ public class DemandController extends LYSLBaseController {
 
     private class DemandOrderVO {
         // 必须是 public 否则 JSON 无法序列化
-        public String demandId;
+        public int demandId;
         public String insitituionName;
         public Date time;
         public String description;
@@ -170,7 +170,7 @@ public class DemandController extends LYSLBaseController {
             map.put("materialName", demandDO.getMaterialName());
             map.put("materialNum", demandDO.getMaterialNum() + "");
             demandOrderVO.materials.add(map);
-            demandOrderVO.demandId =  demandDO.getDemandId();
+            demandOrderVO.demandId =  Integer.parseInt(demandDO.getDemandId());
             demandOrderVO.description = demandDO.getDescription();
         }
 

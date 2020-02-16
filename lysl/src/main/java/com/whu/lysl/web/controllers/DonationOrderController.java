@@ -266,6 +266,9 @@ public class DonationOrderController extends LYSLBaseController {
 
                 matchOrder.setGmtCreated(donationOrder.getGmtCreated());
                 matchOrder.setDonorName(donationOrder.getDonorName());
+                matchOrder.setStatus("LOVE_POOL");
+                matchOrder.setDonationOrderId(donationOrder.getDonationOrderId());
+
                 if (donationOrder.getMaterialOrderList() != null) {
                     List<Integer> materialQuantityList = new ArrayList<>();
                     List<String > materialNameList = new ArrayList<>();
@@ -275,8 +278,10 @@ public class DonationOrderController extends LYSLBaseController {
                     }
                     matchOrder.setMaterialQuantityList(materialQuantityList);
                     matchOrder.setMaterialNameList(materialNameList);
-                    matchOrder.setStatus("LOVE_POOL");
                 }
+
+                User user = userService.getUserById(donationOrder.getDonorId());
+                matchOrder.setDonorPhone(user.getPhone());
 
                 matchOrders.add(matchOrder);
             }
