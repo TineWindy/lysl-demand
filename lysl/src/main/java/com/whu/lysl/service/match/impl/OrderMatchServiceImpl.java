@@ -9,9 +9,13 @@ import com.whu.lysl.base.enums.MatchingMethodEnum;
 import com.whu.lysl.base.enums.MatchingStatusEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.KdniaoTrackQueryAPI;
+import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.dao.MatchOrderDAO;
+import com.whu.lysl.entity.condition.DemandCondition;
 import com.whu.lysl.entity.condition.DonationOrderCondition;
+import com.whu.lysl.entity.condition.InstCondition;
 import com.whu.lysl.entity.condition.MatchOrderCondition;
+import com.whu.lysl.entity.dbobj.DemandDO;
 import com.whu.lysl.entity.dbobj.MatchOrderDo;
 
 import com.whu.lysl.entity.dto.*;
@@ -28,6 +32,7 @@ import com.whu.lysl.service.cache.CacheService;
 import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.service.institution.InstitutionService;
 import com.whu.lysl.service.match.OrderMatchService;
+import com.whu.lysl.service.user.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -52,7 +57,8 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     CacheService cacheService;
     @Resource
     DemandService demandService;
-
+    @Resource
+    UserService userService;
 
     /**
      * 定向捐赠后的匹配接口（在人工审核后调用）
@@ -147,22 +153,28 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
     }
 
+
     /**
      * 更新物流信息
      * @param matchOrderId
      * @param logisticCode
+     * @param remark
      * @throws LYSLException
      */
     @Override
-    public void updateTrackingNumber(int matchOrderId,String logisticCode) throws LYSLException {
+    public void updateTrackingNumber(int matchOrderId,String logisticCode,String remark) throws LYSLException {
         String result = "";
         try {
+            if (!StringUtils.isNotEmpty(logisticCode)){
+                matchOrderDAO.updateLogisticInfo(matchOrderId,null,null,remark);
+                return;
+            }
             KdniaoTrackQueryAPI api = new KdniaoTrackQueryAPI();
             result = api.identifyOrder(logisticCode);
             IdentifyOrderResponse identifyOrderResponse = JSON.parseObject(result,IdentifyOrderResponse.class);
             if(identifyOrderResponse != null && identifyOrderResponse.getShippers() != null && identifyOrderResponse.getShippers().size() != 0){
                 IdentifyOrderResponse.Shipper shipper = identifyOrderResponse.getShippers().get(0);
-                matchOrderDAO.updateLogisticInfo(matchOrderId,shipper.getShipperCode(),logisticCode);
+                matchOrderDAO.updateLogisticInfo(matchOrderId,shipper.getShipperCode(),logisticCode,remark);
             }
             else{
                 throw new LYSLException("物流单号查询失败",LYSLResultCodeEnum.DATA_INVALID);
@@ -230,15 +242,15 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     /**
      * 从缓冲中获取物流单状态
      * @param shipperCode
-     * @param trackingNumber
+     * @param logisticCode
      * @return
      */
     @Override
-    public ExpressInfo getTracingByExpressInfoFromRedis(String shipperCode, String trackingNumber){
-        LogisticInfo logisticInfo = new LogisticInfo(shipperCode,trackingNumber);
+    public ExpressInfo getTracingByExpressInfoFromRedis(String shipperCode, String logisticCode){
+        LogisticInfo logisticInfo = new LogisticInfo(shipperCode,logisticCode);
         ExpressInfo expressInfo = (ExpressInfo) cacheService.selectByKey("EXPRESSINFO",logisticInfo.getKey(),ExpressInfo.class);
         if(expressInfo == null){
-            expressInfo = getTracingByExpressInfo(shipperCode,trackingNumber);
+            expressInfo = getTracingByExpressInfo(shipperCode,logisticCode);
         }
         return  expressInfo;
     }
@@ -251,15 +263,26 @@ public class OrderMatchServiceImpl implements OrderMatchService {
      */
     @Override
     public String createHashByMatchOrder(MatchOrder matchOrder) {
-        InstAndMaterialInfo instAndMaterialInfo = new InstAndMaterialInfo();
-        instAndMaterialInfo.setMaterialNameList(matchOrder.getMaterialNameList());
-        instAndMaterialInfo.setMaterialQuantityList(matchOrder.getMaterialQuantityList());
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("institutionId", matchOrder.getDonorId());
-        String jsonStr = JSONObject.toJSONString(jsonObject);
-        List<DemandVO> demandList = demandService.getUnreviewedDemandsById(jsonStr);
+        InstAndMaterialInfo instAndMaterialInfo = new InstAndMaterialInfo(matchOrder.getId(),matchOrder.getMaterialNameList(),matchOrder.getMaterialQuantityList());
+
+        //暂时走不通
+//        List<DemandDO> demandDOS = demandService.getDemandsByCondition(new DemandCondition.Builder()
+//                .demandId(String.valueOf(matchOrder.getDemandOrderId())).build());
+//        if (demandDOS.size() == 0) {
+//            throw new LYSLException("该需求单不存在", LYSLResultCodeEnum.DATA_INVALID);
+//        }
+//        Institution institution = institutionService.getInstsByCondition(new InstCondition.Builder().
+//                id(demandDOS.get(0).getInstitutionId()).build()).get(0);
+//
+//        User user = userService.getUserById(demandDOS.get(0).getDoneeId());
+//
+//        instAndMaterialInfo.setAddress(institution.getAddress());
+//        instAndMaterialInfo.setInstName(institution.getName());
+//        instAndMaterialInfo.setRecipient(user.getName());
+//        instAndMaterialInfo.setRecipient(user.getPhone());
 
         String hashStr = String.valueOf(instAndMaterialInfo.hashCode());
+        System.out.println(hashStr);
         cacheService.addByKey("SUPPLYLOGISTICINFO",hashStr,instAndMaterialInfo,0);
         return hashStr;
     }

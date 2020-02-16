@@ -4,6 +4,7 @@
 
     <sql id="MatchOrderCols">
         id,gmt_created, donor_id, donee_id, material_id,material_quantity,status,donation_order_id,demand_order_id,logistic_code,shipper_code,donor_name,donee_name,material_name
+        ,remark
      </sql>
 
     <sql id="MatchOrderTable">
@@ -14,9 +15,9 @@
 
     <insert id="saveMatchOrder" parameterType="com.whu.lysl.entity.dbobj.MatchOrderDo">
         insert into lysl_match_order(gmt_created,gmt_modified,donor_id,donee_id,material_id,material_quantity,status,
-        matching_method,donation_order_id,demand_order_id,tracking_number,donor_name,donee_name,material_name)
+        matching_method,donation_order_id,demand_order_id,donor_name,donee_name,material_name,shipper_code,logistic_code)
         values(#{gmtCreated},#{gmtModified},#{donorId},#{doneeId},#{materialId},#{materialQuantity},#{status},#{matchingMethod},#{donationOrderId},
-        #{demandOrderId},#{trackingNumber},#{donorName},#{doneeName},#{materialName})
+        #{demandOrderId},#{donorName},#{doneeName},#{materialName},#{shipperCode},#{logisticCode})
     </insert>
 
     <select id="selectDonationOrderIdByDonorId" resultType="int" parameterType="int">
@@ -57,7 +58,7 @@
     </update>
 
     <update id="updateLogisticInfo">
-        UPDATE <include refid="MatchOrderTable"></include> SET logistic_code = #{logisticCode} , shipper_code = #{shipperCode} where id = #{matchOrderId}
+        UPDATE <include refid="MatchOrderTable"></include> SET logistic_code = #{logisticCode} , shipper_code = #{shipperCode},remark = #{remark} where id = #{matchOrderId}
     </update>
 
     <select id="getMatchOrderGroupList" resultType="com.whu.lysl.entity.condition.MatchOrderCondition" parameterType="com.whu.lysl.entity.condition.MatchOrderCondition">

@@ -19,5 +19,11 @@ public class InstAndMaterialInfo {
     String tel;
     List<String> materialNameList;
     List<Integer> materialQuantityList;
+    int matchOrderId;
 
+    public InstAndMaterialInfo(int matchOrderId,List<String> materialNameList,List<Integer> materialQuantityList){
+        this.matchOrderId = matchOrderId;
+        this.materialNameList = materialNameList;
+        this.materialQuantityList = materialQuantityList;
+    }
 }

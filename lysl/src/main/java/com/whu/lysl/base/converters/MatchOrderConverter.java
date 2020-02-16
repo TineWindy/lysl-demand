@@ -122,6 +122,7 @@ public class MatchOrderConverter {
         matchOrder.setMaterialIdList(new ArrayList<>());
         matchOrder.setMaterialQuantityList(new ArrayList<>());
         matchOrder.setMaterialNameList(new ArrayList<>());
+        matchOrder.setRemark(matchOrderDo.getRemark());
         for (int i =0;i<matchOrderDoList.size();i++){
             matchOrder.getMaterialIdList().add(matchOrderDoList.get(i).getMaterialId());
             matchOrder.getMaterialQuantityList().add(matchOrderDoList.get(i).getMaterialQuantity());

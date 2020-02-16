@@ -81,4 +81,8 @@ public class MatchOrder {
      * 快递公司缩写
      */
     String shipperCode;
+    /**
+     * 备注信息
+     */
+    String remark;
 }

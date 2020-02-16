@@ -48,7 +48,7 @@ public interface OrderMatchService {
      * @return
      * @throws LYSLException
      */
-    void updateTrackingNumber(int matchOrderId,String logisticCode) throws LYSLException;
+    void updateTrackingNumber(int matchOrderId,String logisticCode,String remark) throws LYSLException;
 
     /**
      * 根据状态，捐赠人Id，受赠人Id等查询匹配单
@@ -65,7 +65,7 @@ public interface OrderMatchService {
     /**
      * 从缓冲中获取物流单状态
      */
-    ExpressInfo getTracingByExpressInfoFromRedis(String shipperCode, String trackingNumber);
+    ExpressInfo getTracingByExpressInfoFromRedis(String shipperCode, String logisticCode);
 
 
     /**
