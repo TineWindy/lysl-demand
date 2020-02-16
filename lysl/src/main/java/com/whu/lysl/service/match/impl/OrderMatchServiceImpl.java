@@ -14,7 +14,9 @@ import com.whu.lysl.entity.condition.DonationOrderCondition;
 import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dbobj.MatchOrderDo;
 import com.whu.lysl.entity.dto.*;
+import com.whu.lysl.entity.vo.DemandVO;
 import com.whu.lysl.service.cache.CacheService;
+import com.whu.lysl.service.demand.DemandService;
 import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.service.institution.InstitutionService;
 import com.whu.lysl.service.match.OrderMatchService;
@@ -40,6 +42,8 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     DonationOrderService donationOrderService;
     @Resource
     CacheService cacheService;
+    @Resource
+    DemandService demandService;
 
     /**
      * 定向捐赠后的匹配接口（在人工审核后调用）
@@ -223,5 +227,21 @@ public class OrderMatchServiceImpl implements OrderMatchService {
         }
         return  expressInfo;
     }
+
+    @Override
+    public String createHashByMatchOrder(MatchOrder matchOrder) {
+        InstAndMaterialInfo instAndMaterialInfo = new InstAndMaterialInfo();
+        instAndMaterialInfo.setMaterialNameList(matchOrder.getMaterialNameList());
+        instAndMaterialInfo.setMaterialQuantityList(matchOrder.getMaterialQuantityList());
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("institutionId", matchOrder.getDonorId());
+        String jsonStr = JSONObject.toJSONString(jsonObject);
+        List<DemandVO> demandList = demandService.getUnreviewedDemandsById(jsonStr);
+
+        String hashStr = String.valueOf(instAndMaterialInfo.hashCode());
+        cacheService.addByKey("SUPPLYLOGISTICINFO",hashStr,instAndMaterialInfo,0);
+        return hashStr;
+    }
+
 
 }
