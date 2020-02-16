@@ -31,7 +31,7 @@
         <include refid="InstCols"/>
         FROM
         <include refid="InstTable"/>
-        WHERE name LIKE CONCAT('%', #{name}, '%')
+        WHERE name LIKE CONCAT('%', #{name}, '%') AND status = 'APPROVED'
         LIMIT 10
     </select>
     

@@ -1,15 +1,12 @@
 package com.whu.lysl.web.controllers;
 
 import com.alibaba.fastjson.JSON;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.whu.lysl.base.enums.DonationOrderStatusEnum;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.entity.condition.DemandCondition;
 import com.whu.lysl.entity.condition.InstCondition;
 import com.whu.lysl.entity.dbobj.DemandDO;
-import com.whu.lysl.entity.dto.DonationOrder;
 import com.whu.lysl.entity.dto.Institution;
 import com.whu.lysl.entity.dto.User;
 import com.whu.lysl.entity.vo.DemandVO;
@@ -19,7 +16,6 @@ import com.whu.lysl.service.user.UserService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.expression.Lists;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -129,7 +125,7 @@ public class DemandController extends LYSLBaseController {
             });
 
             int fromIndex = (pageNo * pageSize) > demandOrderVOS.size() ?
-                    (demandOrderVOS.size() - 1) : (pageNo * pageSize);
+                    demandOrderVOS.size() : (pageNo * pageSize);
             int toIndex = (pageSize * (pageNo + 1)) > demandOrderVOS.size() ?
                     demandOrderVOS.size() : (pageSize * (pageNo + 1));
             List<DemandOrderVO> resList = demandOrderVOS.subList(fromIndex, toIndex);

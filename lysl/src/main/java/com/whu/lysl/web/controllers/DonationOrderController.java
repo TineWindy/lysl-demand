@@ -6,13 +6,18 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.whu.lysl.base.converters.DonationOrderConverter;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
+import com.whu.lysl.base.enums.LovePoolStatusEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.AssertUtils;
 import com.whu.lysl.entity.condition.DonationOrderCondition;
+import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dto.DonationOrder;
+import com.whu.lysl.entity.dto.MatchOrder;
+import com.whu.lysl.entity.dto.MaterialOrder;
 import com.whu.lysl.entity.dto.User;
 import com.whu.lysl.entity.vo.DonationOrderVO;
 import com.whu.lysl.service.donation.DonationOrderService;
+import com.whu.lysl.service.match.OrderMatchService;
 import com.whu.lysl.service.user.UserService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
@@ -20,8 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author Caspar
@@ -34,12 +38,13 @@ import java.util.Map;
 public class DonationOrderController extends LYSLBaseController {
 
     @Resource
-    DonationOrderService donationOrderService;
+    private DonationOrderService donationOrderService;
     @Resource
-    UserService userService;
+    private UserService userService;
+    @Resource
+    private OrderMatchService orderMatchService;
 
     @RequestMapping(value = "queryDonationOrderByPage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    @ResponseBody
     public String queryDonationOrderByPage(@RequestBody Map<String,Integer> map, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
@@ -56,7 +61,6 @@ public class DonationOrderController extends LYSLBaseController {
     }
 
     @RequestMapping(value = "queryDonationOrderByStatusByPage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    @ResponseBody
     public String queryDonationOrderByStatusByPage(@RequestBody Map<String, Object> map, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult();
@@ -76,7 +80,6 @@ public class DonationOrderController extends LYSLBaseController {
     }
 
     @RequestMapping(value = "queryDonationOrderByDonorIdByPage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    @ResponseBody
     public String queryDonationOrderByDonorIdByPage(@RequestBody Map<String, Integer> map, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
@@ -95,7 +98,6 @@ public class DonationOrderController extends LYSLBaseController {
 
 //    爱心池展示
     @RequestMapping(value = "queryLovePoolByPage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    @ResponseBody
     public String queryLovePoolByPage(@RequestBody Map<String, Object> map, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
@@ -116,7 +118,6 @@ public class DonationOrderController extends LYSLBaseController {
 
     // 修改爱心池状态
     @RequestMapping(value = "updateLovePoolStatus", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    @ResponseBody
     public String updateLovePoolStatus(@RequestBody Map<String, Object> map, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
@@ -166,7 +167,6 @@ public class DonationOrderController extends LYSLBaseController {
 //    }
 
     @RequestMapping(value="checkDonationOrder", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    @ResponseBody
     public String checkDonationOrder(@RequestBody Map<String,Object> map, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
@@ -191,7 +191,6 @@ public class DonationOrderController extends LYSLBaseController {
 
     // TODO 修正文档
     @RequestMapping(value="addDonationOrder", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    @ResponseBody
     public String addDonationOrder(@RequestBody String requestStr, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
@@ -215,4 +214,75 @@ public class DonationOrderController extends LYSLBaseController {
 
         return JSON.toJSONString(res);
     }
+
+    /**
+     * 获取 donation list
+     * @param request request
+     * @return json str
+     */
+    @GetMapping("getDonationList")
+    public String getDonationList(HttpServletRequest request) {
+        LYSLResult<Object> res = protectController(request, () -> {
+            LYSLResult<Object> result = new LYSLResult<>();
+
+            int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+            int pageSize = Integer.parseInt(request.getParameter("pageSize"));
+
+            List<DonationOrder> donationOrderList = donationOrderService.getDonationOrderInLovePool(
+                    LovePoolStatusEnum.IN_POOL.getCode());
+            List<MatchOrder> matchOrderList = orderMatchService.getMatchOrderList(new MatchOrderCondition());
+            matchOrderList.addAll(generateMathordersByDonations(donationOrderList));
+
+            matchOrderList.sort((MatchOrder o1, MatchOrder o2) -> {
+                if (o1.getGmtCreated().getTime() > o2.getGmtCreated().getTime()) {
+                    return 1;
+                }
+                return -1;
+            });
+
+            int fromIndex = (pageNo * pageSize) > matchOrderList.size() ?
+                    matchOrderList.size() : (pageNo * pageSize);
+            int toIndex = (pageSize * (pageNo + 1)) > matchOrderList.size() ?
+                    matchOrderList.size() : (pageSize * (pageNo + 1));
+
+            result.setResultObj(matchOrderList.subList(fromIndex, toIndex));
+            return result;
+        }, AuthEnum.IGNORE_VERIFY.getCode());
+
+        return JSON.toJSONString(res);
+    }
+
+    /**
+     * 将捐赠单转换为匹配单
+     * @param donationOrders 捐赠单
+     * @return 匹配单
+     */
+    private List<MatchOrder> generateMathordersByDonations(List<DonationOrder> donationOrders) {
+        List<MatchOrder> matchOrders = new ArrayList<>();
+
+        if (donationOrders != null) {
+            for (DonationOrder donationOrder: donationOrders) {
+                MatchOrder matchOrder = new MatchOrder();
+
+                matchOrder.setGmtCreated(donationOrder.getGmtCreated());
+                matchOrder.setDonorName(donationOrder.getDonorName());
+                if (donationOrder.getMaterialOrderList() != null) {
+                    List<Integer> materialQuantityList = new ArrayList<>();
+                    List<String > materialNameList = new ArrayList<>();
+                    for (MaterialOrder materialOrder: donationOrder.getMaterialOrderList()) {
+                        materialQuantityList.add(materialOrder.getMaterialAmount());
+                        materialNameList.add(materialOrder.getMaterialName());
+                    }
+                    matchOrder.setMaterialQuantityList(materialQuantityList);
+                    matchOrder.setMaterialNameList(materialNameList);
+                    matchOrder.setStatus("LOVE_POOL");
+                }
+
+                matchOrders.add(matchOrder);
+            }
+        }
+
+        return matchOrders;
+    }
+
 }
