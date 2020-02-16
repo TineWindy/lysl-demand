@@ -3,6 +3,7 @@ package com.whu.lysl.service.match;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dto.ExpressInfo;
+import com.whu.lysl.entity.dto.InstAndMaterialInfo;
 import com.whu.lysl.entity.dto.MatchOrder;
 
 import java.util.List;
@@ -73,5 +74,12 @@ public interface OrderMatchService {
      * @return
      */
     String createHashByMatchOrder(MatchOrder matchOrder);
+
+    /**
+     * 根据hash获取机构和物资信息
+     * @param hashStr
+     * @return
+     */
+    InstAndMaterialInfo getInstAndMaterialInfoByHash(String hashStr);
 
 }

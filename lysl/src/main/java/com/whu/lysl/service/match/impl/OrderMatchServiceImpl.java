@@ -80,6 +80,11 @@ public class OrderMatchServiceImpl implements OrderMatchService {
             matchOrderDAO.saveMatchOrder(matchOrderDo);
         }
 
+        // 保存相关信息至redis中，后期展示用
+        String hashStr = createHashByMatchOrder(matchOrder);
+
+        // TODO 发送短信
+
     }
 
     /**
@@ -239,6 +244,11 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     }
 
 
+    /**
+     * 根据物资相关信息生成hash值
+     * @param matchOrder
+     * @return
+     */
     @Override
     public String createHashByMatchOrder(MatchOrder matchOrder) {
         InstAndMaterialInfo instAndMaterialInfo = new InstAndMaterialInfo();
@@ -252,6 +262,15 @@ public class OrderMatchServiceImpl implements OrderMatchService {
         String hashStr = String.valueOf(instAndMaterialInfo.hashCode());
         cacheService.addByKey("SUPPLYLOGISTICINFO",hashStr,instAndMaterialInfo,0);
         return hashStr;
+    }
+
+    @Override
+    public InstAndMaterialInfo getInstAndMaterialInfoByHash(String hashStr) {
+        InstAndMaterialInfo instAndMaterialInfo = (InstAndMaterialInfo) cacheService.selectByKey("SUPPLYLOGISTICINFO",hashStr,InstAndMaterialInfo.class);
+        if (instAndMaterialInfo == null){
+            throw new LYSLException("未查询到相关信息，请确认hash是否有误",LYSLResultCodeEnum.DATA_INVALID);
+        }
+        return instAndMaterialInfo;
     }
 
 
