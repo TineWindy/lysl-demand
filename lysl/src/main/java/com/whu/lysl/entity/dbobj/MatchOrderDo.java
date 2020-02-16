@@ -76,6 +76,10 @@ public class MatchOrderDo implements Cloneable{
      * 快递公司缩写
      */
     String shipperCode;
+    /**
+     * 备注信息
+     */
+    String remark;
 
     @Override
     public MatchOrderDo clone() throws CloneNotSupportedException {

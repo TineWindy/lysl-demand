@@ -68,7 +68,29 @@ public class KdniaoTrackQueryAPI {
 		
 		return result;
 	}
- 
+
+	/**
+	 * Json方式 单号识别
+	 * @throws Exception
+	 */
+	public String identifyOrder(String expNo) throws Exception{
+		String requestData= "{'LogisticCode':'" + expNo + "'}";
+
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("RequestData", urlEncoder(requestData, "UTF-8"));
+		params.put("EBusinessID", EBusinessID);
+		params.put("RequestType", "2002");
+		String dataSign=encrypt(requestData, AppKey, "UTF-8");
+		params.put("DataSign", urlEncoder(dataSign, "UTF-8"));
+		params.put("DataType", "2");
+
+		String result=sendPost(ReqURL, params);
+
+		//根据公司业务处理返回的信息......
+
+		return result;
+	}
+
 	/**
      * MD5加密
      * @param str 内容       

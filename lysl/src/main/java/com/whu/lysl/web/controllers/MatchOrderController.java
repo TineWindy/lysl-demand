@@ -112,27 +112,48 @@ public class MatchOrderController extends LYSLBaseController {
      * @param request
      * @return
      */
-    @GetMapping(value = "/updateLogisticInfo")
+    @RequestMapping(value = "/updateLogisticInfo",method = RequestMethod.PUT)
     public String updateCheckingNumber(HttpServletRequest request){
         LYSLResult<Object> res = protectController(request,() ->{
             LYSLResult<Object> result = new LYSLResult<>();
             String logisticCode = request.getParameter("logisticCode");
-            String shipperCode = request.getParameter("shipperCode");
+            String remark = request.getParameter("remark");
+//            String shipperCode = request.getParameter("shipperCode");
             int matchOrderId = Integer.parseInt(request.getParameter("matchOrderId") + "");
-            orderMatchService.updateTrackingNumber(matchOrderId,shipperCode,logisticCode);
+            orderMatchService.updateTrackingNumber(matchOrderId,logisticCode,remark);
             return result;
         },AuthEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);
     }
 
-
+    /**
+     * 根据快递信息获取物流情况
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/getTracingByExpressInfo",method = RequestMethod.GET)
     public String getTracingByExpressInfo(HttpServletRequest request){
         LYSLResult<Object> res = protectController(request,() ->{
             LYSLResult<Object> result = new LYSLResult<>();
             String shipperCode = request.getParameter("shipperCode");
-            String trackingNumber = request.getParameter("trackingNumber") ;
-            result.setResultObj(orderMatchService.getTracingByExpressInfoFromRedis(shipperCode,trackingNumber));
+            String logisticCode = request.getParameter("logisticCode") ;
+            result.setResultObj(orderMatchService.getTracingByExpressInfoFromRedis(shipperCode,logisticCode));
+            return result;
+        },AuthEnum.IGNORE_VERIFY.getCode());
+        return JSON.toJSONString(res);
+    }
+
+    /**
+     * 根据hash值获取机构和物资相关信息
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "getInstAndMaterialInfoByHash",method = RequestMethod.GET)
+    public String getInstAndMaterialInfo(HttpServletRequest request){
+        LYSLResult<Object> res = protectController(request,() ->{
+            LYSLResult<Object> result = new LYSLResult<>();
+            String hashCode = request.getParameter("hashCode");
+            result.setResultObj(orderMatchService.getInstAndMaterialInfoByHash(hashCode));
             return result;
         },AuthEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);

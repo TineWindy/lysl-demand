@@ -65,8 +65,9 @@ public interface MatchOrderDAO {
      * @param matchOrderId
      * @param logisticCode
      * @param shipperCode
+     * @param remark
      */
-    void updateLogisticInfo(int matchOrderId,String logisticCode,String shipperCode);
+    void updateLogisticInfo(int matchOrderId,String logisticCode,String shipperCode,String remark);
 
     /**
      * 通过捐赠者Id，捐赠单号，受赠者id，受赠者单号查询
