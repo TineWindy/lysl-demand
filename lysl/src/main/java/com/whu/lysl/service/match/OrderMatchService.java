@@ -59,5 +59,10 @@ public interface OrderMatchService {
     /**
      * 根据物流单号，获取物流单状态
      */
-    ExpressInfo getTracesFromTrackingNumber(String ShipperCode, String trackingNumber);
+    ExpressInfo getTracingByExpressInfo(String shipperCode, String trackingNumber);
+
+    /**
+     * 从缓冲中获取物流单状态
+     */
+    ExpressInfo getTracingByExpressInfoFromRedis(String shipperCode, String trackingNumber);
 }
