@@ -117,9 +117,9 @@ public class MatchOrderController extends LYSLBaseController {
         LYSLResult<Object> res = protectController(request,() ->{
             LYSLResult<Object> result = new LYSLResult<>();
             String logisticCode = request.getParameter("logisticCode");
-            String shipperCode = request.getParameter("shipperCode");
+//            String shipperCode = request.getParameter("shipperCode");
             int matchOrderId = Integer.parseInt(request.getParameter("matchOrderId") + "");
-            orderMatchService.updateTrackingNumber(matchOrderId,shipperCode,logisticCode);
+            orderMatchService.updateTrackingNumber(matchOrderId,logisticCode);
             return result;
         },AuthEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);

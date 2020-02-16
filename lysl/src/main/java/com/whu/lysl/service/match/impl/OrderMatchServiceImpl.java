@@ -1,6 +1,7 @@
 package com.whu.lysl.service.match.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.whu.lysl.base.converters.MatchOrderConverter;
 import com.whu.lysl.base.enums.DonationTypeEnum;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
@@ -12,10 +13,7 @@ import com.whu.lysl.dao.MatchOrderDAO;
 import com.whu.lysl.entity.condition.DonationOrderCondition;
 import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dbobj.MatchOrderDo;
-import com.whu.lysl.entity.dto.DonationOrder;
-import com.whu.lysl.entity.dto.ExpressInfo;
-import com.whu.lysl.entity.dto.LogisticInfo;
-import com.whu.lysl.entity.dto.MatchOrder;
+import com.whu.lysl.entity.dto.*;
 import com.whu.lysl.service.cache.CacheService;
 import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.service.institution.InstitutionService;
@@ -132,15 +130,33 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     }
 
     /**
-     * 更新物流单号
+     * 更新物流信息
      * @param matchOrderId
-     * @param shipperCode
      * @param logisticCode
      * @throws LYSLException
      */
     @Override
-    public void updateTrackingNumber(int matchOrderId,String shipperCode,String logisticCode) throws LYSLException {
-        matchOrderDAO.updateLogisticInfo(matchOrderId,shipperCode,logisticCode);
+    public void updateTrackingNumber(int matchOrderId,String logisticCode) throws LYSLException {
+        String result = "";
+        try {
+            KdniaoTrackQueryAPI api = new KdniaoTrackQueryAPI();
+            result = api.identifyOrder(logisticCode);
+            IdentifyOrderResponse identifyOrderResponse = JSON.parseObject(result,IdentifyOrderResponse.class);
+            if(identifyOrderResponse != null && identifyOrderResponse.getShippers() != null && identifyOrderResponse.getShippers().size() != 0){
+                IdentifyOrderResponse.Shipper shipper = identifyOrderResponse.getShippers().get(0);
+                matchOrderDAO.updateLogisticInfo(matchOrderId,shipper.getShipperCode(),logisticCode);
+            }
+            else{
+                throw new LYSLException("物流单号查询失败",LYSLResultCodeEnum.DATA_INVALID);
+            }
+        }
+        catch (LYSLException e){
+            throw e;
+        }
+        catch (Exception e) {
+            throw new LYSLException("验证物流单号接口调用失败",LYSLResultCodeEnum.SYSTEM_ERROR);
+        }
+
     }
 
     /**

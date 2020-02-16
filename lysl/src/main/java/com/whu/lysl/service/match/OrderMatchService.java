@@ -44,10 +44,10 @@ public interface OrderMatchService {
      * 更新物流单号
      * @param matchOrderId
      * @param logisticCode
-     * @param shipperCode
+     * @return
      * @throws LYSLException
      */
-    void updateTrackingNumber(int matchOrderId,String shipperCode,String logisticCode) throws LYSLException;
+    void updateTrackingNumber(int matchOrderId,String logisticCode) throws LYSLException;
 
     /**
      * 根据状态，捐赠人Id，受赠人Id等查询匹配单
