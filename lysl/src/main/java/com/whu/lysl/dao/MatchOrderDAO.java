@@ -92,5 +92,5 @@ public interface MatchOrderDAO {
      * 通过状态获取需要查询物流信息的相关记录
      * @return
      */
-    List<LogisticInfo> selectLogisticInfoByStatus(String[] statuse);
+    List<LogisticInfo> selectLogisticInfoByStatus(List<String> statuses);
 }

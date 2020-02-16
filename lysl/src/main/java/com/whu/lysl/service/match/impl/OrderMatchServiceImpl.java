@@ -14,7 +14,9 @@ import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dbobj.MatchOrderDo;
 import com.whu.lysl.entity.dto.DonationOrder;
 import com.whu.lysl.entity.dto.ExpressInfo;
+import com.whu.lysl.entity.dto.LogisticInfo;
 import com.whu.lysl.entity.dto.MatchOrder;
+import com.whu.lysl.service.cache.CacheService;
 import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.service.institution.InstitutionService;
 import com.whu.lysl.service.match.OrderMatchService;
@@ -38,6 +40,8 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     InstitutionService institutionService;
     @Resource
     DonationOrderService donationOrderService;
+    @Resource
+    CacheService cacheService;
 
     /**
      * 定向捐赠后的匹配接口（在人工审核后调用）
@@ -136,7 +140,6 @@ public class OrderMatchServiceImpl implements OrderMatchService {
      */
     @Override
     public void updateTrackingNumber(int matchOrderId,String shipperCode,String logisticCode) throws LYSLException {
-        // TODO : 更改完所有记录
         matchOrderDAO.updateLogisticInfo(matchOrderId,shipperCode,logisticCode);
     }
 
@@ -169,12 +172,18 @@ public class OrderMatchServiceImpl implements OrderMatchService {
         return matchOrderList;
     }
 
+    /**
+     * 根据物流单号调取api获取物流状态
+     * @param shipperCode
+     * @param trackingNumber
+     * @return
+     */
     @Override
-    public ExpressInfo getTracesFromTrackingNumber(String ShipperCode,String trackingNumber) {
+    public ExpressInfo getTracingByExpressInfo(String shipperCode,String trackingNumber) {
         KdniaoTrackQueryAPI api = new KdniaoTrackQueryAPI();
         String result = "";
         try {
-            result = api.getOrderTracesByJson(ShipperCode, trackingNumber);
+            result = api.getOrderTracesByJson(shipperCode, trackingNumber);
             ExpressInfo expressInfo = JSON.parseObject(result,ExpressInfo.class);
             return expressInfo;
         } catch (Exception e) {
@@ -183,5 +192,20 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
     }
 
+    /**
+     * 从缓冲中获取物流单状态
+     * @param shipperCode
+     * @param trackingNumber
+     * @return
+     */
+    @Override
+    public ExpressInfo getTracingByExpressInfoFromRedis(String shipperCode, String trackingNumber){
+        LogisticInfo logisticInfo = new LogisticInfo(shipperCode,trackingNumber);
+        ExpressInfo expressInfo = (ExpressInfo) cacheService.selectByKey("EXPRESSINFO",logisticInfo.getKey(),ExpressInfo.class);
+        if(expressInfo == null){
+            expressInfo = getTracingByExpressInfo(shipperCode,trackingNumber);
+        }
+        return  expressInfo;
+    }
 
 }
