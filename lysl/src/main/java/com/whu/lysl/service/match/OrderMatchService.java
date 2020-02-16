@@ -66,10 +66,12 @@ public interface OrderMatchService {
      */
     ExpressInfo getTracingByExpressInfoFromRedis(String shipperCode, String trackingNumber);
 
+
     /**
      * 根据匹配单获取hash，并将结果存入hash中
      * @param matchOrder
      * @return
      */
     String createHashByMatchOrder(MatchOrder matchOrder);
+
 }
