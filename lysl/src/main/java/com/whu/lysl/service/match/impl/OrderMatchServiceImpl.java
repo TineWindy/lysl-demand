@@ -18,6 +18,7 @@ import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dbobj.DemandDO;
 import com.whu.lysl.entity.dbobj.MatchOrderDo;
 
+import com.whu.lysl.entity.dbobj.UserDO;
 import com.whu.lysl.entity.dto.*;
 import com.whu.lysl.entity.vo.DemandVO;
 import com.whu.lysl.service.cache.CacheService;
@@ -212,6 +213,8 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
             List<MatchOrderDo> matchOrderDoList = matchOrderDAO.selectByDoneeIdAndDonationOrderIdAndDonorIdAndDoneeId(matchOrderConditionList.get(i));
             MatchOrder matchOrder = MatchOrderConverter.DO2Model(matchOrderDoList);
+            User user = userService.getUserById(matchOrder.getDonorId());
+            matchOrder.setDonorPhone(user.getPhone());
             matchOrderList.add(matchOrder);
         }
 

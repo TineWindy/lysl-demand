@@ -85,4 +85,8 @@ public class MatchOrder {
      * 备注信息
      */
     String remark;
+    /**
+     * 捐赠者联系方式
+     */
+    String donorPhone;
 }
