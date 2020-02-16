@@ -1,327 +1,220 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b8e96a5e-c874-413f-aa37-d82961ac2072" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_fastjson_1_2_59.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_9_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_jsqlparser_jsqlparser_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_pagehelper_pagehelper_5_1_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_pagehelper_pagehelper_spring_boot_autoconfigure_1_2_10.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_pagehelper_pagehelper_spring_boot_starter_1_2_10.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jayway_jsonpath_json_path_2_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_qiniu_qiniu_java_sdk_7_2_28.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_okhttp3_okhttp_3_14_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_okio_okio_1_17_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_zaxxer_HikariCP_3_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_11.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_lettuce_lettuce_core_5_1_8_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_buffer_4_1_38_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_codec_4_1_38_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_common_4_1_38_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_handler_4_1_38_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_resolver_4_1_38_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_transport_4_1_38_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_core_3_2_11_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_annotation_javax_annotation_api_1_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_validation_validation_api_2_0_1_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_11.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_9_16.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_9_16.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_accessors_smart_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_json_smart_2_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_11.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_11_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_core_2_11_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_jul_2_11_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_slf4j_impl_2_11_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_22.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_22.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_22.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_velocity_velocity_engine_core_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_3_11_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_library_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_17_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_3_2_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_23_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_generator_mybatis_generator_core_1_3_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_3_5_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_spring_2_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_spring_boot_mybatis_spring_boot_autoconfigure_2_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_spring_boot_mybatis_spring_boot_starter_2_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_2_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_5_0_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_reactivestreams_reactive_streams_1_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_skyscreamer_jsonassert_1_5_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_26.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_26.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_redis_2_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_log4j2_2_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_1_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_keyvalue_2_1_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_redis_2_1_10_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_1_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_1_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_1_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_1_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_1_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_1_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_1_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_1_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_oxm_5_1_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_1_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_1_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_1_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_1_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_xmlunit_xmlunit_core_2_6_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_23.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/java/com/whu/lysl/web/controllers/ManagerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/css/select.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/kindeditor.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/about.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_01.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_02.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_03.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_04.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_05.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_06.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_07.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_08.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_09.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_10.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_11.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_12.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_13.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_14.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_15.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_16.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_17.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_18.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_19.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_20.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_21.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_22.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_23.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_24.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_25.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_26.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_27.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_28.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_29.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_30.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_31.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_32.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_33.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_34.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_35.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_36.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/flash.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/image.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/link.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/media.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/plainpaste.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/remote_image.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/wordpaste.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/default.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/default.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/div.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/dl.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/editor.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/ol.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/p.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/tinymce.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/tinymce.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/ul.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/001.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/404.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/add.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/btnbg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/btnbg1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/btnbg2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/buttonbg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/c01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/c02.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/c03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/cbg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/clist.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/close.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/close1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/cloud.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/d01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/d02.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/d03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/d04.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/d05.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/d06.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/d07.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/diskbg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/dp.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/f01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/f02.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/f03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/f04.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/f05.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/f06.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/help.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i02.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i04.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i05.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i06.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i07.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i08.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i09.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/iadd.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ibtnbg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ico01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ico02.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ico03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ico04.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ico05.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ico06.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/icon01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/icon02.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/icon03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/icon04.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/icon05.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/icon06.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img02.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img04.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img05.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img06.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img07.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img08.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img09.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img11.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img12.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img13.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img14.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img15.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/inputbg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/itabbg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/itabbg1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/leftico.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/leftico01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/leftico02.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/leftico03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/leftico04.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/leftline.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/leftmenubg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/lefttop.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/libg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/light.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/line.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/line1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/list.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/list1.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/list2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/loginbg1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/loginbg2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/loginbg3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/logininfo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/loginlogo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/loginpassword.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/loginsj.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/loginuser.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/msg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/navbg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/next.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/pre.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/px.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/righttop.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/rlist.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/search.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/sj.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/sun.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/t01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/t02.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/t03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/t04.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/t05.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/tbg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/tcbg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/th.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ticon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/time.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/toolbg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/topbg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/topleft.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/topright.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ub1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/uew_icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/uew_icon_hover.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ulist.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/user.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/userbg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/PIE.htc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/cloud.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/format+zh_CN,default,corechart.I.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/jquery.ba-resize.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/jquery.gvChart-1.0.1.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/jquery.idTabs.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/jquery.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/jsapi.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/select-ui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/computer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/default.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/error.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/filelist.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/imglist.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/imglist1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/imgtable.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/left.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/main.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/right.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/tab.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/tools.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/top.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/src/jquery.gvChart-1.0.1.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="b8e96a5e-c874-413f-aa37-d82961ac2072" name="Default" comment="修改pom.xml加入访问jsp的依赖；&#10;添加ManagerController管理后台（测试）；&#10;修改application.properties加入访问jsp的配置；&#10;添加webapp文件目录用来添加后台管理页面；">
+      <change afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/index1.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lysl/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lysl/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/java/com/whu/lysl/web/controllers/InstController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/java/com/whu/lysl/web/controllers/InstController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/java/com/whu/lysl/web/controllers/ManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/java/com/whu/lysl/web/controllers/ManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/css/select.css" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/css/select.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/kindeditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/kindeditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_01.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_01.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_02.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_02.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_03.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_03.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_04.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_04.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_05.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_05.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_06.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_06.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_07.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_07.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_08.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_08.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_09.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_09.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_10.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_10.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_11.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_11.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_12.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_12.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_13.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_13.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_14.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_14.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_15.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_15.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_16.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_16.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_17.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_17.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_18.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_18.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_19.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_19.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_20.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_20.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_21.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_21.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_22.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_22.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_23.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_23.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_24.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_24.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_25.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_25.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_26.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_26.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_27.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_27.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_28.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_28.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_29.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_29.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_30.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_30.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_31.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_31.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_32.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_32.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_33.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_33.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_34.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_34.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_35.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_35.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/emoticons/etc_36.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/emoticons/etc_36.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/flash.html" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/flash.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/image.html" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/image.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/link.html" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/link.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/media.html" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/media.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/plainpaste.html" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/plainpaste.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/remote_image.html" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/remote_image.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/plugins/wordpaste.html" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/plugins/wordpaste.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/default.css" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/skins/default.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/default.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/skins/default.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/div.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/skins/div.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/dl.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/skins/dl.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/editor.css" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/skins/editor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/ol.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/skins/ol.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/p.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/skins/p.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/tinymce.css" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/skins/tinymce.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/tinymce.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/skins/tinymce.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/editor/skins/ul.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/editor/skins/ul.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/001.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/001.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/404.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/404.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/add.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/add.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/btnbg.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/btnbg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/btnbg1.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/btnbg1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/btnbg2.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/btnbg2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/buttonbg.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/buttonbg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/c01.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/c01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/c02.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/c02.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/c03.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/c03.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/cbg.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/cbg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/clist.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/clist.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/close.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/close.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/close1.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/close1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/cloud.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/cloud.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/d01.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/d01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/d02.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/d02.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/d03.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/d03.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/d04.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/d04.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/d05.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/d05.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/d06.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/d06.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/d07.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/d07.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/diskbg.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/diskbg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/dp.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/dp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/f01.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/f01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/f02.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/f02.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/f03.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/f03.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/f04.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/f04.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/f05.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/f05.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/f06.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/f06.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/help.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/help.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i01.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/i01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i02.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/i02.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i03.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/i03.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i04.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/i04.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i05.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/i05.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i06.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/i06.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i07.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/i07.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i08.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/i08.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/i09.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/i09.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/iadd.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/iadd.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ibtnbg.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/ibtnbg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ico01.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/ico01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ico02.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/ico02.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ico03.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/ico03.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ico04.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/ico04.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ico05.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/ico05.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ico06.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/ico06.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/icon01.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/icon01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/icon02.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/icon02.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/icon03.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/icon03.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/icon04.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/icon04.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/icon05.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/icon05.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/icon06.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/icon06.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img01.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/img01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img02.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/img02.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img03.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/img03.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img04.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/img04.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img05.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/img05.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img06.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/img06.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img07.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/img07.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img08.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/img08.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img09.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/img09.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img10.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/img10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img11.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/img11.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img12.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/img12.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img13.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/img13.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img14.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/img14.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/img15.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/img15.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/inputbg.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/inputbg.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/itabbg.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/itabbg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/itabbg1.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/itabbg1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/leftico.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/leftico.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/leftico01.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/leftico01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/leftico02.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/leftico02.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/leftico03.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/leftico03.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/leftico04.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/leftico04.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/leftline.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/leftline.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/leftmenubg.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/leftmenubg.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/lefttop.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/lefttop.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/libg.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/libg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/light.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/light.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/line.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/line.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/line1.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/line1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/list.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/list.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/list1.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/list1.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/list2.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/list2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/loginbg1.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/loginbg1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/loginbg2.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/loginbg2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/loginbg3.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/loginbg3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/logininfo.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/logininfo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/loginlogo.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/loginlogo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/loginpassword.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/loginpassword.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/loginsj.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/loginsj.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/loginuser.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/loginuser.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/msg.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/msg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/navbg.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/navbg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/next.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/next.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/pre.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/pre.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/px.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/px.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/righttop.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/righttop.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/rlist.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/rlist.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/search.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/search.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/sj.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/sj.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/sun.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/sun.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/t01.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/t01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/t02.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/t02.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/t03.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/t03.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/t04.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/t04.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/t05.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/t05.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/tbg.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/tbg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/tcbg.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/tcbg.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/th.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/th.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ticon.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/ticon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/time.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/time.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/toolbg.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/toolbg.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/topbg.gif" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/topbg.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/topleft.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/topleft.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/topright.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/topright.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ub1.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/ub1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/uew_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/uew_icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/uew_icon_hover.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/uew_icon_hover.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/ulist.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/ulist.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/user.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/user.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/images/userbg.png" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/images/userbg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/PIE.htc" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/js/PIE.htc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/cloud.js" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/js/cloud.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/format+zh_CN,default,corechart.I.js" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/js/format+zh_CN,default,corechart.I.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/jquery.ba-resize.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/js/jquery.ba-resize.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/jquery.gvChart-1.0.1.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/js/jquery.gvChart-1.0.1.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/jquery.idTabs.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/js/jquery.idTabs.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/jquery.js" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/js/jquery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/jsapi.js" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/js/jsapi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/js/select-ui.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/resources/static/js/select-ui.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/left.html" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/left.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/main.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/main.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/top.html" beforeDir="false" afterPath="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp/top.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jsp File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -349,7 +242,18 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="preferences.externalDependencies" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\wuhancode\my\lysl-demand\lysl\src\main\resources\static" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.whu.lysl.web.controllers" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\wuhancode\my\lysl-demand\lysl\src\main" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Maven.lysl [spring-boot:run]">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
@@ -362,6 +266,31 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="lysl [spring-boot:run]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="spring-boot:run" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/lysl" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
     </configuration>
     <configuration name="LyslApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="lysl" />
@@ -379,6 +308,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Maven.lysl [spring-boot:run]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -391,18 +325,54 @@
       <option name="presentableId" value="Default" />
       <updated>1581176611332</updated>
       <workItem from="1581176612705" duration="254000" />
-      <workItem from="1581853595118" duration="306000" />
+      <workItem from="1581853595118" duration="3715000" />
     </task>
+    <task id="LOCAL-00001" summary="修改pom.xml加入访问jsp的依赖；&#10;添加ManagerController管理后台（测试）；&#10;修改application.properties加入访问jsp的配置；&#10;添加webapp文件目录用来添加后台管理页面；">
+      <created>1581854165847</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1581854165847</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="修改pom.xml加入访问jsp的依赖；&#10;添加ManagerController管理后台（测试）；&#10;修改application.properties加入访问jsp的配置；&#10;添加webapp文件目录用来添加后台管理页面；" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改pom.xml加入访问jsp的依赖；&#10;添加ManagerController管理后台（测试）；&#10;修改application.properties加入访问jsp的配置；&#10;添加webapp文件目录用来添加后台管理页面；" />
   </component>
   <component name="WindowStateProjectService">
     <state x="806" y="409" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1581853635928">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="806" y="409" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581853635928" />
+    <state x="457" y="106" key="CommitChangelistDialog2" timestamp="1581854164457">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="457" y="106" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581854164457" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1581856993816">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1581856993816" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1581856993816">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1581856993816" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1581856993816">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1581856993816" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1581856993816">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1581856993816" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1581854171385">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1581854171385" />
     <state x="744" y="311" key="git4idea.merge.GitMergeDialog" timestamp="1581853899857">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -233,7 +233,7 @@ h2 {
 }
 
 
-/*top.html*/
+/*top.jsp*/
 .header {
     height: 88px;
 }
@@ -385,7 +385,7 @@ h2 {
     color: #b8ceda;
 }
 
-/*left.html*/
+/*left.jsp*/
 .lefttop {
     background: url(../images/lefttop.gif) repeat-x;
     height: 40px;
@@ -538,7 +538,7 @@ h2 {
     padding-right: 10px;
     margin-right: 5px;
     border-radius: 3px;
-    behavior: url(../js/pie.htc);
+    behavior: url(../js/PIE.htc);
     cursor: pointer;
 }
 
@@ -562,7 +562,7 @@ h2 {
     padding-right: 10px;
     margin-left: 5px;
     border-radius: 3px;
-    behavior: url(../js/pie.htc);
+    behavior: url(../js/PIE.htc);
 }
 
 .toolbar1 li span {
@@ -1029,7 +1029,7 @@ h2 {
     background: #fcfdfd;
     box-shadow: 1px 8px 10px 1px #9b9b9b;
     border-radius: 1px;
-    behavior: url(../js/pie.htc);
+    behavior: url(../js/PIE.htc);
     display: none;
     z-index: 111111;
 }
@@ -1196,7 +1196,7 @@ h2 {
     line-height: 35px;
     text-align: center;
     border-radius: 3px;
-    behavior: url(../js/pie.htc);
+    behavior: url(../js/PIE.htc);
     margin-top: 20px;
 }
 
@@ -1584,5 +1584,5 @@ h2 {
     color: #fff;
     cursor: pointer;
     border-radius: 3px;
-    behavior: url(../js/pie.htc);
+    behavior: url(../js/PIE.htc);
 }
