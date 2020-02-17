@@ -68,6 +68,30 @@ public class MatchOrder {
     /**
      * 物流单号
      */
-    String trackingNumber;
+    String logisticCode;
+    /**
+     * 捐赠类型
+     */
+    String donationType;
+    /**
+     * 物资名字
+     */
+    List<String> materialNameList;
+    /**
+     * 快递公司缩写
+     */
+    String shipperCode;
+    /**
+     * 备注信息
+     */
+    String remark;
+    /**
+     * 捐赠者联系方式
+     */
+    String donorPhone;
+    /**
+     * 图片列表
+     */
+    String[] picList;
 
 }

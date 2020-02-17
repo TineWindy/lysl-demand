@@ -30,15 +30,9 @@ public class UserServiceImpl implements UserService {
 
         checkUser(user);
 
-        User oldUser = UserConverter.do2Model(userDAO.selectByPhone(user.getPhone()));
         UserDO userDO = UserConverter.model2DO(user);
-        if (oldUser == null) {
-            userDAO.insert(userDO);
-            return userDO.getId();
-        } else {
-            userDAO.update(UserConverter.model2DO(user));
-            return oldUser.getId();
-        }
+        userDAO.insert(userDO);
+        return userDO.getId();
 
     }
 
@@ -48,7 +42,7 @@ public class UserServiceImpl implements UserService {
      */
     private void checkUser(User user) {
         if (user == null || !StringUtils.isNotEmpty(user.getPhone()) ||
-                !StringUtils.isNotEmpty(user.getName()) || user.getInstitutionId() == null) {
+                !StringUtils.isNotEmpty(user.getName())) {
             throw new LYSLException("用户信息不完整", LYSLResultCodeEnum.DATA_INVALID);
         }
     }

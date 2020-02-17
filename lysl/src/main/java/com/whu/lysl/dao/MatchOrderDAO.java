@@ -2,6 +2,7 @@ package com.whu.lysl.dao;
 
 import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dbobj.MatchOrderDo;
+import com.whu.lysl.entity.dto.LogisticInfo;
 import com.whu.lysl.entity.dto.MatchOrder;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -58,12 +59,16 @@ public interface MatchOrderDAO {
      */
     void updateStatus(int matchOrderId,String status);
 
+
     /**
      * 更新物流单号
      * @param matchOrderId
-     * @param trackingNumber
+     * @param logisticCode
+     * @param shipperCode
+     * @param remark
+     * @param picList
      */
-    void updateTrackingNumber(int matchOrderId,String trackingNumber);
+    void updateLogisticInfo(int matchOrderId,String logisticCode,String shipperCode,String remark,String picList);
 
     /**
      * 通过捐赠者Id，捐赠单号，受赠者id，受赠者单号查询
@@ -78,4 +83,16 @@ public interface MatchOrderDAO {
      * @return 返回通过组查询的结果
      */
     List<MatchOrderCondition> getMatchOrderGroupList(MatchOrderCondition matchOrderCondition);
+
+    /**
+     * 获取匹配单列表
+     * @return
+     */
+    List<MatchOrderCondition> selectAllMatchOrder();
+
+    /**
+     * 通过状态获取需要查询物流信息的相关记录
+     * @return
+     */
+    List<LogisticInfo> selectLogisticInfoByStatus(List<String> statuses);
 }

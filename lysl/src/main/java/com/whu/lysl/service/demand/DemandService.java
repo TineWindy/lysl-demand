@@ -1,6 +1,10 @@
 package com.whu.lysl.service.demand;
 
 import com.whu.lysl.entity.vo.DemandVO;
+import com.whu.lysl.entity.condition.DemandCondition;
+import com.whu.lysl.entity.dbobj.DemandDO;
+import com.whu.lysl.entity.dto.Demand;
+import com.whu.lysl.entity.vo.DemandVO;
 
 import java.util.List;
 
@@ -30,4 +34,11 @@ public interface DemandService {
      * @param jsonString 查询条件
      */
     void modifyStatus(String jsonString);
+
+    /**
+     * 查询获取 demand list
+     * @param demandCondition 查询条件
+     * @return demand list
+     */
+    List<DemandDO> getDemandsByCondition(DemandCondition demandCondition);
 }

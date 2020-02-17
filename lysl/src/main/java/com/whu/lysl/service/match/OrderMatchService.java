@@ -2,6 +2,8 @@ package com.whu.lysl.service.match;
 
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.entity.condition.MatchOrderCondition;
+import com.whu.lysl.entity.dto.ExpressInfo;
+import com.whu.lysl.entity.dto.InstAndMaterialInfo;
 import com.whu.lysl.entity.dto.MatchOrder;
 
 import java.util.List;
@@ -42,10 +44,12 @@ public interface OrderMatchService {
     /**
      * 更新物流单号
      * @param matchOrderId
-     * @param trackingNumber
+     * @param logisticCode
+     * @return
      * @throws LYSLException
      */
-    void updateTrackingNumber(int matchOrderId,String trackingNumber) throws LYSLException;
+
+    void updateTrackingNumber(int matchOrderId,String logisticCode,String remark,String picList) throws LYSLException;
 
     /**
      * 根据状态，捐赠人Id，受赠人Id等查询匹配单
@@ -53,4 +57,30 @@ public interface OrderMatchService {
      * @return
      */
     List<MatchOrder> getMatchOrderList(MatchOrderCondition matchOrderCondition);
+
+    /**
+     * 根据物流单号，获取物流单状态
+     */
+    ExpressInfo getTracingByExpressInfo(String shipperCode, String trackingNumber);
+
+    /**
+     * 从缓冲中获取物流单状态
+     */
+    ExpressInfo getTracingByExpressInfoFromRedis(String shipperCode, String logisticCode);
+
+
+    /**
+     * 根据匹配单获取hash，并将结果存入hash中
+     * @param matchOrder
+     * @return
+     */
+    String createHashByMatchOrder(MatchOrder matchOrder);
+
+    /**
+     * 根据hash获取机构和物资信息
+     * @param hashStr
+     * @return
+     */
+    InstAndMaterialInfo getInstAndMaterialInfoByHash(String hashStr);
+
 }

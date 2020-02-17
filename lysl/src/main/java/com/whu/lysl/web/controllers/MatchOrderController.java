@@ -4,11 +4,13 @@ import com.alibaba.fastjson.JSON;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.whu.lysl.base.enums.DonationTypeEnum;
 import com.whu.lysl.base.enums.MatchingMethodEnum;
 import com.whu.lysl.base.enums.MatchingStatusEnum;
 
 import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dto.MatchOrder;
+import com.whu.lysl.entity.dto.UpdateLogisticInfoRequest;
 import com.whu.lysl.service.match.OrderMatchService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
@@ -44,6 +46,7 @@ public class MatchOrderController extends LYSLBaseController {
             LYSLResult<Object> result = new LYSLResult<>();
             matchOrder.setStatus(MatchingStatusEnum.CHECKED.getCode()); //志愿者默认已审核
             matchOrder.setMatchingMethod(MatchingMethodEnum.ARTIFICAL_MATCHING.getCode());//人工审核
+            matchOrder.setDonationType(DonationTypeEnum.UNDIRECTED.getCode());
             orderMatchService.saveMatchOrder(matchOrder);
             return result;
         }, AuthEnum.IGNORE_VERIFY.getCode());
@@ -110,13 +113,44 @@ public class MatchOrderController extends LYSLBaseController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/updateCheckingNumber",method = RequestMethod.PUT)
-    public String updateCheckingNumber(HttpServletRequest request){
+    @RequestMapping(value = "/updateLogisticInfo",method = RequestMethod.POST)
+    public String updateCheckingNumber(HttpServletRequest request,@RequestBody UpdateLogisticInfoRequest infoRequest){
         LYSLResult<Object> res = protectController(request,() ->{
             LYSLResult<Object> result = new LYSLResult<>();
-            String trackingNumber = request.getParameter("trackingNumber");
-            int matchOrderId = Integer.parseInt(request.getParameter("matchOrderId") + "");
-            orderMatchService.updateTrackingNumber(matchOrderId,trackingNumber);
+            orderMatchService.updateTrackingNumber(infoRequest.getMatchOrder(),infoRequest.getLogisticCode(),infoRequest.getRemark(),infoRequest.getPicListStr());
+            return result;
+        },AuthEnum.IGNORE_VERIFY.getCode());
+        return JSON.toJSONString(res);
+    }
+
+    /**
+     * 根据快递信息获取物流情况
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/getTracingByExpressInfo",method = RequestMethod.GET)
+    public String getTracingByExpressInfo(HttpServletRequest request){
+        LYSLResult<Object> res = protectController(request,() ->{
+            LYSLResult<Object> result = new LYSLResult<>();
+            String shipperCode = request.getParameter("shipperCode");
+            String logisticCode = request.getParameter("logisticCode") ;
+            result.setResultObj(orderMatchService.getTracingByExpressInfoFromRedis(shipperCode,logisticCode));
+            return result;
+        },AuthEnum.IGNORE_VERIFY.getCode());
+        return JSON.toJSONString(res);
+    }
+
+    /**
+     * 根据hash值获取机构和物资相关信息
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "getInstAndMaterialInfoByHash",method = RequestMethod.GET)
+    public String getInstAndMaterialInfo(HttpServletRequest request){
+        LYSLResult<Object> res = protectController(request,() ->{
+            LYSLResult<Object> result = new LYSLResult<>();
+            String hashCode = request.getParameter("hashCode");
+            result.setResultObj(orderMatchService.getInstAndMaterialInfoByHash(hashCode));
             return result;
         },AuthEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);

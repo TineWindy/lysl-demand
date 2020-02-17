@@ -6,10 +6,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.whu.lysl.base.converters.DemandConverter;
 import com.whu.lysl.base.converters.InstConverter;
 import com.whu.lysl.base.converters.UserConverter;
+import com.whu.lysl.base.utils.AssertUtils;
 import com.whu.lysl.dao.DemandDAO;
 import com.whu.lysl.dao.InstitutionDAO;
 import com.whu.lysl.dao.UserDAO;
+import com.whu.lysl.entity.condition.DemandCondition;
 import com.whu.lysl.entity.dbobj.DemandDO;
+import com.whu.lysl.entity.dto.Demand;
 import com.whu.lysl.entity.dto.Institution;
 import com.whu.lysl.entity.dto.User;
 import com.whu.lysl.entity.vo.DemandVO;
@@ -40,6 +43,13 @@ public class DemandServiceImpl implements DemandService {
 
     @Resource
     private UserService userService;
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List<DemandVO> getUnreviewedDemands() {
+        List<DemandDO> demandDOList = demandDAO.showUnreviewedDemands();
+        return DemandConverter.installVO(demandDOList, institutionService, userService);
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -82,5 +92,14 @@ public class DemandServiceImpl implements DemandService {
         String status = jsonObject.getString("status");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         demandDAO.modifyStatus(demandId, status, df.format(new Date()));
+    }
+
+    // 这里使用 DO 是兼顾旧写法
+    // 实际上在 service 层应该使用 dto
+    @Override
+    public List<DemandDO> getDemandsByCondition(DemandCondition demandCondition) {
+        AssertUtils.AssertNotNull(demandCondition, "查询需求时条件不能为空");
+
+        return demandDAO.selectByCondition(demandCondition);
     }
 }

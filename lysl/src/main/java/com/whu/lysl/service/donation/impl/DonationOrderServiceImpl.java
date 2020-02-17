@@ -1,6 +1,7 @@
 package com.whu.lysl.service.donation.impl;
 
 import com.whu.lysl.base.converters.DonationOrderConverter;
+import com.whu.lysl.base.converters.MaterialOrderConverter;
 import com.whu.lysl.base.enums.DonationOrderStatusEnum;
 import com.whu.lysl.base.enums.DonationTypeEnum;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
@@ -10,11 +11,19 @@ import com.whu.lysl.base.utils.AssertUtils;
 import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.dao.DonationOrderDAO;
 import com.whu.lysl.entity.condition.DonationOrderCondition;
+import com.whu.lysl.entity.condition.InstCondition;
+import com.whu.lysl.entity.condition.MaterialOrderCondition;
 import com.whu.lysl.entity.dbobj.DonationOrderDO;
 import com.whu.lysl.entity.dto.DonationOrder;
+import com.whu.lysl.entity.dto.Institution;
+import com.whu.lysl.entity.dto.MaterialOrder;
 import com.whu.lysl.service.donation.DonationOrderService;
+import com.whu.lysl.service.institution.InstitutionService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.RollbackRuleAttribute;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -25,30 +34,44 @@ import java.util.List;
  * @Description:
  */
 @Service
+@Slf4j
 public class DonationOrderServiceImpl implements DonationOrderService {
     @Resource
     private DonationOrderDAO donationOrderDAO;
+    @Resource
+    private InstitutionService institutionService;
 
     @Override
     public List<DonationOrder> getDonationOrderByCondition(DonationOrderCondition donationOrderCondition) {
-        return DonationOrderConverter.batchDo2Model(donationOrderDAO.selectByCondition(donationOrderCondition));
+        List<DonationOrder> donationOrderList = DonationOrderConverter.batchDo2Model(donationOrderDAO.selectByCondition(donationOrderCondition));
+        if (donationOrderList!=null) {
+            for (DonationOrder donationOrder : donationOrderList) {
+                donationOrder.setMaterialOrderList(getMaterialOrderByDonationOrderId(donationOrder.getDonationOrderId()));
+            }
+        }
+        return donationOrderList;
+    }
+
+    @Override
+    public List<MaterialOrder> getMaterialOrderByDonationOrderId(Integer donationOrderId) {
+        AssertUtils.AssertNotNull(donationOrderId, "donationOrderId is null");
+        return MaterialOrderConverter.batchDo2Model(donationOrderDAO.selectMaterialOrderByCondition(
+                new MaterialOrderCondition.Builder().donationOrderId(donationOrderId).build()));
     }
 
     @Override
     public List<DonationOrder> getDonationOrderByDonorId(Integer donorId) {
-        AssertUtils.AssertNotNull(donorId);
-        return DonationOrderConverter.batchDo2Model(
-                donationOrderDAO.selectByCondition(new DonationOrderCondition.Builder().donorId(donorId).build()));
+        AssertUtils.AssertNotNull(donorId, "donorId is null");
+        return getDonationOrderByCondition(new DonationOrderCondition.Builder().donorId(donorId).build());
     }
 
     @Override
     public List<DonationOrder> getDonationOrderByStatus(String status) {
-        AssertUtils.AssertNotNull(status);
+        AssertUtils.AssertNotNull(status, "status is null");
         if (!EnumUtils.isValidEnum(DonationOrderStatusEnum.class, status)) {
             throw new LYSLException("Status 不属于支持的枚举值", LYSLResultCodeEnum.DATA_INVALID);
         }
-        return DonationOrderConverter.batchDo2Model(
-                donationOrderDAO.selectByCondition(new DonationOrderCondition.Builder().status(status).build()));
+        return getDonationOrderByCondition(new DonationOrderCondition.Builder().status(status).build());
     }
 
     @Override
@@ -61,19 +84,18 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         if (!EnumUtils.isValidEnum(DonationTypeEnum.class, donationType)) {
             throw new LYSLException("donationType 不属于支持的枚举值", LYSLResultCodeEnum.DATA_INVALID);
         }
-        return DonationOrderConverter.batchDo2Model(
-                donationOrderDAO.selectByCondition(
-                        new DonationOrderCondition.Builder().status(status).donationType(donationType).build()));
+        return getDonationOrderByCondition(
+                        new DonationOrderCondition.Builder().status(status).donationType(donationType).build());
     }
 
     @Override
     public List<DonationOrder> getDonationOrderInLovePool(String lovePoolStatus) {
+        AssertUtils.AssertNotNull(lovePoolStatus, "donationOrderId is null");
         if (!EnumUtils.isValidEnum(LovePoolStatusEnum.class, lovePoolStatus)) {
             throw new LYSLException("lovePoolStatus 不属于支持的枚举值", LYSLResultCodeEnum.DATA_INVALID);
         }
-        return DonationOrderConverter.batchDo2Model(
-                donationOrderDAO.selectByCondition(
-                        new DonationOrderCondition.Builder().lovePoolStatus(lovePoolStatus).build()));
+        return getDonationOrderByCondition(
+                        new DonationOrderCondition.Builder().lovePoolStatus(lovePoolStatus).build());
     }
 
     @Override
@@ -104,7 +126,46 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         donationOrder.setLovePoolStatus(LovePoolStatusEnum.NOT_IN_POOL.getCode());
         donationOrder.setDeleted(0);
         validateInsertDonatiionOrder(donationOrder);
-        return donationOrderDAO.insertDonationOrder(DonationOrderConverter.model2Do(donationOrder));
+        DonationOrderDO donationOrderDO = DonationOrderConverter.model2Do(donationOrder);
+        donationOrderDAO.insertDonationOrder(donationOrderDO);
+        return donationOrderDO.getDonationOrderId();
+    }
+
+//    @Override
+//    public int insertDonationOrderGetId(DonationOrder donationOrder) {
+//        donationOrder.setStatus(DonationOrderStatusEnum.UNCHECKED.getCode());
+//        donationOrder.setLovePoolStatus(LovePoolStatusEnum.NOT_IN_POOL.getCode());
+//        donationOrder.setDeleted(0);
+//        validateInsertDonatiionOrder(donationOrder);
+//        DonationOrderDO donationOrderDO = DonationOrderConverter.model2Do(donationOrder);
+//        donationOrderDAO.insertDonationOrder(donationOrderDO);
+//        return donationOrderDO.getDonationOrderId();
+//    }
+
+    @Transactional(rollbackFor = LYSLException.class)
+    @Override
+    public int insertDonationOrderDetail(DonationOrder donationOrder) {
+        log.info("开始新增一条捐赠：" + donationOrder);
+
+        Integer donationOrderId = insertDonationOrder(donationOrder);
+        if (donationOrderId==null || donationOrderId<=0) {
+            throw new LYSLException("插入捐赠清单失败" ,LYSLResultCodeEnum.SYSTEM_ERROR);
+        }
+        for (MaterialOrder materialOrder: donationOrder.getMaterialOrderList()) {
+            materialOrder.setDonationOrderId(donationOrderId);
+            int ins_ans = insertMaterialOrder(materialOrder);
+            if (ins_ans!=1) {
+                throw new LYSLException("插入物资清单失败:"+materialOrder.toString() ,LYSLResultCodeEnum.SYSTEM_ERROR);
+            }
+        }
+
+        log.info("成功新增一条捐赠：" + donationOrder);
+        return donationOrderId;
+    }
+
+    @Override
+    public int insertMaterialOrder(MaterialOrder materialOrder) {
+        return donationOrderDAO.insertMaterialOrder(MaterialOrderConverter.model2Do(materialOrder));
     }
 
     @Override
@@ -153,14 +214,8 @@ public class DonationOrderServiceImpl implements DonationOrderService {
     }
 
     public void validateInsertDonatiionOrder(DonationOrder donationOrder) {
-        AssertUtils.AssertNotNull(donationOrder);
-        AssertUtils.AssertNotNull(donationOrder.getDonorId());
-        AssertUtils.AssertNotNull(donationOrder.getDonorName());
-        AssertUtils.AssertNotNull(donationOrder.getDoneeId());
-        AssertUtils.AssertNotNull(donationOrder.getDoneeName());
-        AssertUtils.AssertNotNull(donationOrder.getMaterialId());
-        AssertUtils.AssertNotNull(donationOrder.getMaterialName());
-        AssertUtils.AssertNotNull(donationOrder.getMaterialAmount());
+        AssertUtils.AssertNotNull(donationOrder, "donationOrder is null");
+        AssertUtils.AssertNotNull(donationOrder.getMaterialOrderList(), "materialOrderList is null");
 
         if (!EnumUtils.isValidEnum(DonationTypeEnum.class, donationOrder.getDonationType())) {
             throw new LYSLException("donationType 不属于支持的枚举值 {DIRECTED, UNDIRECTED}", LYSLResultCodeEnum.DATA_INVALID);
@@ -173,21 +228,31 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         }
 //        定向捐赠 donorId 非空， 非定向捐赠 donorId=-1
         if (StringUtils.equal(donationOrder.getDonationType(), DonationTypeEnum.DIRECTED.getCode())) {
-            if (donationOrder.getDoneeId()==-1) {
-                throw new LYSLException("定向捐赠 donorId 无效", LYSLResultCodeEnum.DATA_INVALID);
-            }
-            //TODO 校验donorId donorName 有效性
-
+            validateIns(donationOrder.getDoneeId(), donationOrder.getDoneeName());
         } else {
-            if (donationOrder.getDoneeId()!=-1) {
-                throw new LYSLException("非定向捐赠 donorId应当为 -1", LYSLResultCodeEnum.DATA_INVALID);
-            }
+            donationOrder.setDoneeId(-1);
         }
-        //TODO 校验 doneeId 和 doneeName 有效性
         //TODO 校验 materialId 和 materialName 有效性
 
+    }
 
+    @Override
+    public int deleteDonationOrder(Integer donationOrderId) {
+        AssertUtils.AssertNotNull(donationOrderId, "donationOrderId is null");
+        return donationOrderDAO.deleteDonationOrder(donationOrderId);
+    }
 
+    private void validateIns(Integer instId, String isntName) {
+        List<Institution> institutionList = institutionService.getInstsByCondition(
+                new InstCondition.Builder().id(instId).name(isntName).build());
+
+        if (institutionList == null || institutionList.isEmpty()) {
+            throw new LYSLException("doneeId and doneeName do not match!", LYSLResultCodeEnum.DATA_INVALID);
+        } else if (!StringUtils.equal(institutionList.get(0).getStatus()
+                , DonationOrderStatusEnum.APPROVED.getCode())) {
+            throw new LYSLException("The institution of this donee has not been checked!"
+                    , LYSLResultCodeEnum.DATA_INVALID);
+        }
     }
 
 }
