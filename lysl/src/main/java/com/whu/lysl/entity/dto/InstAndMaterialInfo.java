@@ -22,6 +22,9 @@ public class InstAndMaterialInfo {
     int matchOrderId;
     String donorName;
     String donorPhone;
+    String logisticCode;
+    String shipperCode;
+    String status;
 
     public InstAndMaterialInfo() {
     }

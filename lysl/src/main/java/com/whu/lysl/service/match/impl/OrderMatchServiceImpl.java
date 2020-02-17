@@ -36,9 +36,11 @@ import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.service.institution.InstitutionService;
 import com.whu.lysl.service.match.OrderMatchService;
 import com.whu.lysl.service.user.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +50,7 @@ import java.util.List;
  * @since 2020-02-09 19:53
  **/
 @Service
+@Slf4j
 public class OrderMatchServiceImpl implements OrderMatchService {
 
     @Resource
@@ -196,9 +199,7 @@ public class OrderMatchServiceImpl implements OrderMatchService {
      * @throws LYSLException
      */
     @Override
-
     public void updateTrackingNumber(int matchOrderId,String logisticCode,String remark,String picList) throws LYSLException {
-        String result = "";
         if (matchOrderId <= 0){
             throw new LYSLException("matchOrderId不能为空",LYSLResultCodeEnum.DATA_INVALID);
         }
@@ -208,14 +209,24 @@ public class OrderMatchServiceImpl implements OrderMatchService {
                 return;
             }
             KdniaoTrackQueryAPI api = new KdniaoTrackQueryAPI();
-            result = api.identifyOrder(logisticCode);
+            String result = api.identifyOrder(logisticCode);
             IdentifyOrderResponse identifyOrderResponse = JSON.parseObject(result,IdentifyOrderResponse.class);
-            if(identifyOrderResponse != null && identifyOrderResponse.getShippers() != null && identifyOrderResponse.getShippers().size() != 0){
+            if (identifyOrderResponse != null && identifyOrderResponse.getShippers() != null
+                    && identifyOrderResponse.getShippers().size() != 0) {
                 IdentifyOrderResponse.Shipper shipper = identifyOrderResponse.getShippers().get(0);
-                matchOrderDAO.updateLogisticInfo(matchOrderId,shipper.getShipperCode(),logisticCode,remark,picList);
-            }
-            else{
-                throw new LYSLException("物流单号查询失败",LYSLResultCodeEnum.DATA_INVALID);
+                matchOrderDAO.updateLogisticInfo(matchOrderId, shipper.getShipperCode(), logisticCode, remark, picList);
+
+                MatchOrderCondition matchOrderCondition = new MatchOrderCondition();
+                matchOrderCondition.setId(matchOrderId);
+                List<MatchOrder> matchOrders = getMatchOrderList(matchOrderCondition);
+                if (matchOrders.size() != 0) {
+                    String hashStr = createHashByMatchOrder(matchOrders.get(0));
+                }
+
+                // todo 通知
+                log.info(matchOrderId + "匹配单，更新物流信息成功; " + logisticCode);
+            } else {
+                throw new LYSLException("物流单号查询失败", LYSLResultCodeEnum.DATA_INVALID);
             }
         }
         catch (LYSLException e){
@@ -299,8 +310,12 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     public String createHashByMatchOrder(MatchOrder matchOrder) {
         InstAndMaterialInfo instAndMaterialInfo = new InstAndMaterialInfo(matchOrder.getId(),
                 matchOrder.getMaterialNameList(), matchOrder.getMaterialQuantityList());
+
         instAndMaterialInfo.setDonorName(matchOrder.getDonorName());
         instAndMaterialInfo.setDonorPhone(matchOrder.getDonorPhone());
+        instAndMaterialInfo.setLogisticCode(matchOrder.getLogisticCode());
+        instAndMaterialInfo.setShipperCode(matchOrder.getShipperCode());
+        instAndMaterialInfo.setStatus(matchOrder.getStatus());
 
         List<DemandDO> demandDOS = demandService.getDemandsByCondition(new DemandCondition.Builder()
                 .demandId(String.valueOf(matchOrder.getDemandOrderId())).build());
@@ -320,6 +335,8 @@ public class OrderMatchServiceImpl implements OrderMatchService {
         String hashStr = String.valueOf(instAndMaterialInfo.hashCode());
         System.out.println(hashStr);
         cacheService.addByKey(CacheConstants.SUPPLYLOGISTICINFO, hashStr, instAndMaterialInfo, 0);
+
+        log.info("生成匹配信息缓存，hash 值为：" + hashStr);
         return hashStr;
     }
 
