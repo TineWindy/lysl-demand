@@ -2,6 +2,8 @@ package com.whu.lysl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.whu.lysl.base.enums.DonationOrderStatusEnum;
+import com.whu.lysl.base.enums.DonationTypeEnum;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -11,18 +13,18 @@ import java.net.URLConnection;
 public class DemandTest {
 
     public static void main(String args[]) {
-        String jsonString = txt2String(new File("/Users/paul/Desktop/modify_request.txt"));
+        String jsonString = txt2String(new File("/Users/paul/Desktop/insert_request.txt"));
+        sendRequest("http://localhost:8080/demand/insertDemand", jsonString);
 //        JSONObject jsonObject = JSON.parseObject(jsonString);
 //        JSONObject institution = jsonObject.getJSONObject("institution");
 //        System.out.println(institution);
-        sendRequest("http://localhost:8080/demand/modifyStatus", jsonString);
     }
 
     public static String txt2String(File file){
         StringBuilder result = new StringBuilder();
         try{
             BufferedReader br = new BufferedReader(new FileReader(file));//构造一个BufferedReader类来读取文件
-            String s = null;
+            String s;
             while((s = br.readLine())!=null){//使用readLine方法，一次读一行
                 result.append(System.lineSeparator()+s);
             }

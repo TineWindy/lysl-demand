@@ -37,5 +37,11 @@
         </where>
     </select>
 
+    <select id="showUnreviewedDemandsById" resultType="com.whu.lysl.entity.dbobj.DemandDO">
+      select *
+      from lysl_demand_object
+      where status = '未审核' AND institution_id = #{param1}
+    </select>
+
 
 </mapper>

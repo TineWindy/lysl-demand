@@ -13,8 +13,13 @@ import com.whu.lysl.entity.vo.DemandVO;
 import com.whu.lysl.service.demand.DemandService;
 import com.whu.lysl.service.institution.InstitutionService;
 import com.whu.lysl.service.user.UserService;
+import com.whu.lysl.entity.vo.DemandVO;
+import com.whu.lysl.service.demand.DemandService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
