@@ -1,5 +1,6 @@
 package com.whu.lysl.service.demand;
 
+import com.whu.lysl.entity.vo.DemandVO;
 import com.whu.lysl.entity.condition.DemandCondition;
 import com.whu.lysl.entity.dbobj.DemandDO;
 import com.whu.lysl.entity.dto.Demand;

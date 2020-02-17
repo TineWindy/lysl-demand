@@ -2,6 +2,7 @@ package com.whu.lysl.base.converters;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.whu.lysl.base.enums.DonationOrderStatusEnum;
 import com.whu.lysl.dao.InstitutionDAO;
 import com.whu.lysl.dao.UserDAO;
 import com.whu.lysl.entity.condition.InstCondition;
@@ -34,7 +35,7 @@ public class DemandConverter {
             demandDO.setMaterialName(material.getString("materialName"));
             demandDO.setMaterialNum((int) material.get("materialNum"));
             demandDO.setMaterialId((int) material.get("materialId"));
-            demandDO.setStatus("未审核");
+            demandDO.setStatus(DonationOrderStatusEnum.UNCHECKED.getCode());
             demandDO.setDescription(description);
             demandDOList.add(demandDO);
         }
@@ -64,7 +65,7 @@ public class DemandConverter {
 
     private static String generateRandom(){
         SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[31];
+        byte[] salt = new byte[8];
         random.nextBytes(salt);
         StringBuilder sb = new StringBuilder();
         for (byte b : salt) {
