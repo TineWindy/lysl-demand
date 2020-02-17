@@ -95,4 +95,11 @@ public interface MatchOrderDAO {
      * @return
      */
     List<LogisticInfo> selectLogisticInfoByStatus(List<String> statuses);
+
+    /**
+     * 根据matchOrderId获取状态
+     * @param matchOrderId
+     * @return
+     */
+    String selectMatchingStatus(int matchOrderId);
 }

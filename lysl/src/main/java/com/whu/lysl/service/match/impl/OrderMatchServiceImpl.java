@@ -163,7 +163,16 @@ public class OrderMatchServiceImpl implements OrderMatchService {
      */
     @Override
     public void confirmReceipt(int matchOrderId) throws LYSLException {
-
+        String status = matchOrderDAO.selectMatchingStatus(matchOrderId);
+        if(status == null){
+            throw new LYSLException("未找到这个匹配单",LYSLResultCodeEnum.DATA_INVALID);
+        }
+        MatchingStatusEnum matchingStatusEnum = MatchingStatusEnum.getEnumByCode(status);
+        if (matchingStatusEnum.equals(MatchingStatusEnum.CHECKEDFAILED) || matchingStatusEnum.equals(MatchingStatusEnum.UNCHECKED) ||
+        matchingStatusEnum.equals(MatchingStatusEnum.DELIVERED)){
+            String error = "这个匹配单的状态为"+ matchingStatusEnum.getDescription() + ",不支持修改确认收货状态";
+            throw new LYSLException(error,LYSLResultCodeEnum.DATA_INVALID);
+        }
         matchOrderDAO.updateStatus(matchOrderId,MatchingStatusEnum.DELIVERED.getCode());
 
     }
