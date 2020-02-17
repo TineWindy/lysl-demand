@@ -19,6 +19,9 @@ public class UpdateLogisticInfoRequest {
     int matchOrder;
 
     public String getPicListStr(){
+        if(picList == null){
+            return null;
+        }
         String picListStr = "";
         for(int i = 0;i<picList.size();i++){
             picListStr += picList.get(i) + ",";
