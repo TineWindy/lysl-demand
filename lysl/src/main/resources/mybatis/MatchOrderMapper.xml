@@ -110,4 +110,9 @@
         </foreach> order by id ) as t group by donor_id,donee_id,donation_order_id,demand_order_id
     </select>
 
+    <select id="selectMatchingStatus" resultType="String" parameterType="int">
+        select status from <include refid="MatchOrderTable"></include> where id = #{matchOrderId}
+    </select>
+
+
 </mapper>

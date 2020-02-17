@@ -156,6 +156,29 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
     }
 
+    /**
+     * 确认收货
+     * @param matchOrderId
+     * @throws LYSLException
+     */
+    @Override
+    public void confirmReceipt(int matchOrderId) throws LYSLException {
+        if (matchOrderId <= 0){
+            throw new LYSLException("matchOrderId不能为空",LYSLResultCodeEnum.DATA_INVALID);
+        }
+        String status = matchOrderDAO.selectMatchingStatus(matchOrderId);
+        if(status == null){
+            throw new LYSLException("未找到这个匹配单",LYSLResultCodeEnum.DATA_INVALID);
+        }
+        MatchingStatusEnum matchingStatusEnum = MatchingStatusEnum.getEnumByCode(status);
+        if (matchingStatusEnum.equals(MatchingStatusEnum.CHECKEDFAILED) || matchingStatusEnum.equals(MatchingStatusEnum.UNCHECKED) ||
+        matchingStatusEnum.equals(MatchingStatusEnum.DELIVERED)){
+            String error = "这个匹配单的状态为"+ matchingStatusEnum.getDescription() + ",不支持修改确认收货状态";
+            throw new LYSLException(error,LYSLResultCodeEnum.DATA_INVALID);
+        }
+        matchOrderDAO.updateStatus(matchOrderId,MatchingStatusEnum.DELIVERED.getCode());
+
+    }
 
     /**
      * 更新物流信息
@@ -168,6 +191,9 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
     public void updateTrackingNumber(int matchOrderId,String logisticCode,String remark,String picList) throws LYSLException {
         String result = "";
+        if (matchOrderId <= 0){
+            throw new LYSLException("matchOrderId不能为空",LYSLResultCodeEnum.DATA_INVALID);
+        }
         try {
             if (!StringUtils.isNotEmpty(logisticCode)){
                 matchOrderDAO.updateLogisticInfo(matchOrderId,null,null,remark,null);
