@@ -284,7 +284,7 @@ public class OrderMatchServiceImpl implements OrderMatchService {
         instAndMaterialInfo.setAddress(institution.getAddress());
         instAndMaterialInfo.setInstName(institution.getName());
         instAndMaterialInfo.setRecipient(user.getName());
-        instAndMaterialInfo.setRecipient(user.getPhone());
+        instAndMaterialInfo.setTel(user.getPhone());
 
         String hashStr = String.valueOf(instAndMaterialInfo.hashCode());
         System.out.println(hashStr);
