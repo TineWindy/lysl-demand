@@ -13,7 +13,7 @@
 
 
 
-    <insert id="saveMatchOrder" parameterType="com.whu.lysl.entity.dbobj.MatchOrderDo">
+    <insert id="saveMatchOrder" parameterType="com.whu.lysl.entity.dbobj.MatchOrderDo" useGeneratedKeys="true" keyProperty="id">
         insert into lysl_match_order(gmt_created,gmt_modified,donor_id,donee_id,material_id,material_quantity,status,
         matching_method,donation_order_id,demand_order_id,donor_name,donee_name,material_name,shipper_code,logistic_code)
         values(#{gmtCreated},#{gmtModified},#{donorId},#{doneeId},#{materialId},#{materialQuantity},#{status},#{matchingMethod},#{donationOrderId},

@@ -2,6 +2,7 @@ package com.whu.lysl.service.match.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import com.whu.lysl.base.converters.MatchOrderConverter;
 import com.whu.lysl.base.enums.DonationTypeEnum;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
@@ -85,11 +86,12 @@ public class OrderMatchServiceImpl implements OrderMatchService {
             MatchOrderDo matchOrderDo = matchOrderDoList.get(i);
             // 调用DAO将数据存入数据库
             matchOrderDAO.saveMatchOrder(matchOrderDo);
-        }
 
+        }
+        matchOrder.setId(matchOrderDoList.get(0).getId());
         // 保存相关信息至redis中，后期展示用
         String hashStr = createHashByMatchOrder(matchOrder);
-
+        System.out.println(hashStr);
         // TODO 发送短信
 
     }
