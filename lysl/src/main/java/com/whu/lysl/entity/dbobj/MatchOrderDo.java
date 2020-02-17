@@ -80,7 +80,10 @@ public class MatchOrderDo implements Cloneable{
      * 备注信息
      */
     String remark;
-
+    /**
+     * 图片链接连表，用逗号分隔
+     */
+    String picList;
     @Override
     public MatchOrderDo clone() throws CloneNotSupportedException {
         return (MatchOrderDo) super.clone();

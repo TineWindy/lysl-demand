@@ -8,6 +8,7 @@ import com.whu.lysl.entity.dbobj.MatchOrderDo;
 import com.whu.lysl.entity.dto.DonationOrder;
 import com.whu.lysl.entity.dto.MatchOrder;
 import com.whu.lysl.service.donation.DonationOrderService;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -123,6 +124,11 @@ public class MatchOrderConverter {
         matchOrder.setMaterialQuantityList(new ArrayList<>());
         matchOrder.setMaterialNameList(new ArrayList<>());
         matchOrder.setRemark(matchOrderDo.getRemark());
+        if (matchOrderDo.getPicList()!=null){
+            String[] picList = matchOrderDo.getPicList().split(",");
+            matchOrder.setPicList(picList);
+        }
+
         for (int i =0;i<matchOrderDoList.size();i++){
             matchOrder.getMaterialIdList().add(matchOrderDoList.get(i).getMaterialId());
             matchOrder.getMaterialQuantityList().add(matchOrderDoList.get(i).getMaterialQuantity());

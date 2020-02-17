@@ -2,6 +2,7 @@ package com.whu.lysl.service.match.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import com.whu.lysl.base.converters.MatchOrderConverter;
 import com.whu.lysl.base.enums.DonationTypeEnum;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
@@ -85,11 +86,12 @@ public class OrderMatchServiceImpl implements OrderMatchService {
             MatchOrderDo matchOrderDo = matchOrderDoList.get(i);
             // 调用DAO将数据存入数据库
             matchOrderDAO.saveMatchOrder(matchOrderDo);
-        }
 
+        }
+        matchOrder.setId(matchOrderDoList.get(0).getId());
         // 保存相关信息至redis中，后期展示用
         String hashStr = createHashByMatchOrder(matchOrder);
-
+        System.out.println(hashStr);
         // TODO 发送短信
 
     }
@@ -163,11 +165,12 @@ public class OrderMatchServiceImpl implements OrderMatchService {
      * @throws LYSLException
      */
     @Override
-    public void updateTrackingNumber(int matchOrderId,String logisticCode,String remark) throws LYSLException {
+
+    public void updateTrackingNumber(int matchOrderId,String logisticCode,String remark,String picList) throws LYSLException {
         String result = "";
         try {
             if (!StringUtils.isNotEmpty(logisticCode)){
-                matchOrderDAO.updateLogisticInfo(matchOrderId,null,null,remark);
+                matchOrderDAO.updateLogisticInfo(matchOrderId,null,null,remark,null);
                 return;
             }
             KdniaoTrackQueryAPI api = new KdniaoTrackQueryAPI();
@@ -175,7 +178,7 @@ public class OrderMatchServiceImpl implements OrderMatchService {
             IdentifyOrderResponse identifyOrderResponse = JSON.parseObject(result,IdentifyOrderResponse.class);
             if(identifyOrderResponse != null && identifyOrderResponse.getShippers() != null && identifyOrderResponse.getShippers().size() != 0){
                 IdentifyOrderResponse.Shipper shipper = identifyOrderResponse.getShippers().get(0);
-                matchOrderDAO.updateLogisticInfo(matchOrderId,shipper.getShipperCode(),logisticCode,remark);
+                matchOrderDAO.updateLogisticInfo(matchOrderId,shipper.getShipperCode(),logisticCode,remark,picList);
             }
             else{
                 throw new LYSLException("物流单号查询失败",LYSLResultCodeEnum.DATA_INVALID);
@@ -268,21 +271,20 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     public String createHashByMatchOrder(MatchOrder matchOrder) {
         InstAndMaterialInfo instAndMaterialInfo = new InstAndMaterialInfo(matchOrder.getId(),matchOrder.getMaterialNameList(),matchOrder.getMaterialQuantityList());
 
-        //暂时走不通
-//        List<DemandDO> demandDOS = demandService.getDemandsByCondition(new DemandCondition.Builder()
-//                .demandId(String.valueOf(matchOrder.getDemandOrderId())).build());
-//        if (demandDOS.size() == 0) {
-//            throw new LYSLException("该需求单不存在", LYSLResultCodeEnum.DATA_INVALID);
-//        }
-//        Institution institution = institutionService.getInstsByCondition(new InstCondition.Builder().
-//                id(demandDOS.get(0).getInstitutionId()).build()).get(0);
-//
-//        User user = userService.getUserById(demandDOS.get(0).getDoneeId());
-//
-//        instAndMaterialInfo.setAddress(institution.getAddress());
-//        instAndMaterialInfo.setInstName(institution.getName());
-//        instAndMaterialInfo.setRecipient(user.getName());
-//        instAndMaterialInfo.setRecipient(user.getPhone());
+        List<DemandDO> demandDOS = demandService.getDemandsByCondition(new DemandCondition.Builder()
+                .demandId(String.valueOf(matchOrder.getDemandOrderId())).build());
+        if (demandDOS.size() == 0) {
+            throw new LYSLException("该需求单不存在", LYSLResultCodeEnum.DATA_INVALID);
+        }
+        Institution institution = institutionService.getInstsByCondition(new InstCondition.Builder().
+                id(demandDOS.get(0).getInstitutionId()).build()).get(0);
+
+        User user = userService.getUserById(demandDOS.get(0).getDoneeId());
+
+        instAndMaterialInfo.setAddress(institution.getAddress());
+        instAndMaterialInfo.setInstName(institution.getName());
+        instAndMaterialInfo.setRecipient(user.getName());
+        instAndMaterialInfo.setRecipient(user.getPhone());
 
         String hashStr = String.valueOf(instAndMaterialInfo.hashCode());
         System.out.println(hashStr);

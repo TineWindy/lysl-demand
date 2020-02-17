@@ -10,6 +10,7 @@ import com.whu.lysl.base.enums.MatchingStatusEnum;
 
 import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dto.MatchOrder;
+import com.whu.lysl.entity.dto.UpdateLogisticInfoRequest;
 import com.whu.lysl.service.match.OrderMatchService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
@@ -112,15 +113,11 @@ public class MatchOrderController extends LYSLBaseController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/updateLogisticInfo",method = RequestMethod.PUT)
-    public String updateCheckingNumber(HttpServletRequest request){
+    @RequestMapping(value = "/updateLogisticInfo",method = RequestMethod.POST)
+    public String updateCheckingNumber(HttpServletRequest request,@RequestBody UpdateLogisticInfoRequest infoRequest){
         LYSLResult<Object> res = protectController(request,() ->{
             LYSLResult<Object> result = new LYSLResult<>();
-            String logisticCode = request.getParameter("logisticCode");
-            String remark = request.getParameter("remark");
-//            String shipperCode = request.getParameter("shipperCode");
-            int matchOrderId = Integer.parseInt(request.getParameter("matchOrderId") + "");
-            orderMatchService.updateTrackingNumber(matchOrderId,logisticCode,remark);
+            orderMatchService.updateTrackingNumber(infoRequest.getMatchOrder(),infoRequest.getLogisticCode(),infoRequest.getRemark(),infoRequest.getPicListStr());
             return result;
         },AuthEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);
