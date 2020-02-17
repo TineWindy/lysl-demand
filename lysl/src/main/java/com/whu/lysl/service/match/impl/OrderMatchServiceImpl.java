@@ -269,21 +269,20 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     public String createHashByMatchOrder(MatchOrder matchOrder) {
         InstAndMaterialInfo instAndMaterialInfo = new InstAndMaterialInfo(matchOrder.getId(),matchOrder.getMaterialNameList(),matchOrder.getMaterialQuantityList());
 
-        //暂时走不通
-//        List<DemandDO> demandDOS = demandService.getDemandsByCondition(new DemandCondition.Builder()
-//                .demandId(String.valueOf(matchOrder.getDemandOrderId())).build());
-//        if (demandDOS.size() == 0) {
-//            throw new LYSLException("该需求单不存在", LYSLResultCodeEnum.DATA_INVALID);
-//        }
-//        Institution institution = institutionService.getInstsByCondition(new InstCondition.Builder().
-//                id(demandDOS.get(0).getInstitutionId()).build()).get(0);
-//
-//        User user = userService.getUserById(demandDOS.get(0).getDoneeId());
-//
-//        instAndMaterialInfo.setAddress(institution.getAddress());
-//        instAndMaterialInfo.setInstName(institution.getName());
-//        instAndMaterialInfo.setRecipient(user.getName());
-//        instAndMaterialInfo.setRecipient(user.getPhone());
+        List<DemandDO> demandDOS = demandService.getDemandsByCondition(new DemandCondition.Builder()
+                .demandId(String.valueOf(matchOrder.getDemandOrderId())).build());
+        if (demandDOS.size() == 0) {
+            throw new LYSLException("该需求单不存在", LYSLResultCodeEnum.DATA_INVALID);
+        }
+        Institution institution = institutionService.getInstsByCondition(new InstCondition.Builder().
+                id(demandDOS.get(0).getInstitutionId()).build()).get(0);
+
+        User user = userService.getUserById(demandDOS.get(0).getDoneeId());
+
+        instAndMaterialInfo.setAddress(institution.getAddress());
+        instAndMaterialInfo.setInstName(institution.getName());
+        instAndMaterialInfo.setRecipient(user.getName());
+        instAndMaterialInfo.setRecipient(user.getPhone());
 
         String hashStr = String.valueOf(instAndMaterialInfo.hashCode());
         System.out.println(hashStr);

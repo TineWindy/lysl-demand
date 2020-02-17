@@ -21,6 +21,10 @@ public class InstAndMaterialInfo {
     List<Integer> materialQuantityList;
     int matchOrderId;
 
+    public InstAndMaterialInfo(){
+
+    }
+
     public InstAndMaterialInfo(int matchOrderId,List<String> materialNameList,List<Integer> materialQuantityList){
         this.matchOrderId = matchOrderId;
         this.materialNameList = materialNameList;
