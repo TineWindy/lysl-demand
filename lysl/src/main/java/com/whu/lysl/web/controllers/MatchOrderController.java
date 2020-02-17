@@ -162,7 +162,7 @@ public class MatchOrderController extends LYSLBaseController {
             LYSLResult<Object> result = new LYSLResult<>();
             int matchOrderId = Integer.valueOf(request.getParameter("matchOrderId"));
             orderMatchService.confirmReceipt(matchOrderId);
-            result.setResultObj(true);
+            result.setResultObj(null);
             return result;
         },AuthEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);
