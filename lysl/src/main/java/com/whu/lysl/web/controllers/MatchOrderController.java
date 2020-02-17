@@ -5,9 +5,12 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.whu.lysl.base.enums.DonationTypeEnum;
+import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.enums.MatchingMethodEnum;
 import com.whu.lysl.base.enums.MatchingStatusEnum;
 
+import com.whu.lysl.base.exceptions.LYSLException;
+import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.entity.condition.MatchOrderCondition;
 import com.whu.lysl.entity.dto.MatchOrder;
 import com.whu.lysl.entity.dto.UpdateLogisticInfoRequest;
@@ -160,7 +163,11 @@ public class MatchOrderController extends LYSLBaseController {
     public String confirmReceipt(HttpServletRequest request){
         LYSLResult<Object> res = protectController(request,() ->{
             LYSLResult<Object> result = new LYSLResult<>();
-            int matchOrderId = Integer.valueOf(request.getParameter("matchOrderId"));
+            String matchOrderIdStr = request.getParameter("matchOrderId");
+            if (!StringUtils.isNotEmpty(matchOrderIdStr)){
+                throw new LYSLException("matchOrderId参数必须存在", LYSLResultCodeEnum.DATA_INVALID);
+            }
+            int matchOrderId = Integer.valueOf(matchOrderIdStr);
             orderMatchService.confirmReceipt(matchOrderId);
             result.setResultObj(null);
             return result;
