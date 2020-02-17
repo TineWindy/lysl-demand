@@ -3,6 +3,7 @@ package com.whu.lysl.service.match.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.deser.DataFormatReaders;
+import com.whu.lysl.base.constants.CacheConstants;
 import com.whu.lysl.base.converters.MatchOrderConverter;
 import com.whu.lysl.base.enums.DonationTypeEnum;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
@@ -50,17 +51,17 @@ import java.util.List;
 public class OrderMatchServiceImpl implements OrderMatchService {
 
     @Resource
-    MatchOrderDAO matchOrderDAO;
+    private MatchOrderDAO matchOrderDAO;
     @Resource
-    InstitutionService institutionService;
+    private InstitutionService institutionService;
     @Resource
-    DonationOrderService donationOrderService;
+    private DonationOrderService donationOrderService;
     @Resource
-    CacheService cacheService;
+    private CacheService cacheService;
     @Resource
-    DemandService demandService;
+    private DemandService demandService;
     @Resource
-    UserService userService;
+    private UserService userService;
 
     /**
      * 定向捐赠后的匹配接口（在人工审核后调用）
@@ -81,6 +82,8 @@ public class OrderMatchServiceImpl implements OrderMatchService {
         if (!donationOrderList.get(0).getDonationType().equals(matchOrder.getDonationType())){
             throw new LYSLException("捐赠单类型不匹配",LYSLResultCodeEnum.DATA_INVALID);
         }
+        matchOrder.setDonorPhone(userService.getUserById(donationOrderList.get(0).getDonorId()).getPhone());
+
         // TODO 去需求模块查询需求是否存在
         for (int i = 0;i< matchOrderDoList.size();i++){
             MatchOrderDo matchOrderDo = matchOrderDoList.get(i);
@@ -89,10 +92,15 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
         }
         matchOrder.setId(matchOrderDoList.get(0).getId());
-        // 保存相关信息至redis中，后期展示用
+
+        // 保存相关信息至缓存中，后期展示用
         String hashStr = createHashByMatchOrder(matchOrder);
         System.out.println(hashStr);
         // TODO 发送短信
+
+        // todo 回调变更捐赠单的状态
+
+        // todo 本方法不幂等、并发不安全、若要回调捐赠单状态还需要保证事务的原子性
 
     }
 
@@ -287,15 +295,12 @@ public class OrderMatchServiceImpl implements OrderMatchService {
         return  expressInfo;
     }
 
-
-    /**
-     * 根据物资相关信息生成hash值
-     * @param matchOrder
-     * @return
-     */
     @Override
     public String createHashByMatchOrder(MatchOrder matchOrder) {
-        InstAndMaterialInfo instAndMaterialInfo = new InstAndMaterialInfo(matchOrder.getId(),matchOrder.getMaterialNameList(),matchOrder.getMaterialQuantityList());
+        InstAndMaterialInfo instAndMaterialInfo = new InstAndMaterialInfo(matchOrder.getId(),
+                matchOrder.getMaterialNameList(), matchOrder.getMaterialQuantityList());
+        instAndMaterialInfo.setDonorName(matchOrder.getDonorName());
+        instAndMaterialInfo.setDonorPhone(matchOrder.getDonorPhone());
 
         List<DemandDO> demandDOS = demandService.getDemandsByCondition(new DemandCondition.Builder()
                 .demandId(String.valueOf(matchOrder.getDemandOrderId())).build());
@@ -314,15 +319,15 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
         String hashStr = String.valueOf(instAndMaterialInfo.hashCode());
         System.out.println(hashStr);
-        cacheService.addByKey("SUPPLYLOGISTICINFO",hashStr,instAndMaterialInfo,0);
+        cacheService.addByKey(CacheConstants.SUPPLYLOGISTICINFO, hashStr, instAndMaterialInfo, 0);
         return hashStr;
     }
 
     @Override
     public InstAndMaterialInfo getInstAndMaterialInfoByHash(String hashStr) {
-        InstAndMaterialInfo instAndMaterialInfo = (InstAndMaterialInfo) cacheService.selectByKey("SUPPLYLOGISTICINFO",hashStr,InstAndMaterialInfo.class);
-        if (instAndMaterialInfo == null){
-            throw new LYSLException("未查询到相关信息，请确认hash是否有误",LYSLResultCodeEnum.DATA_INVALID);
+        InstAndMaterialInfo instAndMaterialInfo = (InstAndMaterialInfo) cacheService.selectByKey(CacheConstants.SUPPLYLOGISTICINFO, hashStr, InstAndMaterialInfo.class);
+        if (instAndMaterialInfo == null) {
+            throw new LYSLException("未查询到相关信息，请确认hash是否有误", LYSLResultCodeEnum.DATA_INVALID);
         }
         return instAndMaterialInfo;
     }

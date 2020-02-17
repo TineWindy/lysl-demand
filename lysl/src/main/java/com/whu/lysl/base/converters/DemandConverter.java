@@ -2,9 +2,7 @@ package com.whu.lysl.base.converters;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.whu.lysl.base.enums.DonationOrderStatusEnum;
-import com.whu.lysl.dao.InstitutionDAO;
-import com.whu.lysl.dao.UserDAO;
+import com.whu.lysl.base.enums.OrderStatusEnum;
 import com.whu.lysl.entity.condition.InstCondition;
 import com.whu.lysl.entity.dbobj.DemandDO;
 import com.whu.lysl.entity.dbobj.InstitutionDO;
@@ -35,7 +33,7 @@ public class DemandConverter {
             demandDO.setMaterialName(material.getString("materialName"));
             demandDO.setMaterialNum((int) material.get("materialNum"));
             demandDO.setMaterialId((int) material.get("materialId"));
-            demandDO.setStatus(DonationOrderStatusEnum.UNCHECKED.getCode());
+            demandDO.setStatus(OrderStatusEnum.UNCHECKED.getCode());
             demandDO.setDescription(description);
             demandDOList.add(demandDO);
         }

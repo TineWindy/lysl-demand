@@ -46,8 +46,8 @@ public enum LovePoolStatusEnum {
      * @param code 枚举code
      * @return 有则返回对应枚举，无则返回null
      */
-    public DonationOrderStatusEnum getEnumByCode(String code) {
-        for(DonationOrderStatusEnum matchingStatusEnum : DonationOrderStatusEnum.values()) {
+    public OrderStatusEnum getEnumByCode(String code) {
+        for(OrderStatusEnum matchingStatusEnum : OrderStatusEnum.values()) {
             if(StringUtils.equal(code, matchingStatusEnum.getCode())) {
                 return matchingStatusEnum;
             }

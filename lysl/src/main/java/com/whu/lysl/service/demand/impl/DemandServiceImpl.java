@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.whu.lysl.base.converters.DemandConverter;
 import com.whu.lysl.base.converters.InstConverter;
 import com.whu.lysl.base.converters.UserConverter;
+import com.whu.lysl.base.enums.OrderStatusEnum;
 import com.whu.lysl.base.utils.AssertUtils;
 import com.whu.lysl.dao.DemandDAO;
 import com.whu.lysl.dao.InstitutionDAO;
@@ -79,12 +80,8 @@ public class DemandServiceImpl implements DemandService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void modifyStatus(String jsonString){
-        JSONObject jsonObject = JSON.parseObject(jsonString);
-        String demandId = jsonObject.getString("demandId");
-        String status = jsonObject.getString("status");
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        demandDAO.modifyStatus(demandId, status, df.format(new Date()));
+    public void modifyDemandOrderStatus(String demandId, OrderStatusEnum orderStatusEnum) {
+        demandDAO.modifyStatus(demandId, orderStatusEnum.getCode());
     }
 
     // 这里使用 DO 是兼顾旧写法

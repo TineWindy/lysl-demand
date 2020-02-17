@@ -1,5 +1,6 @@
 package com.whu.lysl.service.demand;
 
+import com.whu.lysl.base.enums.OrderStatusEnum;
 import com.whu.lysl.entity.vo.DemandVO;
 import com.whu.lysl.entity.condition.DemandCondition;
 import com.whu.lysl.entity.dbobj.DemandDO;
@@ -30,10 +31,10 @@ public interface DemandService {
     void insertDemand(String jsonString);
 
     /**
-     * 修改一条需求的审核状态
-     * @param jsonString 查询条件
+     * 修改一个需求单的 status
+     * @param demandId demand id
      */
-    void modifyStatus(String jsonString);
+    void modifyDemandOrderStatus(String demandId, OrderStatusEnum orderStatusEnum);
 
     /**
      * 查询获取 demand list

@@ -20,12 +20,13 @@ public class InstAndMaterialInfo {
     List<String> materialNameList;
     List<Integer> materialQuantityList;
     int matchOrderId;
+    String donorName;
+    String donorPhone;
 
-    public InstAndMaterialInfo(){
-
+    public InstAndMaterialInfo() {
     }
 
-    public InstAndMaterialInfo(int matchOrderId,List<String> materialNameList,List<Integer> materialQuantityList){
+    public InstAndMaterialInfo(int matchOrderId, List<String> materialNameList, List<Integer> materialQuantityList) {
         this.matchOrderId = matchOrderId;
         this.materialNameList = materialNameList;
         this.materialQuantityList = materialQuantityList;

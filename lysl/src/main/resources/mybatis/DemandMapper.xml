@@ -9,9 +9,9 @@
 
     <update id="modifyStatus" parameterType="string">
       update lysl_demand_object set
-      status = #{param2},
-      gmt_modified = #{param3}
-      where demand_id = #{param1}
+      status = #{status},
+      gmt_modified = now()
+      where demand_id = #{demandId}
     </update>
 
     <select id="showUnreviewedDemands" resultType="com.whu.lysl.entity.dbobj.DemandDO">
