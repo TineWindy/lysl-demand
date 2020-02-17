@@ -31,7 +31,7 @@ public class DemandVO {
     private String wxNumber;
 
     //demand模块信息
-    private String demandId;
+    private int demandId;
 
     private String materials;
 
@@ -48,7 +48,7 @@ public class DemandVO {
         doneeName = userDO.getName();
         phone = userDO.getPhone();
         wxNumber = userDO.getWxNumber();
-        demandId = demandDO.getDemandId();
+        demandId = Integer.valueOf(demandDO.getDemandId());
         addMaterial(demandDO);
         description = demandDO.getDescription();
     }
