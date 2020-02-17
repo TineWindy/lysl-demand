@@ -163,6 +163,9 @@ public class OrderMatchServiceImpl implements OrderMatchService {
      */
     @Override
     public void confirmReceipt(int matchOrderId) throws LYSLException {
+        if (matchOrderId <= 0){
+            throw new LYSLException("matchOrderId不能为空",LYSLResultCodeEnum.DATA_INVALID);
+        }
         String status = matchOrderDAO.selectMatchingStatus(matchOrderId);
         if(status == null){
             throw new LYSLException("未找到这个匹配单",LYSLResultCodeEnum.DATA_INVALID);
@@ -188,6 +191,9 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
     public void updateTrackingNumber(int matchOrderId,String logisticCode,String remark,String picList) throws LYSLException {
         String result = "";
+        if (matchOrderId <= 0){
+            throw new LYSLException("matchOrderId不能为空",LYSLResultCodeEnum.DATA_INVALID);
+        }
         try {
             if (!StringUtils.isNotEmpty(logisticCode)){
                 matchOrderDAO.updateLogisticInfo(matchOrderId,null,null,remark,null);
