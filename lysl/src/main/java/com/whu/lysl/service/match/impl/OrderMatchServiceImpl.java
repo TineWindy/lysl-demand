@@ -156,6 +156,17 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
     }
 
+    /**
+     * 确认收货
+     * @param matchOrderId
+     * @throws LYSLException
+     */
+    @Override
+    public void confirmReceipt(int matchOrderId) throws LYSLException {
+
+        matchOrderDAO.updateStatus(matchOrderId,MatchingStatusEnum.DELIVERED.getCode());
+
+    }
 
     /**
      * 更新物流信息

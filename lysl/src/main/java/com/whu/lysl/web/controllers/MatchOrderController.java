@@ -155,4 +155,16 @@ public class MatchOrderController extends LYSLBaseController {
         },AuthEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);
     }
+
+    @RequestMapping(value = "confirmReceipt",method = RequestMethod.PUT)
+    public String confirmReceipt(HttpServletRequest request){
+        LYSLResult<Object> res = protectController(request,() ->{
+            LYSLResult<Object> result = new LYSLResult<>();
+            int matchOrderId = Integer.valueOf(request.getParameter("matchOrderId"));
+            orderMatchService.confirmReceipt(matchOrderId);
+            result.setResultObj(true);
+            return result;
+        },AuthEnum.IGNORE_VERIFY.getCode());
+        return JSON.toJSONString(res);
+    }
 }

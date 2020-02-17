@@ -40,6 +40,12 @@ public interface OrderMatchService {
      */
     void updateMatchOrderStatus(int matchOrderId,String status) throws LYSLException;
 
+    /**
+     * 确认收货
+     * @param matchOrderId
+     * @throws LYSLException
+     */
+    void confirmReceipt(int matchOrderId) throws LYSLException;
 
     /**
      * 更新物流单号
