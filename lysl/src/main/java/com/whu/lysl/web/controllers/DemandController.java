@@ -57,7 +57,6 @@ public class DemandController extends LYSLBaseController {
         public String contactName;
         public String contactPhone;
     }
-    private DemandService demandService;
 
     @RequestMapping("getUnreviewedDemands")
     public String getUnreviewedDemands(HttpServletRequest request) {

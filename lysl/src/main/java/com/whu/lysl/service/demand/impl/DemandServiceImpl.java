@@ -53,13 +53,6 @@ public class DemandServiceImpl implements DemandService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<DemandVO> getUnreviewedDemands() {
-        List<DemandDO> demandDOList = demandDAO.showUnreviewedDemands();
-        return DemandConverter.installVO(demandDOList, institutionService, userService);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
     public List<DemandVO> getUnreviewedDemandsById(String jsonString) {
         List<DemandDO> demandDOList = demandDAO.showUnreviewedDemandsById(
                 (int) JSON.parseObject(jsonString).get("institutionId"));
