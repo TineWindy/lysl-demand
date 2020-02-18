@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>无标题文档</title>
+    <title>珞樱善联</title>
     <link href="../css/style.css" rel="stylesheet" type="text/css"/>
     <script language="JavaScript" src="../js/jquery.js"></script>
     <script type="text/javascript">
@@ -21,24 +21,24 @@
 
 </head>
 
-<body style="background:url(/images/topbg.gif) repeat-x;">
+<body style="background:url(/static/images/topbg.gif) repeat-x;">
 
 <div class="topleft">
-    <a href="main.jsp" target="_parent"><img src="/images/logo.png" title="系统首页"/></a>
+    <a href="main.jsp" target="_parent"><img src="/static/images/logo.png" title="系统首页"/></a>
 </div>
 
 <ul class="nav">
-    <li><a href="default.html" target="rightFrame" class="selected"><img src="/images/icon01.png" title="工作台"/>
+    <li><a href="/defaultx" target="rightFrame" class="selected"><img src="/static/images/icon01.png" title="工作台"/>
         <h2>工作台</h2></a></li>
-    <li><a href="imgtable.html" target="rightFrame"><img src="/images/icon02.png" title="模型管理"/>
+    <li><a href="/imgtable" target="rightFrame"><img src="/static/images/icon02.png" title="模型管理"/>
         <h2>模型管理</h2></a></li>
-    <li><a href="imglist.html" target="rightFrame"><img src="/images/icon03.png" title="模块设计"/>
+    <li><a href="/imglist" target="rightFrame"><img src="/static/images/icon03.png" title="模块设计"/>
         <h2>模块设计</h2></a></li>
-    <li><a href="tools.html" target="rightFrame"><img src="/images/icon04.png" title="常用工具"/>
+    <li><a href="/tools" target="rightFrame"><img src="/static/images/icon04.png" title="常用工具"/>
         <h2>常用工具</h2></a></li>
-    <li><a href="computer.html" target="rightFrame"><img src="/images/icon05.png" title="文件管理"/>
+    <li><a href="/computer" target="rightFrame"><img src="/static/images/icon05.png" title="文件管理"/>
         <h2>文件管理</h2></a></li>
-    <li><a href="tab.html" target="rightFrame"><img src="/images/icon06.png" title="系统设置"/>
+    <li><a href="/tab" target="rightFrame"><img src="/static/images/icon06.png" title="系统设置"/>
         <h2>系统设置</h2></a></li>
 </ul>
 
