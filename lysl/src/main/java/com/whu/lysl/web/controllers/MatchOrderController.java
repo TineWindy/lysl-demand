@@ -159,6 +159,11 @@ public class MatchOrderController extends LYSLBaseController {
         return JSON.toJSONString(res);
     }
 
+    /**
+     * 确认收货
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "confirmReceipt",method = RequestMethod.PUT)
     public String confirmReceipt(HttpServletRequest request){
         LYSLResult<Object> res = protectController(request,() ->{
