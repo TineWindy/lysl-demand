@@ -17,4 +17,11 @@ public class LYSLConstants {
     /** 七牛存储 bucket */
     public static final String QINIU_BUCKET = "lysl-object";
 
+    /** 短信相关 */
+    /** api key */
+    public static final String YUNPIAN_API_KEY = "44df1ee1613a0c3e36aa80831ee197e9";
+
+    /** 请求地址 */
+    public static final String SEND_SMS_ADDRESS = "https://sms.yunpian.com/v2/sms/single_send.json";
+
 }
