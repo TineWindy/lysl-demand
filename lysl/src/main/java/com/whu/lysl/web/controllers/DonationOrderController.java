@@ -143,6 +143,30 @@ public class DonationOrderController extends LYSLBaseController {
         return JSON.toJSONString(res);
     }
 
+    // 修改定向捐赠订单状态
+    @RequestMapping(value = "updateDirectedStatus", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String updateDirectedStatus(@RequestBody Map<String, Object> map, HttpServletRequest request) {
+        LYSLResult<Object> res = protectController(request, () -> {
+            LYSLResult<Object> result = new LYSLResult<>();
+            Integer donationOrderId = (Integer)map.get("donationOrderId");
+            String directedStatus = (String)map.get("directedStatus");
+
+            List<DonationOrder> listDonationOrder = donationOrderService.getDonationOrderByCondition(
+                    new DonationOrderCondition.Builder().donationOrderId(donationOrderId).build());
+            AssertUtils.AssertNotNull(listDonationOrder);
+            if(listDonationOrder.size()==0) {
+                throw new LYSLException("donationOrderId is invalid",  LYSLResultCodeEnum.DATA_INVALID);
+            }
+            int ans_update = donationOrderService.updateDonationOrderDirectedStatus(
+                    listDonationOrder.get(0), directedStatus);
+
+            result.setResultObj(ans_update==1?"更新成功":"更新失败");
+            return result;
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
+
+        return JSON.toJSONString(res);
+    }
+
 //
 //    @Transactional
 //    @RequestMapping(value="addDonationOrderList", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -192,7 +216,7 @@ public class DonationOrderController extends LYSLBaseController {
         return JSON.toJSONString(res);
     }
 
-    // TODO 修正文档
+
     @RequestMapping(value="addDonationOrder", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String addDonationOrder(@RequestBody String requestStr, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {

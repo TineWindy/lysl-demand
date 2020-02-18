@@ -89,4 +89,6 @@ public class DonationOrderDO {
 
     private String authPic;
 
+    private String directedStatus;
+
 }

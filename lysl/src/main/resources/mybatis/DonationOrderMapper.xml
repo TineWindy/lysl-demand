@@ -4,7 +4,7 @@
 
 
     <sql id="DonationOrderCols">
-        donation_type, donor_id, donor_name, donee_id, donee_name, deleted, status, love_pool_status, user_id, origin, destination, remark
+        donation_type, donor_id, donor_name, donee_id, donee_name, deleted, status, love_pool_status, user_id, origin, destination, remark, auth_pic ,directed_status
      </sql>
 
     <sql id="MaterialOrderCols">
@@ -59,6 +59,12 @@
             <if test="remark != null">
                 AND remark = #{remark}
             </if>
+            <if test="authPic != null">
+                AND auth_pic = #{authPic}
+            </if>
+            <if test="directedStatus != null">
+                AND directed_status = #{directedStatus}
+            </if>
             AND deleted = 0
         </where>
         order by donation_order_id desc
@@ -95,12 +101,12 @@
         insert into
         <include refid="DonationOrderTable"/>
         (donor_id, donor_name, donation_type, donee_id, donee_name, deleted, status, love_pool_status, user_id, origin,
-        destination, remark, auth_pic)
+        destination, remark, auth_pic, directed_status)
         values
         (
         #{donorId}, #{donorName},
         #{donationType}, #{doneeId}, #{doneeName},
-        #{deleted}, #{status}, #{lovePoolStatus}, #{userId}, #{origin}, #{destination}, #{remark}, #{authPic}
+        #{deleted}, #{status}, #{lovePoolStatus}, #{userId}, #{origin}, #{destination}, #{remark}, #{authPic}, #{directedStatus}
         )
     </insert>
 
@@ -146,6 +152,12 @@
             </if>
             <if test="remark != null">
                 remark = #{remark},
+            </if>
+            <if test="authPic != null">
+                auth_pic = #{authPic},
+            </if>
+            <if test="directedStatus != null">
+                directed_status = #{directedStatus},
             </if>
         </set>
         where donation_order_id = #{donationOrderId} and deleted = 0
