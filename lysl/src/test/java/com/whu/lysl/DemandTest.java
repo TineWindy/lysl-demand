@@ -1,10 +1,5 @@
 package com.whu.lysl;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.whu.lysl.base.enums.DonationOrderStatusEnum;
-import com.whu.lysl.base.enums.DonationTypeEnum;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;

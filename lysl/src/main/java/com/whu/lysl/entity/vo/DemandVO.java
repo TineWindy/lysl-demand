@@ -1,9 +1,15 @@
 package com.whu.lysl.entity.vo;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.entity.dbobj.DemandDO;
 import com.whu.lysl.entity.dbobj.InstitutionDO;
 import com.whu.lysl.entity.dbobj.UserDO;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class DemandVO {
@@ -22,6 +28,7 @@ public class DemandVO {
     private String address;
 
     private String auth;
+    private List<String> authList = new ArrayList<>();
 
     //user模块信息
     private String doneeName;
@@ -34,6 +41,8 @@ public class DemandVO {
     private int demandId;
 
     private String materials;
+
+    private List<MaterialOrderVO> materialList = new ArrayList<>();
 
     private String description;
 
@@ -49,8 +58,10 @@ public class DemandVO {
         phone = userDO.getPhone();
         wxNumber = userDO.getWxNumber();
         demandId = Integer.valueOf(demandDO.getDemandId());
-        addMaterial(demandDO);
         description = demandDO.getDescription();
+
+        addMaterial(demandDO);
+        addAuth(institutionDO.getAuth());
     }
 
     public void addMaterial(DemandDO demandDO){
@@ -61,6 +72,20 @@ public class DemandVO {
                 "\"materialId\": " + demandDO.getMaterialId() + "," +
                 "\"materialNum\": " + demandDO.getMaterialNum() +
                 "},";
+
+        MaterialOrderVO materialOrderVO = new MaterialOrderVO();
+        materialOrderVO.setMaterialName(demandDO.getMaterialName());
+        materialOrderVO.setMaterialAmount(demandDO.getMaterialNum());
+        materialOrderVO.setMaterialId(demandDO.getMaterialId());
+        this.materialList.add(materialOrderVO);
+    }
+
+    private void addAuth(String auth) {
+        JSONArray jsonArray = new JSONArray();
+        if (StringUtils.isNotEmpty(auth)) {
+            jsonArray = JSON.parseArray(auth);
+        }
+        this.authList = jsonArray.toJavaList(String.class);
     }
 
     public void encapsulation(){

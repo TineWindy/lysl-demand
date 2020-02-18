@@ -38,6 +38,12 @@ public class LYSLResult<T> implements Serializable {
         return success;
     }
 
+    /** 本次需求，temporary */
+    private int code;
+    private String msg;
+    private int count;
+    private T data;
+
     public void setSuccess(boolean success) {
         this.success = success;
     }
@@ -94,5 +100,77 @@ public class LYSLResult<T> implements Serializable {
      */
     public void setResultObj(T resultObj) {
         this.resultObj = resultObj;
+    }
+
+    /**
+     * Get the value of code
+     *
+     * @return the value of code
+     */
+    public int getCode() {
+        return code;
+    }
+
+    /**
+     * Set the code
+     *
+     * @param code code
+     */
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    /**
+     * Get the value of msg
+     *
+     * @return the value of msg
+     */
+    public String getMsg() {
+        return msg;
+    }
+
+    /**
+     * Set the msg
+     *
+     * @param msg msg
+     */
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    /**
+     * Get the value of count
+     *
+     * @return the value of count
+     */
+    public int getCount() {
+        return count;
+    }
+
+    /**
+     * Set the count
+     *
+     * @param count count
+     */
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    /**
+     * Get the value of data
+     *
+     * @return the value of data
+     */
+    public T getData() {
+        return data;
+    }
+
+    /**
+     * Set the data
+     *
+     * @param data data
+     */
+    public void setData(T data) {
+        this.data = data;
     }
 }

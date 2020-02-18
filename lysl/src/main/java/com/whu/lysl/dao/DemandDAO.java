@@ -3,6 +3,7 @@ package com.whu.lysl.dao;
 import com.whu.lysl.entity.condition.DemandCondition;
 import com.whu.lysl.entity.dbobj.DemandDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface DemandDAO {
 
     void insertDemand(DemandDO demandDO);
 
-    void modifyStatus(String demandId, String status, String gmtModified);
+    void modifyStatus(@Param("demandId") String demandId, @Param("status") String status);
 
     List<DemandDO> selectByCondition(DemandCondition demandCondition);
 

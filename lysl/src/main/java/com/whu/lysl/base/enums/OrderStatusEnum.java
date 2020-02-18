@@ -8,7 +8,7 @@ import com.whu.lysl.base.utils.StringUtils;
  * @author Jzh
  * @since 2020-02-10 10:55
  **/
-public enum DonationOrderStatusEnum {
+public enum OrderStatusEnum {
 
     /**
      * 未审核
@@ -35,7 +35,7 @@ public enum DonationOrderStatusEnum {
      */
     private String description;
 
-    DonationOrderStatusEnum(String code, String description) {
+    OrderStatusEnum(String code, String description) {
         this.code = code;
         this.description = description;
     }
@@ -45,8 +45,8 @@ public enum DonationOrderStatusEnum {
      * @param code 枚举code
      * @return 有则返回对应枚举，无则返回null
      */
-    public DonationOrderStatusEnum getEnumByCode(String code) {
-        for(DonationOrderStatusEnum matchingStatusEnum : DonationOrderStatusEnum.values()) {
+    public OrderStatusEnum getEnumByCode(String code) {
+        for(OrderStatusEnum matchingStatusEnum : OrderStatusEnum.values()) {
             if(StringUtils.equal(code, matchingStatusEnum.getCode())) {
                 return matchingStatusEnum;
             }

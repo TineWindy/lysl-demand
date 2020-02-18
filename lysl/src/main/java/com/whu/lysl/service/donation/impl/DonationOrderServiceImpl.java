@@ -2,7 +2,7 @@ package com.whu.lysl.service.donation.impl;
 
 import com.whu.lysl.base.converters.DonationOrderConverter;
 import com.whu.lysl.base.converters.MaterialOrderConverter;
-import com.whu.lysl.base.enums.DonationOrderStatusEnum;
+import com.whu.lysl.base.enums.OrderStatusEnum;
 import com.whu.lysl.base.enums.DonationTypeEnum;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.enums.LovePoolStatusEnum;
@@ -23,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.RollbackRuleAttribute;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -68,7 +67,7 @@ public class DonationOrderServiceImpl implements DonationOrderService {
     @Override
     public List<DonationOrder> getDonationOrderByStatus(String status) {
         AssertUtils.AssertNotNull(status, "status is null");
-        if (!EnumUtils.isValidEnum(DonationOrderStatusEnum.class, status)) {
+        if (!EnumUtils.isValidEnum(OrderStatusEnum.class, status)) {
             throw new LYSLException("Status 不属于支持的枚举值", LYSLResultCodeEnum.DATA_INVALID);
         }
         return getDonationOrderByCondition(new DonationOrderCondition.Builder().status(status).build());
@@ -78,7 +77,7 @@ public class DonationOrderServiceImpl implements DonationOrderService {
     public List<DonationOrder> getDonationOrderByStatusAndDonationType(String status, String donationType) {
         AssertUtils.AssertNotNull(status);
         AssertUtils.AssertNotNull(donationType);
-        if (!EnumUtils.isValidEnum(DonationOrderStatusEnum.class, status)) {
+        if (!EnumUtils.isValidEnum(OrderStatusEnum.class, status)) {
             throw new LYSLException("status 不属于支持的枚举值", LYSLResultCodeEnum.DATA_INVALID);
         }
         if (!EnumUtils.isValidEnum(DonationTypeEnum.class, donationType)) {
@@ -122,7 +121,7 @@ public class DonationOrderServiceImpl implements DonationOrderService {
 
     @Override
     public int insertDonationOrder(DonationOrder donationOrder) {
-        donationOrder.setStatus(DonationOrderStatusEnum.UNCHECKED.getCode());
+        donationOrder.setStatus(OrderStatusEnum.UNCHECKED.getCode());
         donationOrder.setLovePoolStatus(LovePoolStatusEnum.NOT_IN_POOL.getCode());
         donationOrder.setDeleted(0);
         validateInsertDonatiionOrder(donationOrder);
@@ -196,7 +195,7 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         DonationOrder donationOrder1 = new DonationOrder();
         donationOrder1.setStatus(donationOrder.getStatus());
         // 如果审核通过且为非定向捐赠，则加入爱心池
-        if (donationOrder.getStatus().equals(DonationOrderStatusEnum.APPROVED.getCode())
+        if (donationOrder.getStatus().equals(OrderStatusEnum.APPROVED.getCode())
                 && donationOrder.getDonationType().equals(DonationTypeEnum.UNDIRECTED.getCode())) {
             donationOrder1.setLovePoolStatus(LovePoolStatusEnum.IN_POOL.getCode());
         }
@@ -220,7 +219,7 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         if (!EnumUtils.isValidEnum(DonationTypeEnum.class, donationOrder.getDonationType())) {
             throw new LYSLException("donationType 不属于支持的枚举值 {DIRECTED, UNDIRECTED}", LYSLResultCodeEnum.DATA_INVALID);
         }
-        if (!EnumUtils.isValidEnum(DonationOrderStatusEnum.class, donationOrder.getStatus())) {
+        if (!EnumUtils.isValidEnum(OrderStatusEnum.class, donationOrder.getStatus())) {
             throw new LYSLException("donationStatus 不属于支持的枚举值 {UNCHECKED, APPROVED, DISAPPROVED}", LYSLResultCodeEnum.DATA_INVALID);
         }
         if (!EnumUtils.isValidEnum(LovePoolStatusEnum.class, donationOrder.getLovePoolStatus())) {
@@ -249,7 +248,7 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         if (institutionList == null || institutionList.isEmpty()) {
             throw new LYSLException("doneeId and doneeName do not match!", LYSLResultCodeEnum.DATA_INVALID);
         } else if (!StringUtils.equal(institutionList.get(0).getStatus()
-                , DonationOrderStatusEnum.APPROVED.getCode())) {
+                , OrderStatusEnum.APPROVED.getCode())) {
             throw new LYSLException("The institution of this donee has not been checked!"
                     , LYSLResultCodeEnum.DATA_INVALID);
         }

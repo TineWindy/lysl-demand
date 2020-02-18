@@ -66,6 +66,9 @@ public class LYSLBaseController {
             result.setResultCode(ge.getErrorCode().getCode());
             result.setResultDesc(ge.getMessage());
 
+            // temp
+            result.setCode(-1);
+
             return result;
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -73,11 +76,17 @@ public class LYSLBaseController {
             result.setResultCode(LYSLResultCodeEnum.SYSTEM_ERROR.getCode());
             result.setResultDesc(LYSLResultCodeEnum.SYSTEM_ERROR.getDescription());
 
+            // temp
+            result.setCode(-1);
+
             return result;
         }
         result.setSuccess(true);
         result.setResultCode(LYSLResultCodeEnum.SUCCESS.getCode());
         result.setResultDesc(LYSLResultCodeEnum.SUCCESS.getDescription());
+
+        // temp
+        result.setData(result.getResultObj());
         return result;
     }
 

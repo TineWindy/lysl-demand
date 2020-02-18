@@ -1,20 +1,22 @@
 package com.whu.lysl.web.controllers;
 
 import com.alibaba.fastjson.JSON;
-import com.whu.lysl.base.enums.DonationOrderStatusEnum;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.whu.lysl.base.enums.OrderStatusEnum;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
+import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.entity.condition.DemandCondition;
 import com.whu.lysl.entity.condition.InstCondition;
 import com.whu.lysl.entity.dbobj.DemandDO;
+import com.whu.lysl.entity.dto.Demand;
 import com.whu.lysl.entity.dto.Institution;
 import com.whu.lysl.entity.dto.User;
 import com.whu.lysl.entity.vo.DemandVO;
 import com.whu.lysl.service.demand.DemandService;
 import com.whu.lysl.service.institution.InstitutionService;
 import com.whu.lysl.service.user.UserService;
-import com.whu.lysl.entity.vo.DemandVO;
-import com.whu.lysl.service.demand.DemandService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,11 +65,13 @@ public class DemandController extends LYSLBaseController {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
             List<DemandVO> demandList = demandService.getUnreviewedDemands();
+
+            result.setCount(demandList.size());
             result.setResultObj(demandList);
             return result;
         }, LYSLBaseController.AuthEnum.IGNORE_VERIFY.getCode());
 
-        return JSON.toJSONString(res);
+        return JSON.toJSONString(res, SerializerFeature.DisableCircularReferenceDetect);
     }
 
     @RequestMapping("getUnreviewedDemandsById")
@@ -95,15 +99,31 @@ public class DemandController extends LYSLBaseController {
         return JSON.toJSONString(res);
     }
 
-    @RequestMapping("modifyStatus")
-    public String modifyStatus(@RequestBody String jsonString, HttpServletRequest request) {
+    @GetMapping("verifyDemand")
+    public String modifyStatus(HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
-            demandService.modifyStatus(jsonString);
-            result.setResultObj("审核结果已修改");
+
+            String demandId = request.getParameter("demandId");
+            String verify = request.getParameter("verify");
+
+            List<DemandDO> demands = demandService.getDemandsByCondition(new DemandCondition.Builder()
+                    .demandId(demandId).status(OrderStatusEnum.UNCHECKED.getCode()).build());
+            if (demands.size() == 0) {
+                throw new LYSLException("审核的订单不存在或已审核过", LYSLResultCodeEnum.DATA_INVALID);
+            }
+
+            if (StringUtils.equal(verify, "APPROVE")) {
+                demandService.modifyDemandOrderStatus(demandId, OrderStatusEnum.APPROVED);
+            } else if (StringUtils.equal(verify, "DISAPPROVE")) {
+                demandService.modifyDemandOrderStatus(demandId, OrderStatusEnum.DISAPPROVED);
+            } else {
+                throw new LYSLException("错误的审核动作", LYSLResultCodeEnum.DATA_INVALID);
+            }
+
             return result;
         }, LYSLBaseController.AuthEnum.IGNORE_VERIFY.getCode());
-
+        // todo 鉴权
         return JSON.toJSONString(res);
     }
 
@@ -119,7 +139,7 @@ public class DemandController extends LYSLBaseController {
             String province = request.getParameter("province");
             String city = request.getParameter("city");
             List<Institution> institutions = institutionService.getInstsByCondition(new InstCondition.Builder()
-                    .province(province).city(city).status(DonationOrderStatusEnum.APPROVED.getCode()).build());
+                    .province(province).city(city).status(OrderStatusEnum.APPROVED.getCode()).build());
 
             List<DemandOrderVO> demandOrderVOS = generateDemandOrderVOListByInsts(institutions);
             Collections.sort(demandOrderVOS, (DemandOrderVO o1, DemandOrderVO o2) -> {
@@ -139,7 +159,7 @@ public class DemandController extends LYSLBaseController {
             return result;
         }, AuthEnum.IGNORE_VERIFY.getCode());
 
-        return JSON.toJSONString(res);
+        return JSON.toJSONString(res, SerializerFeature.DisableCircularReferenceDetect);
     }
 
     /**
