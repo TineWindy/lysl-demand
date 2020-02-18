@@ -30,8 +30,8 @@ build/
 ### VS Code ###
 .vscode/
 
-### 根目录
-#/.idea/
-#.DS_Store
+## 根目录
+/.idea/
+.DS_Store
 
 
