@@ -9,7 +9,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 
 </head>
@@ -40,21 +40,18 @@
 </script>
 
 
-<script src="/layui/layui.js" charset="utf-8"></script>
+<script src="/static/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="../../../resources/static/js/jquery.js"></script>
 
 <script>
     layui.use('table', function () {
         var table = layui.table;
 
         table.render({
-            elem: '#test'
-            , url: '/donationOrder/queryDonationOrderByPage'
-            , where: {"pageNo": "1", "pageSize": "5"}
-            , method: "post"
-            , contentType: "application/json;charset=UTF-8"
-            , toolbar: '#toolbarDemo',  //开启头部工具栏，并为其绑定左侧模板
+            elem: '#test',
+            url: '/demand/getUnreviewedDemands',
+            toolbar: '#toolbarDemo',  //开启头部工具栏，并为其绑定左侧模板
             defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示',
                 layEvent: 'LAYTABLE_TIPS',
@@ -63,23 +60,23 @@
             title: '用户数据表'
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'resultDesc', title: '名称', width: 120, fixed: 'left', unresize: true, sort: true}
-                // , {field: 'institutionType', title: '类型', width: 120, edit: 'text'}
+                , {field: 'institutionName', title: '名称', width: 120, fixed: 'left', unresize: true, sort: true}
+                , {field: 'institutionType', title: '类型', width: 120, edit: 'text'}
                 // , {
                 //     field: 'email', title: '邮箱', width: 150, edit: 'text', templet: function (res) {
                 //         return '<em>' + res.email + '</em>'
                 //     }
                 // }
-                // , {field: 'province', title: '省', width: 80, edit: 'text', sort: true}
-                // , {field: 'city', title: '城市', width: 100}
-                // , {field: 'district', title: '区', width: 100}
-                // , {field: 'address', title: '地址', width: 200}
-                // , {title: '资质证明/需求详情', toolbar: '#photosdemo', width: 200}
-                // , {field: 'description', title: '描述'}
-                // , {field: 'doneeName', title: '联系人', width: 120}
-                // , {field: 'phone', title: '电话', width: 100, sort: true}
-                // , {field: 'wxNumber', title: '微信', width: 120}
-                // , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 200}
+                , {field: 'province', title: '省', width: 80, edit: 'text', sort: true}
+                , {field: 'city', title: '城市', width: 100}
+                , {field: 'district', title: '区', width: 100}
+                , {field: 'address', title: '地址', width: 200}
+                , {title: '资质证明/需求详情', toolbar: '#photosdemo', width: 200}
+                , {field: 'description', title: '描述'}
+                , {field: 'doneeName', title: '联系人', width: 120}
+                , {field: 'phone', title: '电话', width: 100, sort: true}
+                , {field: 'wxNumber', title: '微信', width: 120}
+                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 200}
 
             ]]
             , page: true

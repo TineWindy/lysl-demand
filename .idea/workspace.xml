@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b8e96a5e-c874-413f-aa37-d82961ac2072" name="Default" comment="后台管理更新">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_jstl_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_jasper_9_0_22.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_tomcat_annotations_api_9_0_22.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jdt_ecj_3_18_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,7 +32,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lysl/src/main/webapp/WEB-INF/jsp" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lysl/src/main/webapp" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -50,7 +46,7 @@
       <recent name="E:\wuhancode\mys\lysl-demand\lysl\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Maven.lysl [spring-boot:run]">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
@@ -63,6 +59,31 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="lysl [spring-boot:run]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="spring-boot:run" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/lysl" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
     </configuration>
     <configuration name="LyslApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="lysl" />
@@ -80,6 +101,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Maven.lysl [spring-boot:run]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -92,7 +118,7 @@
       <option name="presentableId" value="Default" />
       <updated>1581176611332</updated>
       <workItem from="1581176612705" duration="254000" />
-      <workItem from="1582010829781" duration="907000" />
+      <workItem from="1582010829781" duration="1162000" />
     </task>
     <task id="LOCAL-00001" summary="后台管理更新">
       <created>1582011096165</created>
@@ -101,7 +127,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582011096165</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="后台管理更新">
+      <created>1582011814426</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1582011814426</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,25 +145,25 @@
     <option name="LAST_COMMIT_MESSAGE" value="后台管理更新" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="749" y="427" key="#com.intellij.javaee.module.view.web.EditWebRootDialog" timestamp="1582010872083">
+    <state x="749" y="427" key="#com.intellij.javaee.module.view.web.EditWebRootDialog" timestamp="1582012108250">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="749" y="427" key="#com.intellij.javaee.module.view.web.EditWebRootDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582010872083" />
-    <state x="457" y="106" key="CommitChangelistDialog2" timestamp="1582011094485">
+    <state x="749" y="427" key="#com.intellij.javaee.module.view.web.EditWebRootDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582012108250" />
+    <state x="457" y="106" key="CommitChangelistDialog2" timestamp="1582011813596">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="457" y="106" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1582011094485" />
-    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1582010870699">
+    <state x="457" y="106" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1582011813596" />
+    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1582012106762">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1582010870699" />
-    <state x="440" y="95" key="SettingsEditor" timestamp="1582010872764">
+    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1582012106762" />
+    <state x="440" y="95" key="SettingsEditor" timestamp="1582012110126">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="440" y="95" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1582010872764" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1582011097609">
+    <state x="440" y="95" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1582012110126" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1582011817728">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1582011097609" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1582011817728" />
   </component>
 </project>
