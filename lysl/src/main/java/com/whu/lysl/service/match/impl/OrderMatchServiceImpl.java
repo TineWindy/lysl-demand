@@ -98,7 +98,6 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
         // 保存相关信息至缓存中，后期展示用
         String hashStr = createHashByMatchOrder(matchOrder);
-        System.out.println(hashStr);
         // TODO 发送短信
 
         // todo 回调变更捐赠单的状态
@@ -200,8 +199,9 @@ public class OrderMatchServiceImpl implements OrderMatchService {
      */
     @Override
     public void updateTrackingNumber(int matchOrderId,String logisticCode,String remark,String picList) throws LYSLException {
+//        String result = "";
         if (matchOrderId <= 0){
-            throw new LYSLException("matchOrderId不能为空",LYSLResultCodeEnum.DATA_INVALID);
+            throw new LYSLException("matchOrder不能为空",LYSLResultCodeEnum.DATA_INVALID);
         }
         try {
             if (!StringUtils.isNotEmpty(logisticCode)){
@@ -333,7 +333,6 @@ public class OrderMatchServiceImpl implements OrderMatchService {
         instAndMaterialInfo.setTel(user.getPhone());
 
         String hashStr = String.valueOf(instAndMaterialInfo.hashCode());
-        System.out.println(hashStr);
         cacheService.addByKey(CacheConstants.SUPPLYLOGISTICINFO, hashStr, instAndMaterialInfo, 0);
 
         log.info("生成匹配信息缓存，hash 值为：" + hashStr);

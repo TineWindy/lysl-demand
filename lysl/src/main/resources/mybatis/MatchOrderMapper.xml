@@ -58,7 +58,7 @@
     </update>
 
     <update id="updateLogisticInfo">
-        UPDATE <include refid="MatchOrderTable"></include> SET logistic_code = #{logisticCode} , shipper_code = #{shipperCode},remark = #{remark},picList = #{picList} where id = #{matchOrderId}
+        UPDATE <include refid="MatchOrderTable"></include> SET shipper_code = #{shipperCode} ,logistic_code = #{logisticCode} ,remark = #{remark},picList = #{picList} where id = #{matchOrderId}
     </update>
 
     <select id="getMatchOrderGroupList" resultType="com.whu.lysl.entity.condition.MatchOrderCondition" parameterType="com.whu.lysl.entity.condition.MatchOrderCondition">
@@ -76,6 +76,9 @@
             </if>
             <if test="matchingMethod != null">
                 AND matching_method = #{matchingMethod}
+            </if>
+            <if test="id != 0">
+                AND id = #{id}
             </if>
         </where> ORDER by id ) AS t group by donor_id,donee_id,donation_order_id,demand_order_id
 
