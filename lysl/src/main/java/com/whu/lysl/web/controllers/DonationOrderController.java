@@ -98,21 +98,23 @@ public class DonationOrderController extends LYSLBaseController {
     }
 
 //    爱心池展示
-    @RequestMapping(value = "queryLovePoolByPage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public String queryLovePoolByPage(@RequestBody Map<String, Object> map, HttpServletRequest request) {
+    @GetMapping(value = "queryLovePoolByPage")
+    public String queryLovePoolByPage(HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
-            Integer pageNo = (Integer)map.get("pageNo");
-            Integer pageSize = (Integer)map.get("pageSize");
-            String lovePoolStatus = (String)map.get("lovePoolStatus");
-            AssertUtils.AssertNotNull(pageNo);
-            AssertUtils.AssertNotNull(pageSize);
-            PageHelper.startPage(pageNo, pageSize);
+            int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+            int pageSize = Integer.parseInt(request.getParameter("pageSize"));
+            String lovePoolStatus = request.getParameter("lovePoolStatus");
+            if (pageNo > 0 && pageSize > 0) {
+                PageHelper.startPage(pageNo, pageSize);
+            }
             List<DonationOrder> donationOrderList = donationOrderService.getDonationOrderInLovePool(lovePoolStatus);
-            PageInfo pageInfo = new PageInfo(DonationOrderConverter.batchModel2Vo(donationOrderList));
-            result.setResultObj(pageInfo);
+            List<DonationOrderVO> donationOrderVOS = DonationOrderConverter.batchModel2Vo(donationOrderList);
+
+            result.setCount(donationOrderVOS.size());
+            result.setResultObj(donationOrderVOS);
             return result;
-        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode(), BaseControllerEnum.BACK_MANAGE.getCode());
 
         return JSON.toJSONString(res);
     }
