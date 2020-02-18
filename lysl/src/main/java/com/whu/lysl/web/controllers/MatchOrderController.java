@@ -12,6 +12,7 @@ import com.whu.lysl.base.enums.MatchingStatusEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.entity.condition.MatchOrderCondition;
+import com.whu.lysl.entity.dto.ConfirmReceiptRequest;
 import com.whu.lysl.entity.dto.MatchOrder;
 import com.whu.lysl.entity.dto.UpdateLogisticInfoRequest;
 import com.whu.lysl.service.match.OrderMatchService;
@@ -164,15 +165,23 @@ public class MatchOrderController extends LYSLBaseController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "confirmReceipt",method = RequestMethod.PUT)
-    public String confirmReceipt(HttpServletRequest request){
+
+    @RequestMapping(value = "confirmReceipt",method = RequestMethod.POST)
+    public String confirmReceipt(HttpServletRequest request,@RequestBody ConfirmReceiptRequest confirmReceiptRequest){
+
+
         LYSLResult<Object> res = protectController(request,() ->{
             LYSLResult<Object> result = new LYSLResult<>();
-            String matchOrderIdStr = request.getParameter("matchOrderId");
-            if (!StringUtils.isNotEmpty(matchOrderIdStr)){
+            // 原PUT参数
+//            String matchOrderIdStr = request.getParameter("matchOrderId");
+//            if (!StringUtils.isNotEmpty(matchOrderIdStr)){
+//                throw new LYSLException("matchOrderId参数必须存在", LYSLResultCodeEnum.DATA_INVALID);
+//            }
+//            int matchOrderId = Integer.valueOf(matchOrderIdStr);
+            int matchOrderId = confirmReceiptRequest.getMatchOrderId();
+            if(matchOrderId <= 0){
                 throw new LYSLException("matchOrderId参数必须存在", LYSLResultCodeEnum.DATA_INVALID);
             }
-            int matchOrderId = Integer.valueOf(matchOrderIdStr);
             orderMatchService.confirmReceipt(matchOrderId);
             result.setResultObj(null);
             return result;
