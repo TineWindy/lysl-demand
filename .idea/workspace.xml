@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b8e96a5e-c874-413f-aa37-d82961ac2072" name="Default" comment="" />
+    <list default="true" id="b8e96a5e-c874-413f-aa37-d82961ac2072" name="Default" comment="后台管理更新">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_jstl_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_jasper_9_0_22.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_tomcat_annotations_api_9_0_22.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jdt_ecj_3_18_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
@@ -32,6 +43,12 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.externalDependencies" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\wuhancode\mys\lysl-demand\lysl\src\main\webapp\WEB-INF\jsp" />
+      <recent name="E:\wuhancode\mys\lysl-demand\lysl\src\main\resources" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="Application" factoryName="Application">
@@ -75,18 +92,34 @@
       <option name="presentableId" value="Default" />
       <updated>1581176611332</updated>
       <workItem from="1581176612705" duration="254000" />
-      <workItem from="1582010829781" duration="29000" />
+      <workItem from="1582010829781" duration="907000" />
     </task>
+    <task id="LOCAL-00001" summary="后台管理更新">
+      <created>1582011096165</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1582011096165</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="后台管理更新" />
+    <option name="LAST_COMMIT_MESSAGE" value="后台管理更新" />
   </component>
   <component name="WindowStateProjectService">
     <state x="749" y="427" key="#com.intellij.javaee.module.view.web.EditWebRootDialog" timestamp="1582010872083">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="749" y="427" key="#com.intellij.javaee.module.view.web.EditWebRootDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582010872083" />
+    <state x="457" y="106" key="CommitChangelistDialog2" timestamp="1582011094485">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="457" y="106" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1582011094485" />
     <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1582010870699">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -95,5 +128,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="440" y="95" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1582010872764" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1582011097609">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1582011097609" />
   </component>
 </project>
