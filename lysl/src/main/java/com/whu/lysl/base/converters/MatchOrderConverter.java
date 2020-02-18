@@ -76,7 +76,7 @@ public class MatchOrderConverter {
         matchOrderDo.setLogisticCode(matchOrder.getLogisticCode());
         matchOrder.setShipperCode(matchOrder.getShipperCode());
         matchOrderDoList.add(matchOrderDo);
-        for (int i = 1;i<matchOrder.getMaterialIdList().size();i++){
+        for (int i = 1;i<matchOrder.getMaterialNameList().size();i++){
             try{
                 MatchOrderDo matchOrderDo1 = matchOrderDo.clone();
                 matchOrderDo1.setMaterialId(matchOrder.getMaterialIdList().get(i));
