@@ -171,7 +171,8 @@ public class DemandController extends LYSLBaseController {
             List<DemandDO> demandDOS = demandService.getDemandsByCondition(new DemandCondition.Builder()
                     .institutionId(institution.getId()).build());
             if (demandDOS.size() > 0) {
-                demandOrderVOS.add(generateDemandOrderVO(demandDOS, institution, null));
+                User user = userService.getUserById(demandDOS.get(0).getDoneeId());
+                demandOrderVOS.add(generateDemandOrderVO(demandDOS, institution, user));
             }
         }
 

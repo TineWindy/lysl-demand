@@ -63,15 +63,16 @@ public class DonationOrderController extends LYSLBaseController {
     public String queryDonationOrderByStatusByPage(HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
-            Integer pageNo = Integer.parseInt(request.getParameter("pageNo"));
-            Integer pageSize = Integer.parseInt(request.getParameter("pageSize"));
+//            Integer pageNo = Integer.parseInt(request.getParameter("pageNo"));
+//            Integer pageSize = Integer.parseInt(request.getParameter("pageSize"));
             String status = request.getParameter("status");
-            AssertUtils.AssertNotNull(pageNo);
-            AssertUtils.AssertNotNull(pageSize);
+//            AssertUtils.AssertNotNull(pageNo);
+//            AssertUtils.AssertNotNull(pageSize);
 //            PageHelper.startPage(pageNo, pageSize);
             List<DonationOrder> donationOrderList = donationOrderService.getDonationOrderByStatus(status);
             List<DonationOrderVO> donationOrderVOS =  DonationOrderConverter.batchModel2Vo(donationOrderList);
 
+            result.setCount(donationOrderVOS.size());
             result.setResultObj(donationOrderVOS);
             return result;
         }, BaseControllerEnum.IGNORE_VERIFY.getCode(), BaseControllerEnum.BACK_MANAGE.getCode());
