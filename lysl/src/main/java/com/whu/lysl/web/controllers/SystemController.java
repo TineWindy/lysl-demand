@@ -50,7 +50,7 @@ public class SystemController extends LYSLBaseController {
                 log.info("获取系统配置参数", configKey, tag);
                 return res;
 
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(result);
     }
 
@@ -69,7 +69,7 @@ public class SystemController extends LYSLBaseController {
             res.setResultObj(token);
             log.info("获取七牛云上传 token");
             return res;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(result);
     }
 

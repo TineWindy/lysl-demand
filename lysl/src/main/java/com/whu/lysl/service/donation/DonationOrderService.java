@@ -62,6 +62,12 @@ public interface DonationOrderService {
     int updateDonationOrderLovePoolStatus(DonationOrder donationOrder, String lovePoolStatus);
 
     /**
+     * 更新定向捐赠匹配状态
+     * @return 捐赠订单 list
+     */
+    int updateDonationOrderDirectedStatus(DonationOrder donationOrder, String directedStatus);
+
+    /**
      * 校验捐赠单号是否有效
      * @param donationOrderId 捐赠单号id
      * @return Boolean

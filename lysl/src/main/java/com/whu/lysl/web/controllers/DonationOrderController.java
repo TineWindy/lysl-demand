@@ -24,7 +24,6 @@ import com.whu.lysl.web.LYSLResult;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.*;
 
 /**
@@ -55,26 +54,28 @@ public class DonationOrderController extends LYSLBaseController {
             PageInfo pageInfo = new PageInfo(DonationOrderConverter.batchModel2Vo(donationOrderList));
             result.setResultObj(pageInfo);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
 
-    @RequestMapping(value = "queryDonationOrderByStatusByPage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public String queryDonationOrderByStatusByPage(@RequestBody Map<String, Object> map, HttpServletRequest request) {
+    @GetMapping(value = "queryDonationOrderByStatusByPage")
+    public String queryDonationOrderByStatusByPage(HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
-            LYSLResult<Object> result = new LYSLResult();
-            Integer pageNo = (Integer)map.get("pageNo");
-            Integer pageSize = (Integer)map.get("pageSize");
-            String status = (String)map.get("status");
-            AssertUtils.AssertNotNull(pageNo);
-            AssertUtils.AssertNotNull(pageSize);
-            PageHelper.startPage(pageNo, pageSize);
+            LYSLResult<Object> result = new LYSLResult<>();
+//            Integer pageNo = Integer.parseInt(request.getParameter("pageNo"));
+//            Integer pageSize = Integer.parseInt(request.getParameter("pageSize"));
+            String status = request.getParameter("status");
+//            AssertUtils.AssertNotNull(pageNo);
+//            AssertUtils.AssertNotNull(pageSize);
+//            PageHelper.startPage(pageNo, pageSize);
             List<DonationOrder> donationOrderList = donationOrderService.getDonationOrderByStatus(status);
-            PageInfo pageInfo = new PageInfo(DonationOrderConverter.batchModel2Vo(donationOrderList));
-            result.setResultObj(pageInfo);
+            List<DonationOrderVO> donationOrderVOS =  DonationOrderConverter.batchModel2Vo(donationOrderList);
+
+            result.setCount(donationOrderVOS.size());
+            result.setResultObj(donationOrderVOS);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode(), BaseControllerEnum.BACK_MANAGE.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -91,27 +92,29 @@ public class DonationOrderController extends LYSLBaseController {
             PageInfo pageInfo = new PageInfo(DonationOrderConverter.batchModel2Vo(donationOrderList));
             result.setResultObj(pageInfo);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
 
 //    爱心池展示
-    @RequestMapping(value = "queryLovePoolByPage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public String queryLovePoolByPage(@RequestBody Map<String, Object> map, HttpServletRequest request) {
+    @GetMapping(value = "queryLovePoolByPage")
+    public String queryLovePoolByPage(HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
-            Integer pageNo = (Integer)map.get("pageNo");
-            Integer pageSize = (Integer)map.get("pageSize");
-            String lovePoolStatus = (String)map.get("lovePoolStatus");
-            AssertUtils.AssertNotNull(pageNo);
-            AssertUtils.AssertNotNull(pageSize);
-            PageHelper.startPage(pageNo, pageSize);
+            int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+            int pageSize = Integer.parseInt(request.getParameter("pageSize"));
+            String lovePoolStatus = request.getParameter("lovePoolStatus");
+            if (pageNo > 0 && pageSize > 0) {
+                PageHelper.startPage(pageNo, pageSize);
+            }
             List<DonationOrder> donationOrderList = donationOrderService.getDonationOrderInLovePool(lovePoolStatus);
-            PageInfo pageInfo = new PageInfo(DonationOrderConverter.batchModel2Vo(donationOrderList));
-            result.setResultObj(pageInfo);
+            List<DonationOrderVO> donationOrderVOS = DonationOrderConverter.batchModel2Vo(donationOrderList);
+
+            result.setCount(donationOrderVOS.size());
+            result.setResultObj(donationOrderVOS);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode(), BaseControllerEnum.BACK_MANAGE.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -135,7 +138,31 @@ public class DonationOrderController extends LYSLBaseController {
 
             result.setResultObj(ans_update==1?"更新成功":"更新失败");
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
+
+        return JSON.toJSONString(res);
+    }
+
+    // 修改定向捐赠订单状态
+    @RequestMapping(value = "updateDirectedStatus", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public String updateDirectedStatus(@RequestBody Map<String, Object> map, HttpServletRequest request) {
+        LYSLResult<Object> res = protectController(request, () -> {
+            LYSLResult<Object> result = new LYSLResult<>();
+            Integer donationOrderId = (Integer)map.get("donationOrderId");
+            String directedStatus = (String)map.get("directedStatus");
+
+            List<DonationOrder> listDonationOrder = donationOrderService.getDonationOrderByCondition(
+                    new DonationOrderCondition.Builder().donationOrderId(donationOrderId).build());
+            AssertUtils.AssertNotNull(listDonationOrder);
+            if(listDonationOrder.size()==0) {
+                throw new LYSLException("donationOrderId is invalid",  LYSLResultCodeEnum.DATA_INVALID);
+            }
+            int ans_update = donationOrderService.updateDonationOrderDirectedStatus(
+                    listDonationOrder.get(0), directedStatus);
+
+            result.setResultObj(ans_update==1?"更新成功":"更新失败");
+            return result;
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -166,30 +193,30 @@ public class DonationOrderController extends LYSLBaseController {
 //        return JSON.toJSONString(res);
 //    }
 
-    @RequestMapping(value="checkDonationOrder", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public String checkDonationOrder(@RequestBody Map<String,Object> map, HttpServletRequest request) {
+    @GetMapping(value="checkDonationOrder")
+    public String checkDonationOrder(HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
 
-            int donationOrderId = Integer.parseInt(map.get("donationOrderId").toString());
-            String status = map.get("status").toString();
+            int donationOrderId = Integer.parseInt(request.getParameter("donationOrderId"));
+            String status = request.getParameter("status");
 
             List<DonationOrder> listDonationOrder = donationOrderService.getDonationOrderByCondition(
                     new DonationOrderCondition.Builder().donationOrderId(donationOrderId).build());
-            AssertUtils.AssertNotNull(listDonationOrder);
-            if(listDonationOrder.size()==0) {
-                throw new LYSLException("Can't find the order with this donationOrderId",  LYSLResultCodeEnum.DATA_INVALID);
+            if (listDonationOrder == null || listDonationOrder.size() == 0) {
+                throw new LYSLException("Can't find the order with this donationOrderId", LYSLResultCodeEnum.DATA_INVALID);
             }
             int update_ans = donationOrderService.check(listDonationOrder.get(0), status);
+
             // TODO 通知捐赠主体 捐赠审核状态
-            result.setResultObj(update_ans==1? "更新成功":"更新失败");
+            result.setResultObj(update_ans == 1 ? "更新成功" : "更新失败");
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
 
-    // TODO 修正文档
+
     @RequestMapping(value="addDonationOrder", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String addDonationOrder(@RequestBody String requestStr, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
@@ -210,7 +237,7 @@ public class DonationOrderController extends LYSLBaseController {
             int donationOrderId = donationOrderService.insertDonationOrderDetail(donationOrder);
             result.setResultObj("捐赠清单ID: "+donationOrderId);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -247,7 +274,7 @@ public class DonationOrderController extends LYSLBaseController {
 
             result.setResultObj(matchOrderList.subList(fromIndex, toIndex));
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }

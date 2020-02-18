@@ -1,13 +1,8 @@
 package com.whu.lysl.web.controllers;
 
 import com.alibaba.fastjson.JSON;
-import com.whu.lysl.base.converters.RegionConverter;
-import com.whu.lysl.base.utils.AssertUtils;
 import com.whu.lysl.entity.dto.City;
-import com.whu.lysl.entity.dto.District;
-import com.whu.lysl.entity.dto.MatchOrder;
 import com.whu.lysl.entity.dto.Province;
-import com.whu.lysl.service.match.OrderMatchService;
 import com.whu.lysl.service.region.RegionService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
@@ -16,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author Caspar
@@ -45,7 +39,7 @@ public class RegionController extends LYSLBaseController {
             List<Province> listProvince = regionService.getProvinceList();
             result.setResultObj(listProvince);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -63,7 +57,7 @@ public class RegionController extends LYSLBaseController {
             List<City> listCity = regionService.getCityListByProvinceId(Integer.parseInt(request.getParameter("provinceId")));
             result.setResultObj(listCity);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }

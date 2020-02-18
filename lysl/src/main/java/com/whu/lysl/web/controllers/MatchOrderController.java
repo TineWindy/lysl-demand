@@ -53,7 +53,7 @@ public class MatchOrderController extends LYSLBaseController {
             matchOrder.setDonationType(DonationTypeEnum.UNDIRECTED.getCode());
             orderMatchService.saveMatchOrder(matchOrder);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -71,7 +71,7 @@ public class MatchOrderController extends LYSLBaseController {
             List<MatchOrder> matchOrderList = orderMatchService.getMatchOrderByDonorId(donorId);
             result.setResultObj(matchOrderList);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);
     }
 
@@ -89,7 +89,7 @@ public class MatchOrderController extends LYSLBaseController {
             List<MatchOrder> matchOrderList = orderMatchService.getMatchOrderByDoneeId(doneeId);
             result.setResultObj(matchOrderList);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);
     }
 
@@ -107,7 +107,7 @@ public class MatchOrderController extends LYSLBaseController {
             PageInfo pageInfo = new PageInfo(matchOrderList);
             result.setResultObj(matchOrderList);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);
     }
 
@@ -123,7 +123,7 @@ public class MatchOrderController extends LYSLBaseController {
             LYSLResult<Object> result = new LYSLResult<>();
             orderMatchService.updateTrackingNumber(infoRequest.getMatchOrder(),infoRequest.getLogisticCode(),infoRequest.getRemark(),infoRequest.getPicListStr());
             return result;
-        },AuthEnum.IGNORE_VERIFY.getCode());
+        },BaseControllerEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);
     }
 
@@ -140,7 +140,7 @@ public class MatchOrderController extends LYSLBaseController {
             String logisticCode = request.getParameter("logisticCode") ;
             result.setResultObj(orderMatchService.getTracingByExpressInfoFromRedis(shipperCode,logisticCode));
             return result;
-        },AuthEnum.IGNORE_VERIFY.getCode());
+        },BaseControllerEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);
     }
 
@@ -156,7 +156,7 @@ public class MatchOrderController extends LYSLBaseController {
             String hashCode = request.getParameter("hashCode");
             result.setResultObj(orderMatchService.getInstAndMaterialInfoByHash(hashCode));
             return result;
-        },AuthEnum.IGNORE_VERIFY.getCode());
+        },BaseControllerEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);
     }
 
@@ -185,7 +185,7 @@ public class MatchOrderController extends LYSLBaseController {
             orderMatchService.confirmReceipt(matchOrderId);
             result.setResultObj(null);
             return result;
-        },AuthEnum.IGNORE_VERIFY.getCode());
+        },BaseControllerEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(res);
     }
 }

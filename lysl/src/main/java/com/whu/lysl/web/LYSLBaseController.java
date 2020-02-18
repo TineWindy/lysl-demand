@@ -5,7 +5,6 @@ import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,9 +19,10 @@ public class LYSLBaseController {
     /**
      * 鉴权类型枚举
      */
-    protected enum AuthEnum {
+    protected enum BaseControllerEnum {
         IGNORE_VERIFY("IGNORE_VERIFY", "无需鉴权"),
         MANAGEMENT_OPERATION("MANAGEMENT_OPERATION", "管理人员权限"),
+        BACK_MANAGE("BACK_MANAGE", "后台管理入口"),
         ;
 
         /** 枚举编码 */
@@ -31,7 +31,7 @@ public class LYSLBaseController {
         /** 枚举描述 */
         private String description;
 
-        AuthEnum(String code, String description) {
+        BaseControllerEnum(String code, String description) {
             this.code = code;
             this.description = description;
         }
@@ -53,10 +53,10 @@ public class LYSLBaseController {
         try {
             // 1. 前置操作
             preRequestHandle(request);
-            if (params.length == 0 || StringUtils.equal(AuthEnum.IGNORE_VERIFY.code, params[0])) {
+            if (params.length == 0 || StringUtils.equal(BaseControllerEnum.IGNORE_VERIFY.code, params[0])) {
                 log.info("request from " + request.getRemoteAddr() + " without auth-verify");
-            } else if (StringUtils.equal(AuthEnum.MANAGEMENT_OPERATION.code, params[0])) {
-                verifyAuth(AuthEnum.MANAGEMENT_OPERATION);
+            } else if (StringUtils.equal(BaseControllerEnum.MANAGEMENT_OPERATION.code, params[0])) {
+                verifyAuth(BaseControllerEnum.MANAGEMENT_OPERATION);
             }
             // 2. 核心处理逻辑
             result = logicCallBack.execute();
@@ -86,7 +86,10 @@ public class LYSLBaseController {
         result.setResultDesc(LYSLResultCodeEnum.SUCCESS.getDescription());
 
         // temp
-        result.setData(result.getResultObj());
+        if (params.length == 2 && StringUtils.equal(BaseControllerEnum.BACK_MANAGE.code, params[1])) {
+            result.setData(result.getResultObj());
+            result.setResultObj(null);
+        }
         return result;
     }
 
@@ -98,7 +101,7 @@ public class LYSLBaseController {
 
     }
 
-    private void verifyAuth (AuthEnum authEnum) {
+    private void verifyAuth (BaseControllerEnum baseControllerEnum) {
         // todo 鉴权逻辑
     }
 

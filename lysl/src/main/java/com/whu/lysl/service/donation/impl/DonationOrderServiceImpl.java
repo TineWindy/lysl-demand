@@ -2,10 +2,7 @@ package com.whu.lysl.service.donation.impl;
 
 import com.whu.lysl.base.converters.DonationOrderConverter;
 import com.whu.lysl.base.converters.MaterialOrderConverter;
-import com.whu.lysl.base.enums.OrderStatusEnum;
-import com.whu.lysl.base.enums.DonationTypeEnum;
-import com.whu.lysl.base.enums.LYSLResultCodeEnum;
-import com.whu.lysl.base.enums.LovePoolStatusEnum;
+import com.whu.lysl.base.enums.*;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.AssertUtils;
 import com.whu.lysl.base.utils.StringUtils;
@@ -108,6 +105,16 @@ public class DonationOrderServiceImpl implements DonationOrderService {
     }
 
     @Override
+    public int updateDonationOrderDirectedStatus(DonationOrder donationOrder, String directedStatus) {
+        donationOrder.setDirectedStatus(directedStatus);  // 这边是为了下面对 donationOrder 进行校验
+        validateInsertDonatiionOrder(donationOrder);
+        DonationOrder donationOrder1 = new DonationOrder();
+        donationOrder1.setDirectedStatus(donationOrder.getDirectedStatus());
+        donationOrder1.setDonationOrderId(donationOrder.getDonationOrderId());
+        return updateDonationOrder(donationOrder1);
+    }
+
+    @Override
     public Boolean validateDonationOrderId(Integer donationOrderId) {
         if (donationOrderId!=null) {
             List<DonationOrderDO> donationOrderList = donationOrderDAO.selectByCondition(
@@ -124,6 +131,12 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         donationOrder.setStatus(OrderStatusEnum.UNCHECKED.getCode());
         donationOrder.setLovePoolStatus(LovePoolStatusEnum.NOT_IN_POOL.getCode());
         donationOrder.setDeleted(0);
+        // 设置定向捐赠状态
+        if (donationOrder.getDonationType().equals("DIRECTED")) {
+            donationOrder.setDirectedStatus(DirectedStatusEnum.UNFINISHED.getCode());
+        } else {
+            donationOrder.setDirectedStatus(DirectedStatusEnum.UNDIRECTED.getCode());
+        }
         validateInsertDonatiionOrder(donationOrder);
         DonationOrderDO donationOrderDO = DonationOrderConverter.model2Do(donationOrder);
         donationOrderDAO.insertDonationOrder(donationOrderDO);
@@ -200,6 +213,8 @@ public class DonationOrderServiceImpl implements DonationOrderService {
             donationOrder1.setLovePoolStatus(LovePoolStatusEnum.IN_POOL.getCode());
         }
         donationOrder1.setDonationOrderId(donationOrder.getDonationOrderId());
+
+        // todo 如果审核成功，应该调用匹配模块相关method生成匹配记录
         return updateDonationOrder(donationOrder1);
     }
 
@@ -223,13 +238,20 @@ public class DonationOrderServiceImpl implements DonationOrderService {
             throw new LYSLException("donationStatus 不属于支持的枚举值 {UNCHECKED, APPROVED, DISAPPROVED}", LYSLResultCodeEnum.DATA_INVALID);
         }
         if (!EnumUtils.isValidEnum(LovePoolStatusEnum.class, donationOrder.getLovePoolStatus())) {
-            throw new LYSLException("love_pool_status 不属于支持的枚举值 {NOT_IN_POOL, IN_POOL, ARTI_DISPATCHED, AUTO_DISPATCHED}", LYSLResultCodeEnum.DATA_INVALID);
+            throw new LYSLException("lovePoolStatus 不属于支持的枚举值 {NOT_IN_POOL, IN_POOL, ARTI_DISPATCHED, AUTO_DISPATCHED}", LYSLResultCodeEnum.DATA_INVALID);
+        }
+        if (!EnumUtils.isValidEnum(DirectedStatusEnum.class, donationOrder.getDirectedStatus())) {
+            throw new LYSLException("directedStatus 不属于支持的枚举值 {UNFINISHED, FINISHED, UNDIRECTED}", LYSLResultCodeEnum.DATA_INVALID);
         }
 //        定向捐赠 donorId 非空， 非定向捐赠 donorId=-1
         if (StringUtils.equal(donationOrder.getDonationType(), DonationTypeEnum.DIRECTED.getCode())) {
             validateIns(donationOrder.getDoneeId(), donationOrder.getDoneeName());
         } else {
             donationOrder.setDoneeId(-1);
+            // 校验 定向捐赠状态与捐赠类型对应关系
+            if (!donationOrder.getDirectedStatus().equals(DirectedStatusEnum.UNDIRECTED.getCode())) {
+                throw new LYSLException("捐赠类型与定向捐赠状态不匹配，非定向捐赠单的定向捐赠状态一应当为UNDIRECTED", LYSLResultCodeEnum.DATA_INVALID);
+            }
         }
         //TODO 校验 materialId 和 materialName 有效性
 
