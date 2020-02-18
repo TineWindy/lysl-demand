@@ -167,23 +167,23 @@ public class DonationOrderController extends LYSLBaseController {
 //        return JSON.toJSONString(res);
 //    }
 
-    @RequestMapping(value="checkDonationOrder", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public String checkDonationOrder(@RequestBody Map<String,Object> map, HttpServletRequest request) {
+    @GetMapping(value="checkDonationOrder")
+    public String checkDonationOrder(HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
 
-            int donationOrderId = Integer.parseInt(map.get("donationOrderId").toString());
-            String status = map.get("status").toString();
+            int donationOrderId = Integer.parseInt(request.getParameter("donationOrderId"));
+            String status = request.getParameter("status");
 
             List<DonationOrder> listDonationOrder = donationOrderService.getDonationOrderByCondition(
                     new DonationOrderCondition.Builder().donationOrderId(donationOrderId).build());
-            AssertUtils.AssertNotNull(listDonationOrder);
-            if(listDonationOrder.size()==0) {
-                throw new LYSLException("Can't find the order with this donationOrderId",  LYSLResultCodeEnum.DATA_INVALID);
+            if (listDonationOrder == null || listDonationOrder.size() == 0) {
+                throw new LYSLException("Can't find the order with this donationOrderId", LYSLResultCodeEnum.DATA_INVALID);
             }
             int update_ans = donationOrderService.check(listDonationOrder.get(0), status);
+
             // TODO 通知捐赠主体 捐赠审核状态
-            result.setResultObj(update_ans==1? "更新成功":"更新失败");
+            result.setResultObj(update_ans == 1 ? "更新成功" : "更新失败");
             return result;
         }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
