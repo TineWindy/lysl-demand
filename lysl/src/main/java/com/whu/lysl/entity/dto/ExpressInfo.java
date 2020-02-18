@@ -20,7 +20,7 @@ public class ExpressInfo {
     private String logisticCode;
     private boolean success;
     private String Reason;
-    private List<Trace> traceList;
+    private List<Trace> traces;
     private int state;
 
     @Data
