@@ -40,7 +40,7 @@ public class MaterialOrderCondition {
 
         private Integer materialAmount;
 
-        public MaterialOrderCondition.Builder maaterialOrderId(Integer materialOrderId) {
+        public MaterialOrderCondition.Builder materialOrderId(Integer materialOrderId) {
             this.materialOrderId = materialOrderId;
             return this;
         }
