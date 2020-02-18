@@ -42,7 +42,7 @@ public class InstController extends LYSLBaseController {
             List<Institution> institutionList = institutionService.getInstsByCondition(new InstCondition.Builder().status(LYSLDataStatusEnum.UNCHECKED.getCode()).build());
             result.setResultObj(institutionList);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -65,7 +65,7 @@ public class InstController extends LYSLBaseController {
             result.setResultObj(institutionVOS);
             return result;
 
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }

@@ -24,7 +24,6 @@ import com.whu.lysl.web.LYSLResult;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.*;
 
 /**
@@ -55,26 +54,27 @@ public class DonationOrderController extends LYSLBaseController {
             PageInfo pageInfo = new PageInfo(DonationOrderConverter.batchModel2Vo(donationOrderList));
             result.setResultObj(pageInfo);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
 
-    @RequestMapping(value = "queryDonationOrderByStatusByPage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public String queryDonationOrderByStatusByPage(@RequestBody Map<String, Object> map, HttpServletRequest request) {
+    @GetMapping(value = "queryDonationOrderByStatusByPage")
+    public String queryDonationOrderByStatusByPage(HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
-            LYSLResult<Object> result = new LYSLResult();
-            Integer pageNo = (Integer)map.get("pageNo");
-            Integer pageSize = (Integer)map.get("pageSize");
-            String status = (String)map.get("status");
+            LYSLResult<Object> result = new LYSLResult<>();
+            Integer pageNo = Integer.parseInt(request.getParameter("pageNo"));
+            Integer pageSize = Integer.parseInt(request.getParameter("pageSize"));
+            String status = request.getParameter("status");
             AssertUtils.AssertNotNull(pageNo);
             AssertUtils.AssertNotNull(pageSize);
-            PageHelper.startPage(pageNo, pageSize);
+//            PageHelper.startPage(pageNo, pageSize);
             List<DonationOrder> donationOrderList = donationOrderService.getDonationOrderByStatus(status);
-            PageInfo pageInfo = new PageInfo(DonationOrderConverter.batchModel2Vo(donationOrderList));
-            result.setResultObj(pageInfo);
+            List<DonationOrderVO> donationOrderVOS =  DonationOrderConverter.batchModel2Vo(donationOrderList);
+
+            result.setResultObj(donationOrderVOS);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode(), BaseControllerEnum.BACK_MANAGE.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -91,7 +91,7 @@ public class DonationOrderController extends LYSLBaseController {
             PageInfo pageInfo = new PageInfo(DonationOrderConverter.batchModel2Vo(donationOrderList));
             result.setResultObj(pageInfo);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -111,7 +111,7 @@ public class DonationOrderController extends LYSLBaseController {
             PageInfo pageInfo = new PageInfo(DonationOrderConverter.batchModel2Vo(donationOrderList));
             result.setResultObj(pageInfo);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -135,7 +135,7 @@ public class DonationOrderController extends LYSLBaseController {
 
             result.setResultObj(ans_update==1?"更新成功":"更新失败");
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -184,7 +184,7 @@ public class DonationOrderController extends LYSLBaseController {
             // TODO 通知捐赠主体 捐赠审核状态
             result.setResultObj(update_ans==1? "更新成功":"更新失败");
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -210,7 +210,7 @@ public class DonationOrderController extends LYSLBaseController {
             int donationOrderId = donationOrderService.insertDonationOrderDetail(donationOrder);
             result.setResultObj("捐赠清单ID: "+donationOrderId);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -247,7 +247,7 @@ public class DonationOrderController extends LYSLBaseController {
 
             result.setResultObj(matchOrderList.subList(fromIndex, toIndex));
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }

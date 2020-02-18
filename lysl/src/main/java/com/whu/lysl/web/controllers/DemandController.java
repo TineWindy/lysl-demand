@@ -1,7 +1,6 @@
 package com.whu.lysl.web.controllers;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.whu.lysl.base.enums.OrderStatusEnum;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
@@ -10,7 +9,6 @@ import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.entity.condition.DemandCondition;
 import com.whu.lysl.entity.condition.InstCondition;
 import com.whu.lysl.entity.dbobj.DemandDO;
-import com.whu.lysl.entity.dto.Demand;
 import com.whu.lysl.entity.dto.Institution;
 import com.whu.lysl.entity.dto.User;
 import com.whu.lysl.entity.vo.DemandVO;
@@ -69,7 +67,7 @@ public class DemandController extends LYSLBaseController {
             result.setCount(demandList.size());
             result.setResultObj(demandList);
             return result;
-        }, LYSLBaseController.AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode(), BaseControllerEnum.BACK_MANAGE.getCode());
 
         return JSON.toJSONString(res, SerializerFeature.DisableCircularReferenceDetect);
     }
@@ -82,7 +80,7 @@ public class DemandController extends LYSLBaseController {
                     getUnreviewedDemandsById(jsonString);
             result.setResultObj(demandList);
             return result;
-        }, LYSLBaseController.AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -94,7 +92,7 @@ public class DemandController extends LYSLBaseController {
             demandService.insertDemand(jsonString);
             result.setResultObj("插入成功");
             return result;
-        }, LYSLBaseController.AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -122,7 +120,7 @@ public class DemandController extends LYSLBaseController {
             }
 
             return result;
-        }, LYSLBaseController.AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode(), BaseControllerEnum.BACK_MANAGE.getCode());
         // todo 鉴权
         return JSON.toJSONString(res);
     }
@@ -157,7 +155,7 @@ public class DemandController extends LYSLBaseController {
 
             result.setResultObj(resList);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res, SerializerFeature.DisableCircularReferenceDetect);
     }
@@ -224,7 +222,7 @@ public class DemandController extends LYSLBaseController {
 
             result.setResultObj(demandOrderVO);
             return result;
-        }, AuthEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
         return JSON.toJSONString(res);
     }
