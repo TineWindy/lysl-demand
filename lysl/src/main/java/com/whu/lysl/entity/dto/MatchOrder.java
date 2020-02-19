@@ -2,6 +2,7 @@ package com.whu.lysl.entity.dto;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -94,4 +95,38 @@ public class MatchOrder {
      */
     String[] picList;
 
+    public void setMaterial(List<MaterialOrder> materialOrderList){
+        if(materialOrderList == null || materialOrderList.size() == 0){
+            return;
+        }
+        this.materialNameList = new ArrayList<>();
+        this.materialIdList = new ArrayList<>();
+        this.materialQuantityList = new ArrayList<>();
+        for (int i=0;i<materialOrderList.size();i++){
+            MaterialOrder materialOrder = materialOrderList.get(i);
+            materialIdList.add(materialOrder.getMaterialId());
+            materialNameList.add(materialOrder.getMaterialName());
+            materialQuantityList.add(materialOrder.getMaterialAmount());
+        }
+    }
+
+    /**
+     * 生成物资列表的str，用于发送短信
+     */
+    public String getMaterialStrList(){
+        // 生成物资列表
+        String materials = "";
+        if(materialNameList.size() == 1){
+            materials = materialNameList.get(0);
+        }
+        else{
+            materials = "[";
+            for(int j = 0;j<materialNameList.size();j++){
+                materials += materialNameList.get(j) + ",";
+            }
+            materials = materials.substring(0,materials.length()-1);
+            materials += "]";
+        }
+        return materials;
+    }
 }
