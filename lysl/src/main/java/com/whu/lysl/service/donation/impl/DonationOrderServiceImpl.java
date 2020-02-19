@@ -16,6 +16,7 @@ import com.whu.lysl.entity.dto.Institution;
 import com.whu.lysl.entity.dto.MaterialOrder;
 import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.service.institution.InstitutionService;
+import com.whu.lysl.service.notice.NoticeService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,8 @@ public class DonationOrderServiceImpl implements DonationOrderService {
     private DonationOrderDAO donationOrderDAO;
     @Resource
     private InstitutionService institutionService;
+    @Resource
+    private NoticeService noticeService;
 
     @Override
     public List<DonationOrder> getDonationOrderByCondition(DonationOrderCondition donationOrderCondition) {
@@ -214,7 +217,14 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         }
         donationOrder1.setDonationOrderId(donationOrder.getDonationOrderId());
 
-        // todo 如果审核成功，应该调用匹配模块相关method生成匹配记录
+
+        int ans_update = updateDonationOrder(donationOrder1);
+        if (ans_update==1) {
+            // 生成匹配记录
+            // todo 如果审核成功，应该调用匹配模块相关method生成匹配记录
+        } else {
+            throw new LYSLException("审核状态更新失败", LYSLResultCodeEnum.ERROR);
+        }
         return updateDonationOrder(donationOrder1);
     }
 
