@@ -121,8 +121,9 @@ public class OrderMatchServiceImpl implements OrderMatchService {
            throw new LYSLException("需求单不存在",LYSLResultCodeEnum.DATA_INVALID);
        }
        DemandDO demandDO = demandDOList.get(0);
+       Institution institution = institutionService.getInstsByCondition(new InstCondition.Builder().id(demandDO.getInstitutionId()).build()).get(0);
        matchOrder.setDoneeId(demandDO.getDoneeId());
-       matchOrder.setDoneeName(userService.getUserById(demandDO.getDoneeId()).getName());
+       matchOrder.setDoneeName(institution.getName());
 
         // 将DTO转换成DO，同时进行参数检查
         List<MatchOrderDo> matchOrderDoList = MatchOrderConverter.Model2DO(matchOrder);
@@ -147,7 +148,15 @@ public class OrderMatchServiceImpl implements OrderMatchService {
         for (Object object : values) {
             phone = object.toString();
         }
-        noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_SHIP,donorPhone,donor.getName(),matchOrder.getDoneeName(),matchOrder.getMaterialStrList(),notificationHttp,phone); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
+
+        // 根据不同的捐赠方式，发不同的短信
+        if(donationOrder.getDonationType().equals(DonationTypeEnum.UNDIRECTED.getCode())){
+            noticeService.sendSingleMessage(LYSLMessageEnum.UNDIRECT_DONATION,donorPhone,donor.getName(),
+                    String.valueOf(donationOrder.getDonationOrderId()),institution.getName(),institution.getAddress(),notificationHttp,phone); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
+        }
+        else{
+            noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_SHIP,donorPhone,donor.getName(),matchOrder.getDoneeName(),matchOrder.getMaterialStrList(),notificationHttp,""); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
+        }
 
         // 修改捐赠单状态
         if(donationOrder.getDonationType().equals(DonationTypeEnum.UNDIRECTED.getCode())){
