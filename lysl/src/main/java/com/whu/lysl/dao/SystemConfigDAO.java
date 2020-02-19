@@ -27,4 +27,10 @@ public interface SystemConfigDAO {
      */
     int update(SystemConfigDO systemConfigDO);
 
+    /**
+     * 插入一条配置
+     * @param systemConfigDO do
+     */
+    void insert(SystemConfigDO systemConfigDO);
+
 }

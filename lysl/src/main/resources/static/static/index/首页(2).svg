@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>首页</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页" transform="translate(-340.000000, -32.000000)" fill="#2C2D2E" stroke="#2C2D2E">
+            <g id="编组-4" transform="translate(340.000000, 32.000000)">
+                <g id="icon/首页/点点点点">
+                    <circle id="椭圆形" cx="3" cy="10" r="1"></circle>
+                    <circle id="椭圆形备份" cx="10" cy="10" r="1"></circle>
+                    <circle id="椭圆形备份-2" cx="17" cy="10" r="1"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

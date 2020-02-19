@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>iPhone 8备份 3</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="12.5489332%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#62B3FF" offset="0%"></stop>
+            <stop stop-color="#3D90FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="220.236687%" y1="39.9097574%" x2="55.0675295%" y2="53.1324916%" id="linearGradient-2">
+            <stop stop-color="#5697FF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <path d="M9.65595225,3.61141499 L15.5506209,0.253058489 C15.6480781,0.197534383 15.7709963,0.21691728 15.8466381,0.299737286 L16.4406346,0.950102022 C16.5179835,1.03479108 16.5245996,1.16237254 16.4564255,1.25460804 L13.8137391,4.83000724 C14.7853627,5.08420156 15.7729666,5.30922257 16.7120686,5.45883681 C16.9792218,5.50139866 17.5203136,5.21596503 18.335344,4.60253591 L18.3353552,4.60255077 C18.4491296,4.51691889 18.5950531,4.48622627 18.7336837,4.51876888 C19.7150633,4.74914127 20.1417707,5.01830013 20.0138058,5.32624546 C19.6935616,6.09690739 17.6969568,8.82616698 15.9505458,8.57341766 C13.4215145,8.20740366 5.86674505,6.76091999 2.07796529,6.05110042 C-1.71081448,5.34128085 1.20211916,3.3575478 2.83985441,2.82684178 C4.47758966,2.29613575 6.37179639,2.70588443 8.23585021,3.198646 C8.63769226,3.30487272 9.11843821,3.4477528 9.65595225,3.61141499 Z" id="path-3"></path>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-5">
+            <stop stop-color="#74A5F5" offset="0%"></stop>
+            <stop stop-color="#4D85E0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="49.6074347%" x2="54.0443176%" y2="52.2868467%" id="linearGradient-6">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#4D85E0" stop-opacity="0.503059441" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-7">
+            <stop stop-color="#74A5F5" offset="0%"></stop>
+            <stop stop-color="#4D85E0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iPhone-8备份-3" transform="translate(-30.000000, -140.000000)">
+            <g id="编组-7" transform="translate(0.000000, 125.000000)">
+                <g id="编组-2" transform="translate(30.000000, 15.000000)">
+                    <g id="icon/第五页/寄往">
+                        <circle id="Oval" fill="url(#linearGradient-1)" cx="12" cy="12" r="12"></circle>
+                        <g id="编组-2" stroke-width="1" transform="translate(11.500000, 11.500000) scale(-1, 1) rotate(4.000000) translate(-11.500000, -11.500000) translate(1.000000, 7.000000)">
+                            <g id="编组" transform="translate(0.000000, 0.000000)">
+                                <mask id="mask-4" fill="white">
+                                    <use xlink:href="#path-3"></use>
+                                </mask>
+                                <use id="形状结合" fill="url(#linearGradient-2)" xlink:href="#path-3"></use>
+                                <path d="M0.956435487,2.82331087 L3.83643549,2.82331087 C3.96898383,2.82331087 4.07643549,2.93076253 4.07643549,3.06331087 L4.07643549,3.78331087 C4.07643549,3.91585921 3.96898383,4.02331087 3.83643549,4.02331087 L0.956435487,4.02331087 L0.956435487,2.82331087 Z" id="矩形" fill="url(#linearGradient-5)" mask="url(#mask-4)" transform="translate(2.516435, 3.423311) rotate(14.000000) translate(-2.516435, -3.423311) "></path>
+                                <rect id="矩形" fill="url(#linearGradient-6)" mask="url(#mask-4)" transform="translate(8.280000, 6.994280) rotate(13.000000) translate(-8.280000, -6.994280) " x="-1.2" y="6.15428024" width="18.96" height="1.68"></rect>
+                            </g>
+                            <rect id="矩形" fill="url(#linearGradient-7)" transform="translate(5.422310, 4.130593) rotate(13.000000) translate(-5.422310, -4.130593) " x="5.06231009" y="3.65059313" width="1" height="1" rx="0.24"></rect>
+                            <rect id="矩形" fill="url(#linearGradient-7)" transform="translate(6.465829, 4.368503) rotate(13.000000) translate(-6.465829, -4.368503) " x="6.10582861" y="3.88850269" width="1" height="1" rx="0.24"></rect>
+                            <rect id="矩形" fill="url(#linearGradient-7)" transform="translate(7.503646, 4.622341) rotate(13.000000) translate(-7.503646, -4.622341) " x="7.14364646" y="4.14234087" width="1" height="1" rx="0.24"></rect>
+                            <rect id="矩形" fill="url(#linearGradient-7)" transform="translate(8.535488, 4.855698) rotate(13.000000) translate(-8.535488, -4.855698) " x="8.17548837" y="4.37569831" width="1" height="1" rx="0.24"></rect>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>iPhone 8</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iPhone-8" transform="translate(-111.000000, -429.000000)" stroke="#696D71">
+            <g id="编组" transform="translate(111.000000, 429.000000)">
+                <g id="icon/二界面/省市区">
+                    <rect id="矩形" x="8.19369205" y="3.35674213" width="11" height="16" rx="1"></rect>
+                    <path d="M8.69651396,19.3571471 L3.69651396,19.3571471 C3.14422921,19.3571471 2.69651396,18.9094318 2.69651396,18.3571471 L2.69651396,8.35714709 C2.69651396,7.80486234 3.14422921,7.35714709 3.69651396,7.35714709 L3.69651396,7.35714709 L8.69651396,7.35714709" id="路径"></path>
+                    <rect id="矩形" fill="#D8D8D8" fill-rule="evenodd" x="11.1936921" y="9.35674213" width="5" height="1"></rect>
+                    <rect id="矩形备份" fill="#D8D8D8" fill-rule="evenodd" x="11.1936921" y="13.3567421" width="5" height="1"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

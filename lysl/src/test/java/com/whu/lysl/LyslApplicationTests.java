@@ -1,7 +1,6 @@
 package com.whu.lysl;
 
-import com.whu.lysl.base.enums.LYSLMessageEnum;
-import com.whu.lysl.service.notice.NoticeService;
+import com.whu.lysl.service.system.SystemService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
@@ -20,14 +19,10 @@ import javax.annotation.Resource;
 @MapperScan("com.whu.lysl.dao")
 public class LyslApplicationTests {
 
-	@Resource
-	private NoticeService noticeService;
+    @Resource
+    private SystemService systemService;
 
-	@Test
-	public void contextLoads() {
-
-//		noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_SHIP, "18331131879", "jzh", "武汉大学", "口罩若干", "www.baidu.com", "15282329012");
-
-	}
-
+    @Test
+    public void contextLoads() {
+    }
 }
