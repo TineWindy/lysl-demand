@@ -5,10 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import com.whu.lysl.base.constants.CacheConstants;
 import com.whu.lysl.base.converters.MatchOrderConverter;
-import com.whu.lysl.base.enums.DonationTypeEnum;
-import com.whu.lysl.base.enums.LYSLResultCodeEnum;
-import com.whu.lysl.base.enums.MatchingMethodEnum;
-import com.whu.lysl.base.enums.MatchingStatusEnum;
+import com.whu.lysl.base.enums.*;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.KdniaoTrackQueryAPI;
 import com.whu.lysl.base.utils.StringUtils;
@@ -35,14 +32,20 @@ import com.whu.lysl.service.cache.CacheService;
 import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.service.institution.InstitutionService;
 import com.whu.lysl.service.match.OrderMatchService;
+import com.whu.lysl.service.notice.NoticeService;
+import com.whu.lysl.service.system.SystemService;
 import com.whu.lysl.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.jws.soap.SOAPBinding;
 import java.math.MathContext;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 订单匹配的具体实现类
@@ -65,6 +68,10 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     private DemandService demandService;
     @Resource
     private UserService userService;
+    @Resource
+    private NoticeService noticeService;
+    @Resource
+    private SystemService systemService;
 
     /**
      * 定向捐赠后的匹配接口（在人工审核后调用）
@@ -72,22 +79,56 @@ public class OrderMatchServiceImpl implements OrderMatchService {
      * @throws LYSLException 主要是参数异常
      */
     @Override
+    @Transactional
     public void saveMatchOrder(MatchOrder matchOrder) throws LYSLException {
-        // 将DTO转换成DO，同时进行参数检查
-        List<MatchOrderDo> matchOrderDoList = MatchOrderConverter.Model2DO(matchOrder);
+
 
         DonationOrderCondition donationOrderCondition = new DonationOrderCondition.Builder().donationOrderId(matchOrder.getDonationOrderId()).build();
 
         List<DonationOrder> donationOrderList = donationOrderService.getDonationOrderByCondition(donationOrderCondition);
+
         if (donationOrderList.size() == 0){
             throw new LYSLException("捐赠单不存在",LYSLResultCodeEnum.DATA_INVALID);
         }
-        if (!donationOrderList.get(0).getDonationType().equals(matchOrder.getDonationType())){
+        DonationOrder donationOrder = donationOrderList.get(0);
+        if (!donationOrder.getDonationType().equals(matchOrder.getDonationType())){
             throw new LYSLException("捐赠单类型不匹配",LYSLResultCodeEnum.DATA_INVALID);
         }
-        matchOrder.setDonorPhone(userService.getUserById(donationOrderList.get(0).getDonorId()).getPhone());
 
-        // TODO 去需求模块查询需求是否存在
+        // 如果是非定向捐赠，需要保证其不再匹配池中
+        if(donationOrder.getDonationType().equals(DonationTypeEnum.UNDIRECTED.getCode())){
+            if(!donationOrder.getLovePoolStatus().equals(LovePoolStatusEnum.IN_POOL.getCode())){
+                throw new LYSLException("该捐赠单不在爱心池中，请刷新后重试",LYSLResultCodeEnum.DATA_INVALID);
+            }
+        }
+        else{// 如果是定向捐赠，需要其处于未匹配状态
+            if(!donationOrder.getDirectedStatus().equals(DirectedStatusEnum.UNFINISHED.getCode())){
+                throw new LYSLException("这个捐赠单无法进行匹配，请刷新后重试",LYSLResultCodeEnum.DATA_INVALID);
+            }
+        }
+
+        // 设置捐赠相关参数
+        User donor = userService.getUserById(donationOrderList.get(0).getDonorId());
+        String donorPhone = donor.getPhone();
+        matchOrder.setDonorPhone(donorPhone);
+        matchOrder.setDonorName(donor.getName());
+        matchOrder.setDonorId(donor.getId());
+        matchOrder.setMaterial(donationOrder.getMaterialOrderList());
+
+        // 查询需求模块的相关信息
+        List<DemandDO> demandDOList = demandService.getDemandsByCondition(new DemandCondition.Builder().demandId(String.valueOf(matchOrder.getDemandOrderId())).build());
+       if(demandDOList == null || demandDOList.size() ==0){
+           throw new LYSLException("需求单不存在",LYSLResultCodeEnum.DATA_INVALID);
+       }
+       DemandDO demandDO = demandDOList.get(0);
+       Institution institution = institutionService.getInstsByCondition(new InstCondition.Builder().id(demandDO.getInstitutionId()).build()).get(0);
+       matchOrder.setDoneeId(demandDO.getDoneeId());
+       matchOrder.setDoneeName(institution.getName());
+
+        // 将DTO转换成DO，同时进行参数检查
+        List<MatchOrderDo> matchOrderDoList = MatchOrderConverter.Model2DO(matchOrder);
+
+
         for (int i = 0;i< matchOrderDoList.size();i++){
             MatchOrderDo matchOrderDo = matchOrderDoList.get(i);
             // 调用DAO将数据存入数据库
@@ -98,11 +139,32 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
         // 保存相关信息至缓存中，后期展示用
         String hashStr = createHashByMatchOrder(matchOrder);
-        // TODO 发送短信
+        // 生成链接地址
+        String notificationHttp = "http://47.113.115.120:8080/#/pages/wuliu_status/wuliu_status?hashCode=" + hashStr;
+        // 获取运营人员电话号码
+        Map<String,String> customer = systemService.getCustomerServiceStaff();
+        Collection values = customer.values();    //获取Map集合的value集合
+        String phone = "";
+        for (Object object : values) {
+            phone = object.toString();
+        }
 
-        // todo 回调变更捐赠单的状态
+        // 根据不同的捐赠方式，发不同的短信
+        if(donationOrder.getDonationType().equals(DonationTypeEnum.UNDIRECTED.getCode())){
+            noticeService.sendSingleMessage(LYSLMessageEnum.UNDIRECT_DONATION,donorPhone,donor.getName(),
+                    String.valueOf(donationOrder.getDonationOrderId()),institution.getName(),institution.getAddress(),notificationHttp,phone); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
+        }
+        else{
+            noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_SHIP,donorPhone,donor.getName(),matchOrder.getDoneeName(),matchOrder.getMaterialStrList(),notificationHttp,""); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
+        }
 
-        // todo 本方法不幂等、并发不安全、若要回调捐赠单状态还需要保证事务的原子性
+        // 修改捐赠单状态
+        if(donationOrder.getDonationType().equals(DonationTypeEnum.UNDIRECTED.getCode())){
+            donationOrderService.updateDonationOrderLovePoolStatus(donationOrder,LovePoolStatusEnum.ARTI_DISPATCHED.getCode());
+        }
+        else{// 如果是定向捐赠，需要其处于未匹配状态
+            donationOrderService.updateDonationOrderLovePoolStatus(donationOrder,DirectedStatusEnum.FINISHED.getCode());
+        }
 
     }
 
@@ -220,10 +282,24 @@ public class OrderMatchServiceImpl implements OrderMatchService {
                 matchOrderCondition.setId(matchOrderId);
                 List<MatchOrder> matchOrders = getMatchOrderList(matchOrderCondition);
                 if (matchOrders.size() != 0) {
-                    String hashStr = createHashByMatchOrder(matchOrders.get(0));
+                    MatchOrder matchOrder = matchOrders.get(0);
+                    String hashStr = createHashByMatchOrder(matchOrder);
+                    // 生成链接地址
+                    String notificationHttp = "http://47.113.115.120:8080/#/pages/add_logistics/add_logistics?hashCode=" + hashStr;
+                    User user = userService.getUserById(matchOrder.getDoneeId());
+                    // 获取运营人员电话号码
+                    Map<String,String> customer = systemService.getCustomerServiceStaff();
+                    Collection values = customer.values();    //获取Map集合的value集合
+                    String phone = "";
+                    for (Object object : values) {
+                        phone = object.toString();
+                    }
+                    // 发放收货通知
+                    noticeService.sendSingleMessage(LYSLMessageEnum.DONEE_RECEIVE,user.getPhone(),matchOrder.getDonorName(),notificationHttp,phone);
                 }
 
-                // todo 通知
+
+
                 log.info(matchOrderId + "匹配单，更新物流信息成功; " + logisticCode);
             } else {
                 throw new LYSLException("物流单号查询失败", LYSLResultCodeEnum.DATA_INVALID);
