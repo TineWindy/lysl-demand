@@ -80,5 +80,14 @@ public class DonationOrder {
 
     private String directedStatus;
 
-
+    public String getMaterialListToString() {
+        StringBuffer stringBuffer = new StringBuffer();
+        for (MaterialOrder materialOrder : materialOrderList) {
+            stringBuffer.append(materialOrder.getMaterialName());
+            stringBuffer.append("：");
+            stringBuffer.append(materialOrder.getMaterialAmount());
+            stringBuffer.append(" ");
+        }
+        return stringBuffer.toString();
+    }
 }
