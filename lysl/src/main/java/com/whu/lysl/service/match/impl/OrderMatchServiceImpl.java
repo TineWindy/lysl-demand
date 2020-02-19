@@ -33,6 +33,7 @@ import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.service.institution.InstitutionService;
 import com.whu.lysl.service.match.OrderMatchService;
 import com.whu.lysl.service.notice.NoticeService;
+import com.whu.lysl.service.system.SystemService;
 import com.whu.lysl.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,9 @@ import javax.annotation.Resource;
 import javax.jws.soap.SOAPBinding;
 import java.math.MathContext;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 订单匹配的具体实现类
@@ -67,6 +70,8 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     private UserService userService;
     @Resource
     private NoticeService noticeService;
+    @Resource
+    private SystemService systemService;
 
     /**
      * 定向捐赠后的匹配接口（在人工审核后调用）
@@ -135,8 +140,14 @@ public class OrderMatchServiceImpl implements OrderMatchService {
         String hashStr = createHashByMatchOrder(matchOrder);
         // 生成链接地址
         String notificationHttp = "http://47.113.115.120:8080/#/pages/wuliu_status/wuliu_status?hashCode=" + hashStr;
-
-        noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_SHIP,donorPhone,donor.getName(),matchOrder.getDoneeName(),matchOrder.getMaterialStrList(),notificationHttp,""); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
+        // 获取运营人员电话号码
+        Map<String,String> customer = systemService.getCustomerServiceStaff();
+        Collection values = customer.values();    //获取Map集合的value集合
+        String phone = "";
+        for (Object object : values) {
+            phone = object.toString();
+        }
+        noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_SHIP,donorPhone,donor.getName(),matchOrder.getDoneeName(),matchOrder.getMaterialStrList(),notificationHttp,phone); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
 
         // 修改捐赠单状态
         if(donationOrder.getDonationType().equals(DonationTypeEnum.UNDIRECTED.getCode())){
@@ -267,8 +278,15 @@ public class OrderMatchServiceImpl implements OrderMatchService {
                     // 生成链接地址
                     String notificationHttp = "http://47.113.115.120:8080/#/pages/add_logistics/add_logistics?hashCode=" + hashStr;
                     User user = userService.getUserById(matchOrder.getDoneeId());
+                    // 获取运营人员电话号码
+                    Map<String,String> customer = systemService.getCustomerServiceStaff();
+                    Collection values = customer.values();    //获取Map集合的value集合
+                    String phone = "";
+                    for (Object object : values) {
+                        phone = object.toString();
+                    }
                     // 发放收货通知
-                    noticeService.sendSingleMessage(LYSLMessageEnum.DONEE_RECEIVE,user.getPhone(),matchOrder.getDonorName(),notificationHttp,"");
+                    noticeService.sendSingleMessage(LYSLMessageEnum.DONEE_RECEIVE,user.getPhone(),matchOrder.getDonorName(),notificationHttp,phone);
                 }
 
 
