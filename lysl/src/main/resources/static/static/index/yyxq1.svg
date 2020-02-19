@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>编组 22</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页" transform="translate(-74.000000, -1014.000000)">
+            <g id="编组-24" transform="translate(74.000000, 1014.000000)">
+                <g id="tab">
+                    <g id="编组-3" transform="translate(2.315434, 2.633593)">
+                        <g id="编组" transform="translate(13.359983, 8.720995)" stroke="#2C2D2E" stroke-width="1.43">
+                            <path d="M0.942410927,0.108861745 L1.05252345,0.108861745 L5.34241093,0.108861745 C5.94992415,0.108861745 6.44241093,0.601348521 6.44241093,1.20886175 L6.44241093,8.90886175 C6.44241093,9.51637497 5.94992415,10.0088617 5.34241093,10.0088617 L0.983652304,10.0088617" id="路径"></path>
+                        </g>
+                        <path d="M6.01782044,18.7 L1.1,18.7 C0.492486775,18.7 0,18.2075132 0,17.6 L0,1.1 C0,0.492486775 0.492486775,0 1.1,0 L1.1,0 L13.2,0 C13.8075132,0 14.3,0.492486775 14.3,1.1 L14.3,18.7 L8.29581907,18.7" id="路径" stroke="#2C2D2E" stroke-width="1.5"></path>
+                        <g id="编组-2" transform="translate(4.400000, 4.125000)" fill="#2C2D2E">
+                            <rect id="矩形" x="0" y="2.2" width="5.5" height="1.5" rx="0.44"></rect>
+                            <rect id="矩形" transform="translate(2.750000, 2.950000) rotate(90.000000) translate(-2.750000, -2.950000) " x="0" y="2.2" width="5.5" height="1.5" rx="0.44"></rect>
+                        </g>
+                        <path d="M5.5549234,19.4474385 L5.5549234,16.1474385 C5.5549234,15.5399253 6.04741018,15.0474385 6.6549234,15.0474385 L6.6549234,15.0474385 L7.7549234,15.0474385 C8.36243663,15.0474385 8.8549234,15.5399253 8.8549234,16.1474385 L8.8549234,19.4474385" id="路径" stroke="#2C2D2E" stroke-width="1.5"></path>
+                        <rect id="矩形" fill="#2C2D2E" x="14.3023937" y="12.129857" width="3.3" height="1.43" rx="0.22"></rect>
+                        <rect id="矩形备份" fill="#2C2D2E" x="14.3023937" y="14.329857" width="3.3" height="1.43" rx="0.22"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

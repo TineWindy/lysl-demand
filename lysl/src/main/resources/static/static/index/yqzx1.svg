@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>首页</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页" transform="translate(-311.000000, -1015.000000)">
+            <g id="编组-20" transform="translate(311.000000, 1015.000000)">
+                <g id="tab3">
+                    <rect id="矩形" stroke="#2C2D2E" stroke-width="1.5" x="2.82433599" y="3.44667975" width="14.5" height="17.5" rx="1.5"></rect>
+                    <path d="M17.6569248,7.96391842 L20.0057546,7.96391842 C20.5028109,7.96391842 20.9057546,8.36686215 20.9057546,8.86391842 L20.9057546,18.2253696 C20.9057546,20.1583662 19.1148936,20.9639505 16.9057546,20.9639505" id="路径" stroke="#2C2D2E" stroke-width="1.5" stroke-linecap="round"></path>
+                    <rect id="矩形" stroke="#2C2D2E" stroke-width="1.25" x="5.84508786" y="6.85123199" width="2.75" height="2.75" rx="0.5"></rect>
+                    <rect id="矩形" fill="#2C2D2E" fill-rule="evenodd" x="5.19120688" y="12.4668143" width="10" height="1.5" rx="0.5"></rect>
+                    <rect id="矩形" fill="#2C2D2E" fill-rule="evenodd" x="5.21445607" y="16.2311493" width="10" height="1.5" rx="0.5"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>编组 8</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iPhone-8备份-6" transform="translate(-15.000000, -562.000000)">
+            <g id="编组-9" transform="translate(15.000000, 562.000000)">
+                <g id="icon/物流详情页">
+                    <rect id="矩形" fill="#3D90FF" x="0" y="0" width="16" height="16" rx="1.2"></rect>
+                    <path d="M8.23141417,13.6047553 C11.1118894,11.4239141 12.552127,9.24307295 12.552127,7.06223176 C12.552127,3.72378961 10.210735,2.73911606 8.03611383,2.73911606 C5.86149262,2.73911606 3.552127,3.72378961 3.552127,7.06223176 C3.552127,9.24308646 4.99238246,11.4239412 7.87289338,13.6047959 L7.87292367,13.6047559 C7.9789416,13.6850228 8.12539648,13.6850225 8.23141417,13.6047553 Z" id="椭圆形" fill="#FFFFFF"></path>
+                    <circle id="椭圆形" fill="#FF706F" cx="8" cy="7" r="2"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>编组</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iPhone-8备份-6" transform="translate(-15.000000, -844.000000)" stroke="#2C2D2E">
+            <g id="编组-12" transform="translate(15.000000, 844.000000)">
+                <g id="icon/详情页/首页">
+                    <g id="tab首页" transform="translate(2.000000, 3.000000)">
+                        <g id="Group">
+                            <path d="M7.81642906,17.5162625 L7.81642906,13.2458625 C7.81642906,12.2906308 8.59079736,11.5162625 9.54602906,11.5162625 L10.4346551,11.5162625 C11.3898869,11.5162625 12.1642551,12.2906308 12.1642551,13.2458625 L12.1642551,17.5162625" id="Path" stroke-width="1.2972"></path>
+                            <path d="M18.710148,7.58000571 L18.710148,16.4942914 C18.710148,17.2517105 17.9685907,17.86572 17.0538333,17.86572 L2.97515839,17.86572 C2.06040104,17.86572 1.31884369,17.2517105 1.31884369,16.4942914 L1.31884369,7.58000571 L1.31884369,7.58000571" id="Path" stroke-width="1.5" stroke-linecap="round"></path>
+                            <path d="M0,8.57142857 L8.94848557,0.373607223 C9.54352111,-0.171512395 10.4564789,-0.171512395 11.0515144,0.373607223 L20,8.57142857" id="Path" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

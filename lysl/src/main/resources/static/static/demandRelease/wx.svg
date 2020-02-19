@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>iPhone 8</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iPhone-8" transform="translate(-111.000000, -1500.000000)">
+            <g id="编组-6" transform="translate(111.000000, 1500.000000)">
+                <g id="icon/第二页/微信">
+                    <path d="M11,17.6966366 C15.418278,17.6966366 19,14.4066824 19,10.3483183 C19,6.28995416 15.418278,3 11,3 C6.581722,3 3,6.28995416 3,10.3483183 C3,12.4660511 3.97528648,14.3745495 5.53580152,15.7155296 C5.96551399,16.0847897 5.025482,18.7036367 5.53580152,18.9793502 C5.99632859,19.228162 7.90048184,17.1432166 8.41403543,17.3042559 C9.22520485,17.5586211 10.0950554,17.6966366 11,17.6966366 Z" id="椭圆形" stroke="#696D71" stroke-width="1"></path>
+                    <circle id="椭圆形" fill="#696D71" fill-rule="evenodd" cx="7" cy="10" r="1"></circle>
+                    <circle id="椭圆形备份" fill="#696D71" fill-rule="evenodd" cx="11" cy="10" r="1"></circle>
+                    <circle id="椭圆形备份-2" fill="#696D71" fill-rule="evenodd" cx="15" cy="10" r="1"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
