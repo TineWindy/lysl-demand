@@ -6,8 +6,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.whu.lysl.base.converters.DemandConverter;
 import com.whu.lysl.base.converters.InstConverter;
 import com.whu.lysl.base.converters.UserConverter;
+import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.enums.OrderStatusEnum;
+import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.AssertUtils;
+import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.dao.DemandDAO;
 import com.whu.lysl.dao.InstitutionDAO;
 import com.whu.lysl.dao.UserDAO;
@@ -27,6 +30,7 @@ import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 机构服务实现
@@ -46,14 +50,12 @@ public class DemandServiceImpl implements DemandService {
     private UserService userService;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public List<DemandVO> getUnreviewedDemands() {
         List<DemandDO> demandDOList = demandDAO.showUnreviewedDemands();
         return DemandConverter.installVO(demandDOList, institutionService, userService);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public List<DemandVO> getUnreviewedDemandsById(String jsonString) {
         List<DemandDO> demandDOList = demandDAO.showUnreviewedDemandsById(
                 (int) JSON.parseObject(jsonString).get("institutionId"));
@@ -62,25 +64,50 @@ public class DemandServiceImpl implements DemandService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void insertDemand(String jsonString){
-        JSONObject jsonObject = JSON.parseObject(jsonString);
-        JSONObject jsonInstitution = jsonObject.getJSONObject("institution");
-        JSONObject jsonUser = jsonObject.getJSONObject("donee");
-        Institution institution = jsonInstitution.toJavaObject(Institution.class);
-        User user = jsonUser.toJavaObject(User.class);
-        JSONArray materials = (JSONArray) jsonObject.get("materials");
-        String description = jsonObject.getString("description");
-        int institutionId = institutionService.addAnInstitution(institution);
-        user.setInstitutionId(institutionId);
+    public int insertDemand(Institution institution, User user, List<Map<String, String>> materials, String description) {
+        int insiId = institutionService.addAnInstitution(institution);
         int userId = userService.addAnUser(user);
-        List<DemandDO> demandDOList = DemandConverter.json2DO(institutionId, userId, description, materials);
-        for(DemandDO demandDO : demandDOList)
-            demandDAO.insertDemand(demandDO);
+
+        int demandId = 0;
+        for (Map<String, String> map : materials) {
+            Demand demand = new Demand();
+            demand.setDemandId("");
+            demand.setDoneeId(userId);
+            demand.setInstitutionId(insiId);
+            demand.setMaterialId(Integer.parseInt(map.get("materialId")));
+            demand.setMaterialNum(Integer.parseInt(map.get("materialNum")));
+            demand.setMaterialName(map.get("materialName"));
+            demand.setStatus(OrderStatusEnum.UNCHECKED.getCode());
+
+            DemandDO demandDO = DemandConverter.model2Do(demand);
+            if (demandId == 0) {
+                demandDAO.insertDemand(demandDO);
+                demandId = demandDO.getId();
+                demandDO.setDemandId(demandId + "");
+                demandDAO.update(demandDO);
+            } else {
+                demandDO.setDemandId(demandId + "");
+                demandDAO.insertDemand(demandDO);
+
+            }
+        }
+
+        return demandId;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void modifyDemandOrderStatus(String demandId, OrderStatusEnum orderStatusEnum) {
+        // 1. 检验需求单状态合法性
+        AssertUtils.StringNotEmpty(demandId, "demandId cant be empty when verify a demand!");
+        List<DemandDO> demandDOS = demandDAO.selectByDemandIdForUpdate(demandId);
+        if (demandDOS != null && demandDOS.size() > 0) {
+            if (!StringUtils.equal(demandDOS.get(0).getStatus(), OrderStatusEnum.UNCHECKED.getCode())) {
+                throw new LYSLException("status of demands must be unchecked when veriry", LYSLResultCodeEnum.DATA_INVALID);
+            }
+        }
+
+        // 2.
         demandDAO.modifyStatus(demandId, orderStatusEnum.getCode());
     }
 

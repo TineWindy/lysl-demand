@@ -51,13 +51,11 @@ public class LYSLBaseController {
                                                         LYSLLogicCallBack logicCallBack, String... params) {
         LYSLResult<Object> result = new LYSLResult<>();
         try {
+            log.info("Start request " + request.getRequestURI() + " from " + request.getRemoteAddr());
+
             // 1. 前置操作
             preRequestHandle(request);
-            if (params.length == 0 || StringUtils.equal(BaseControllerEnum.IGNORE_VERIFY.code, params[0])) {
-                log.info("request from " + request.getRemoteAddr() + " without auth-verify");
-            } else if (StringUtils.equal(BaseControllerEnum.MANAGEMENT_OPERATION.code, params[0])) {
-                verifyAuth(BaseControllerEnum.MANAGEMENT_OPERATION);
-            }
+
             // 2. 核心处理逻辑
             result = logicCallBack.execute();
         } catch (LYSLException ge) {
@@ -90,6 +88,8 @@ public class LYSLBaseController {
             result.setData(result.getResultObj());
             result.setResultObj(null);
         }
+
+        log.info("Finish request\n");
         return result;
     }
 

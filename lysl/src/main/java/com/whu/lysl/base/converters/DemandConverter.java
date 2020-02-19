@@ -1,43 +1,42 @@
 package com.whu.lysl.base.converters;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.whu.lysl.base.enums.OrderStatusEnum;
 import com.whu.lysl.entity.condition.InstCondition;
 import com.whu.lysl.entity.dbobj.DemandDO;
 import com.whu.lysl.entity.dbobj.InstitutionDO;
 import com.whu.lysl.entity.dbobj.UserDO;
+import com.whu.lysl.entity.dto.Demand;
 import com.whu.lysl.entity.vo.DemandVO;
 import com.whu.lysl.service.institution.InstitutionService;
 import com.whu.lysl.service.user.UserService;
 
-import java.security.SecureRandom;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class DemandConverter {
 
-    public static List<DemandDO> json2DO(int institutionId, int userId, String description, JSONArray materials){
-
-        List<DemandDO> demandDOList = new ArrayList<>();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String demandId = generateRandom();
-        for(Object object : materials){
-            JSONObject material = (JSONObject) object;
-            DemandDO demandDO = new DemandDO();
-            demandDO.setGmtCreated(df.format(new Date()));
-            demandDO.setGmtModified(df.format(new Date()));
-            demandDO.setDemandId(demandId);
-            demandDO.setInstitutionId(institutionId);
-            demandDO.setDoneeId(userId);
-            demandDO.setMaterialName(material.getString("materialName"));
-            demandDO.setMaterialNum((int) material.get("materialNum"));
-            demandDO.setMaterialId((int) material.get("materialId"));
-            demandDO.setStatus(OrderStatusEnum.UNCHECKED.getCode());
-            demandDO.setDescription(description);
-            demandDOList.add(demandDO);
+    /**
+     * model 2 do
+     * @param demand model
+     * @return do
+     */
+    public static DemandDO model2Do(Demand demand) {
+        if (demand == null) {
+            return null;
         }
-        return demandDOList;
+
+        DemandDO demandDO = new DemandDO();
+        demandDO.setId(demand.getId());
+        demandDO.setGmtCreated(demand.getGmtCreated());
+        demandDO.setGmtModified(demand.getGmtModified());
+        demandDO.setInstitutionId(demand.getInstitutionId());
+        demandDO.setDoneeId(demand.getDoneeId());
+        demandDO.setDemandId(demand.getDemandId());
+        demandDO.setMaterialId(demand.getMaterialId());
+        demandDO.setMaterialName(demand.getMaterialName());
+        demandDO.setMaterialNum(demand.getMaterialNum());
+        demandDO.setDescription(demand.getDescription());
+        demandDO.setStatus(demand.getStatus());
+
+        return demandDO;
     }
 
     public static List<DemandVO> installVO(List<DemandDO> demandDOList,
@@ -61,14 +60,4 @@ public class DemandConverter {
         return demandVOList;
     }
 
-    private static String generateRandom(){
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[8];
-        random.nextBytes(salt);
-        StringBuilder sb = new StringBuilder();
-        for (byte b : salt) {
-            sb.append(Math.abs(Byte.valueOf(b).intValue()) % 10);
-        }
-        return sb.toString();
-    }
 }
