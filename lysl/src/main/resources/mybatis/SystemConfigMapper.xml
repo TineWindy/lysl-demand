@@ -10,27 +10,39 @@
         lysl_system_config
     </sql>
 
-    <select id="selectByCondition" resultType="com.whu.lysl.entity.dbobj.SystemConfigDO" parameterType="com.whu.lysl.entity.condition.SystemConfigCondition" >
-        SELECT id, gmt_created, gmt_modified, <include refid="SystemConfigCols" />
+    <select id="selectByCondition" resultType="com.whu.lysl.entity.dbobj.SystemConfigDO"
+            parameterType="com.whu.lysl.entity.condition.SystemConfigCondition">
+        SELECT id, gmt_created, gmt_modified,
+        <include refid="SystemConfigCols"/>
         FROM
-        <include refid="SystemConfigTable" />
+        <include refid="SystemConfigTable"/>
         WHERE
-            config_key = #{configKey}
-            AND status = #{status}
-            <if test="tag != null and tag != ''"> AND tag = #{tag} </if>
+        config_key = #{configKey}
+        AND status = #{status}
+        <if test="tag != null and tag != ''">AND tag = #{tag}</if>
     </select>
 
     <update id="update" parameterType="com.whu.lysl.entity.dbobj.SystemConfigDO">
-        UPDATE <include refid="SystemConfigTable" />
+        UPDATE
+        <include refid="SystemConfigTable"/>
         <set>
-            <if test="configKey != null and configKey != ''"> config_key = #{configKey}, </if>
-            <if test="configValue != null and configValue != ''"> config_value = #{configValue}, </if>
-            <if test="tag != null and tag != ''"> tag = #{tag}, </if>
-            <if test="status != null and status != ''"> status = #{status}, </if>
-            <if test="param != null and param != ''"> param = #{param}, </if>
+            <if test="configKey != null and configKey != ''">config_key = #{configKey},</if>
+            <if test="configValue != null and configValue != ''">config_value = #{configValue},</if>
+            <if test="tag != null and tag != ''">tag = #{tag},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="param != null and param != ''">param = #{param},</if>
             gmt_modified = now()
         </set>
         WHERE id = #{id}
     </update>
+
+    <insert id="insert" parameterType="com.whu.lysl.entity.dbobj.SystemConfigDO">
+        INSERT INTO
+        <include refid="SystemConfigTable"/>
+        (
+        <include refid="SystemConfigCols"/>
+        )
+        VALUES (#{configKey}, #{configValue}, #{tag}, #{status}, #{param})
+    </insert>
 
 </mapper>

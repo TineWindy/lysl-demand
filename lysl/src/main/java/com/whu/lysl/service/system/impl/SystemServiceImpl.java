@@ -1,6 +1,8 @@
 package com.whu.lysl.service.system.impl;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.qiniu.util.Auth;
 import com.whu.lysl.base.constants.LYSLConstants;
 import com.whu.lysl.base.converters.SystemConfigConverter;
@@ -10,13 +12,17 @@ import com.whu.lysl.base.utils.AssertUtils;
 import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.dao.SystemConfigDAO;
 import com.whu.lysl.entity.condition.SystemConfigCondition;
+import com.whu.lysl.entity.dbobj.SystemConfigDO;
 import com.whu.lysl.entity.dto.SystemConfig;
 import com.whu.lysl.service.system.SystemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * @author Visionary
@@ -57,4 +63,18 @@ public class SystemServiceImpl implements SystemService {
         Auth auth = Auth.create(LYSLConstants.QINIU_ACCESS_KEY, LYSLConstants.QINIU_SECRET_KEY);
         return auth.uploadToken(LYSLConstants.QINIU_BUCKET);
     }
+
+    @Override
+    public Map<String, String> getCustomerServiceStaff() {
+        List<SystemConfig> systemConfigs = getConfigsByKeyStatusTag("CUSTUMER_SERVICE", "NORMAL", null);
+
+        Random random = new Random();
+        int index = random.nextInt(systemConfigs.size());
+        JSONObject jsonObject = JSON.parseObject(systemConfigs.get(index).getConfigValue());
+
+        Map<String, String> map = new HashMap<>();
+        map.put(jsonObject.getString("staffName"), jsonObject.getString("staffPhone"));
+        return map;
+    }
+
 }

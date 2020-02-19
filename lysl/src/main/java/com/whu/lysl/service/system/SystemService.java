@@ -4,9 +4,10 @@ package com.whu.lysl.service.system;
 import com.whu.lysl.entity.dto.SystemConfig;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * 系统相关服务
+ * 系统基础服务
  * @author Visionary
  * @since 2020/1/29 12:32 PM
  */
@@ -33,5 +34,12 @@ public interface SystemService {
      * @return str token
      */
     String getQiniuToken();
+
+    /**
+     * 随机获取运营人员信息
+     * key 为姓名，value 为电话号码
+     * @return kv
+     */
+    Map<String, String> getCustomerServiceStaff();
 
 }
