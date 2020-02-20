@@ -63,15 +63,11 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     @Override
-    public void checkInstitutionStatus(int institutionId, boolean isPassed) {
+    public void checkInstitutionStatus(int institutionId, OrderStatusEnum orderStatusEnum) {
 
         List<Institution> institutionList = getInstsByCondition(new InstCondition.Builder().id(institutionId).build());
         if (institutionList.size() > 0) {
-            if (isPassed) {
-                institutionList.get(0).setStatus(OrderStatusEnum.APPROVED.getCode());
-            } else {
-                institutionList.get(0).setStatus(OrderStatusEnum.DISAPPROVED.getCode());
-            }
+            institutionList.get(0).setStatus(orderStatusEnum.getCode());
             update(institutionList.get(0));
         }
 

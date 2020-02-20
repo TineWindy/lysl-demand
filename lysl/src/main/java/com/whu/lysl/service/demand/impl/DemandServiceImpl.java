@@ -107,8 +107,11 @@ public class DemandServiceImpl implements DemandService {
             }
         }
 
-        // 2.
+        // 2. 更改需求单状态
         demandDAO.modifyStatus(demandId, orderStatusEnum.getCode());
+
+        // 3. 更改机构状态
+        institutionService.checkInstitutionStatus(demandDOS.get(0).getInstitutionId(), orderStatusEnum);
     }
 
     // 这里使用 DO 是兼顾旧写法

@@ -59,6 +59,7 @@
             <if test="address != null"> address = #{address}, </if>
             <if test="auth != null"> auth = #{auth}, </if>
         </set>
+        where id = #{id}
     </update>
 
 
