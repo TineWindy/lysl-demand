@@ -144,8 +144,10 @@ public class DemandController extends LYSLBaseController {
             } else if (StringUtils.equal(verify, OrderStatusEnum.DISAPPROVED.getCode())) {
                 demandService.modifyDemandOrderStatus(demandId, OrderStatusEnum.DISAPPROVED);
             } else {
-                throw new LYSLException("Insufficient or wrong prams", LYSLResultCodeEnum.DATA_INVALID);
+                throw new LYSLException("Insufficient or wrong params", LYSLResultCodeEnum.DATA_INVALID);
             }
+
+            // todo 根据审核结果短信通知
 
             return result;
         }, BaseControllerEnum.IGNORE_VERIFY.getCode(), BaseControllerEnum.BACK_MANAGE.getCode());

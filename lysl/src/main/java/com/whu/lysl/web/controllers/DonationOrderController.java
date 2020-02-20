@@ -5,8 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.whu.lysl.base.converters.DonationOrderConverter;
-import com.whu.lysl.base.enums.LYSLResultCodeEnum;
-import com.whu.lysl.base.enums.LovePoolStatusEnum;
+import com.whu.lysl.base.enums.*;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.AssertUtils;
 import com.whu.lysl.entity.condition.DonationOrderCondition;
@@ -18,6 +17,8 @@ import com.whu.lysl.entity.dto.User;
 import com.whu.lysl.entity.vo.DonationOrderVO;
 import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.service.match.OrderMatchService;
+import com.whu.lysl.service.notice.NoticeService;
+import com.whu.lysl.service.system.SystemService;
 import com.whu.lysl.service.user.UserService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
@@ -42,6 +43,10 @@ public class DonationOrderController extends LYSLBaseController {
     private UserService userService;
     @Resource
     private OrderMatchService orderMatchService;
+    @Resource
+    private NoticeService noticeService;
+    @Resource
+    private SystemService systemService;
 
     @RequestMapping(value = "queryDonationOrderByPage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String queryDonationOrderByPage(@RequestBody Map<String,Integer> map, HttpServletRequest request) {
@@ -208,7 +213,43 @@ public class DonationOrderController extends LYSLBaseController {
             }
             int update_ans = donationOrderService.check(listDonationOrder.get(0), status);
 
-            // TODO 通知捐赠主体 捐赠审核状态
+            if (update_ans==1) {
+                DonationOrder donationOrder = listDonationOrder.get(0);
+                Map<String, String> map_customer = systemService.getCustomerServiceStaff();
+                User user = userService.getUserById(donationOrder.getDonorId());
+                if (status.equals(OrderStatusEnum.APPROVED.getCode())) {
+                    // 审核通过, 告知捐赠人发货
+//                    noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_SHIP
+//                            , user.getPhone()
+////                            , "15927434600" //test
+//                            , donationOrder.getDonorName()
+//                            , donationOrder.getDoneeName()
+//                            , donationOrder.getMaterialListToString()
+//                            , "更新物流信息链接"
+//                            , map_customer.values().toArray()[0].toString());
+
+                    if (donationOrder.getDonationType().equals(DonationTypeEnum.UNDIRECTED.getCode())) {
+                        // 捐赠订单加入爱心池
+                        noticeService.sendSingleMessage(LYSLMessageEnum.IN_LOVE_POOL
+                                , map_customer.values().toArray()[0].toString()
+//                                , "15927434600" //test
+                                , donationOrder.getMaterialListToString()
+                                , "后台管理系统");
+                    }
+                } else if (status.equals(OrderStatusEnum.DISAPPROVED.getCode())) {
+                    // 审核不通过, 告知捐赠人审核不通过原因
+                    noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_DISAPPROVED
+                            , user.getPhone()
+//                            , "15927434600" //test
+                            , donationOrder.getDonorName()
+                            , donationOrder.getMaterialListToString()
+                            , "审核未通过原因"
+                            , "后台管理系统"
+                            , map_customer.values().toArray()[0].toString());
+                }
+
+            }
+
             result.setResultObj(update_ans == 1 ? "更新成功" : "更新失败");
             return result;
         }, BaseControllerEnum.IGNORE_VERIFY.getCode());
@@ -235,6 +276,16 @@ public class DonationOrderController extends LYSLBaseController {
 
             DonationOrder donationOrder = DonationOrderConverter.vo2Model(donationOrderVO);
             int donationOrderId = donationOrderService.insertDonationOrderDetail(donationOrder);
+
+            // 通知人工审核
+            Map<String, String> map_customer = systemService.getCustomerServiceStaff();
+            noticeService.sendSingleMessage(LYSLMessageEnum.DONATION_CHECK
+                            , map_customer.values().toArray()[0].toString()
+//                            , "15927434600" //test
+                            , donationOrder.getDonorName()
+                            , "捐赠单号：" + String.valueOf(donationOrderId)
+                            , "后台管理系统");
+
             result.setResultObj("捐赠清单ID: "+donationOrderId);
             return result;
         }, BaseControllerEnum.IGNORE_VERIFY.getCode());

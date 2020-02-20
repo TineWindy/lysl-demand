@@ -79,7 +79,7 @@ public class OrderMatchServiceImpl implements OrderMatchService {
      * @throws LYSLException 主要是参数异常
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void saveMatchOrder(MatchOrder matchOrder) throws LYSLException {
 
 
@@ -122,7 +122,7 @@ public class OrderMatchServiceImpl implements OrderMatchService {
        }
        DemandDO demandDO = demandDOList.get(0);
        Institution institution = institutionService.getInstsByCondition(new InstCondition.Builder().id(demandDO.getInstitutionId()).build()).get(0);
-       matchOrder.setDoneeId(demandDO.getDoneeId());
+       matchOrder.setDoneeId(institution.getId());
        matchOrder.setDoneeName(institution.getName());
 
         // 将DTO转换成DO，同时进行参数检查
@@ -151,20 +151,17 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
         // 根据不同的捐赠方式，发不同的短信
         if(donationOrder.getDonationType().equals(DonationTypeEnum.UNDIRECTED.getCode())){
+            // 修改捐赠单状态
+            donationOrderService.updateDonationOrderLovePoolStatus(donationOrder,LovePoolStatusEnum.ARTI_DISPATCHED.getCode());
             noticeService.sendSingleMessage(LYSLMessageEnum.UNDIRECT_DONATION,donorPhone,donor.getName(),
-                    String.valueOf(donationOrder.getDonationOrderId()),institution.getName(),institution.getAddress(),notificationHttp,phone); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
+                    matchOrder.getMaterialStrList(),institution.getName(),institution.getAddress(),notificationHttp,phone); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
         }
         else{
-            noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_SHIP,donorPhone,donor.getName(),matchOrder.getDoneeName(),matchOrder.getMaterialStrList(),notificationHttp,""); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
+            // 如果是定向捐赠，需要其处于未匹配状态
+            donationOrderService.updateDonationOrderDirectedStatus(donationOrder,DirectedStatusEnum.FINISHED.getCode());
+            noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_SHIP,donorPhone,donor.getName(),matchOrder.getDoneeName(),matchOrder.getMaterialStrList(),notificationHttp,phone); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
         }
 
-        // 修改捐赠单状态
-        if(donationOrder.getDonationType().equals(DonationTypeEnum.UNDIRECTED.getCode())){
-            donationOrderService.updateDonationOrderLovePoolStatus(donationOrder,LovePoolStatusEnum.ARTI_DISPATCHED.getCode());
-        }
-        else{// 如果是定向捐赠，需要其处于未匹配状态
-            donationOrderService.updateDonationOrderLovePoolStatus(donationOrder,DirectedStatusEnum.FINISHED.getCode());
-        }
 
     }
 
@@ -286,7 +283,15 @@ public class OrderMatchServiceImpl implements OrderMatchService {
                     String hashStr = createHashByMatchOrder(matchOrder);
                     // 生成链接地址
                     String notificationHttp = "http://47.113.115.120:8080/#/pages/add_logistics/add_logistics?hashCode=" + hashStr;
-                    User user = userService.getUserById(matchOrder.getDoneeId());
+
+                    // 获取受赠机构的联系方式
+                    List<DemandDO> demandDOS = demandService.getDemandsByCondition(new DemandCondition.Builder()
+                            .demandId(String.valueOf(matchOrder.getDemandOrderId())).build());
+                    if (demandDOS == null || demandDOS.size() == 0) {
+                        throw new LYSLException("该需求单不存在", LYSLResultCodeEnum.DATA_INVALID);
+                    }
+                    User user = userService.getUserById(demandDOS.get(0).getDoneeId());
+
                     // 获取运营人员电话号码
                     Map<String,String> customer = systemService.getCustomerServiceStaff();
                     Collection values = customer.values();    //获取Map集合的value集合
@@ -395,7 +400,7 @@ public class OrderMatchServiceImpl implements OrderMatchService {
 
         List<DemandDO> demandDOS = demandService.getDemandsByCondition(new DemandCondition.Builder()
                 .demandId(String.valueOf(matchOrder.getDemandOrderId())).build());
-        if (demandDOS.size() == 0) {
+        if (demandDOS == null || demandDOS.size() == 0) {
             throw new LYSLException("该需求单不存在", LYSLResultCodeEnum.DATA_INVALID);
         }
         Institution institution = institutionService.getInstsByCondition(new InstCondition.Builder().
