@@ -13,9 +13,11 @@ import com.whu.lysl.entity.condition.MaterialOrderCondition;
 import com.whu.lysl.entity.dbobj.DonationOrderDO;
 import com.whu.lysl.entity.dto.DonationOrder;
 import com.whu.lysl.entity.dto.Institution;
+import com.whu.lysl.entity.dto.MatchOrder;
 import com.whu.lysl.entity.dto.MaterialOrder;
 import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.service.institution.InstitutionService;
+import com.whu.lysl.service.match.OrderMatchService;
 import com.whu.lysl.service.notice.NoticeService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.EnumUtils;
@@ -38,7 +40,8 @@ public class DonationOrderServiceImpl implements DonationOrderService {
     @Resource
     private InstitutionService institutionService;
     @Resource
-    private NoticeService noticeService;
+    private OrderMatchService orderMatchService;
+
 
     @Override
     public List<DonationOrder> getDonationOrderByCondition(DonationOrderCondition donationOrderCondition) {
@@ -219,9 +222,13 @@ public class DonationOrderServiceImpl implements DonationOrderService {
 
 
         int ans_update = updateDonationOrder(donationOrder1);
-        if (ans_update==1) {
+        if (ans_update==1 && donationOrder.getStatus().equals(OrderStatusEnum.APPROVED.getCode())) {
             // 生成匹配记录
-            // todo 如果审核成功，应该调用匹配模块相关method生成匹配记录
+            MatchOrder materialOrder = new MatchOrder();
+            materialOrder.setStatus(MatchingStatusEnum.CHECKED.getCode());
+            materialOrder.setMatchingMethod(MatchingMethodEnum.ARTIFICAL_MATCHING.getCode());
+            materialOrder.setDonationType(DonationTypeEnum.UNDIRECTED.getCode());
+            orderMatchService.saveMatchOrder(materialOrder);
         } else {
             throw new LYSLException("审核状态更新失败", LYSLResultCodeEnum.ERROR);
         }

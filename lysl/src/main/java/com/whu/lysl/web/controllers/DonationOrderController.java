@@ -219,14 +219,14 @@ public class DonationOrderController extends LYSLBaseController {
                 User user = userService.getUserById(donationOrder.getDonorId());
                 if (status.equals(OrderStatusEnum.APPROVED.getCode())) {
                     // 审核通过, 告知捐赠人发货
-                    noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_SHIP
-                            , user.getPhone()
-//                            , "15927434600" //test
-                            , donationOrder.getDonorName()
-                            , donationOrder.getDoneeName()
-                            , donationOrder.getMaterialListToString()
-                            , "更新物流信息链接"
-                            , map_customer.values().toArray()[0].toString());
+//                    noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_SHIP
+//                            , user.getPhone()
+////                            , "15927434600" //test
+//                            , donationOrder.getDonorName()
+//                            , donationOrder.getDoneeName()
+//                            , donationOrder.getMaterialListToString()
+//                            , "更新物流信息链接"
+//                            , map_customer.values().toArray()[0].toString());
 
                     if (donationOrder.getDonationType().equals(DonationTypeEnum.UNDIRECTED.getCode())) {
                         // 捐赠订单加入爱心池
