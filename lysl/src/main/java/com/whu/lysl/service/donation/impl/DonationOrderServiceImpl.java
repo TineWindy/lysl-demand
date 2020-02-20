@@ -15,6 +15,10 @@ import com.whu.lysl.entity.dbobj.DemandDO;
 import com.whu.lysl.entity.dbobj.DonationOrderDO;
 import com.whu.lysl.entity.dto.*;
 import com.whu.lysl.service.demand.DemandService;
+import com.whu.lysl.entity.dto.DonationOrder;
+import com.whu.lysl.entity.dto.Institution;
+import com.whu.lysl.entity.dto.MatchOrder;
+import com.whu.lysl.entity.dto.MaterialOrder;
 import com.whu.lysl.service.donation.DonationOrderService;
 import com.whu.lysl.service.institution.InstitutionService;
 import com.whu.lysl.service.match.OrderMatchService;
@@ -209,7 +213,6 @@ public class DonationOrderServiceImpl implements DonationOrderService {
 //        return updateDonationOrder(donationOrder1);
 //    }
 
-    @Transactional(rollbackFor = LYSLException.class)
     public int check(DonationOrder donationOrder, String status) {
         donationOrder.setStatus(status);  // 这边是为了下面对 donationOrder 进行校验
         validateInsertDonatiionOrder(donationOrder);
