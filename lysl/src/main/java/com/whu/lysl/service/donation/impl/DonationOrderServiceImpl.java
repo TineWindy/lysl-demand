@@ -213,6 +213,7 @@ public class DonationOrderServiceImpl implements DonationOrderService {
 //        return updateDonationOrder(donationOrder1);
 //    }
 
+    @Transactional(rollbackFor = LYSLException.class)
     public int check(DonationOrder donationOrder, String status) {
         donationOrder.setStatus(status);  // 这边是为了下面对 donationOrder 进行校验
         validateInsertDonatiionOrder(donationOrder);
@@ -224,7 +225,6 @@ public class DonationOrderServiceImpl implements DonationOrderService {
             donationOrder1.setLovePoolStatus(LovePoolStatusEnum.IN_POOL.getCode());
         }
         donationOrder1.setDonationOrderId(donationOrder.getDonationOrderId());
-
 
         int ans_update = updateDonationOrder(donationOrder1);
         if (ans_update==1 && donationOrder.getStatus().equals(OrderStatusEnum.APPROVED.getCode())
