@@ -154,12 +154,12 @@ public class OrderMatchServiceImpl implements OrderMatchService {
             // 修改捐赠单状态
             donationOrderService.updateDonationOrderLovePoolStatus(donationOrder,LovePoolStatusEnum.ARTI_DISPATCHED.getCode());
             noticeService.sendSingleMessage(LYSLMessageEnum.UNDIRECT_DONATION,donorPhone,donor.getName(),
-                    String.valueOf(donationOrder.getDonationOrderId()),institution.getName(),institution.getAddress(),notificationHttp,phone); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
+                    matchOrder.getMaterialStrList(),institution.getName(),institution.getAddress(),notificationHttp,phone); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
         }
         else{
             // 如果是定向捐赠，需要其处于未匹配状态
             donationOrderService.updateDonationOrderDirectedStatus(donationOrder,DirectedStatusEnum.FINISHED.getCode());
-            noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_SHIP,donorPhone,donor.getName(),matchOrder.getDoneeName(),matchOrder.getMaterialStrList(),notificationHttp,""); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
+            noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_SHIP,donorPhone,donor.getName(),matchOrder.getDoneeName(),matchOrder.getMaterialStrList(),notificationHttp,phone); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
         }
 
 
