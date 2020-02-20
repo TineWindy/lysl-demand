@@ -37,8 +37,13 @@ public enum LYSLMessageEnum {
      * 通知受赠方，快递已发货
      */
     DONEE_RECEIVE("【珞樱善联】我们为你筹得一笔来自 _param_ 的物资，请后续关注留意，登录 _param_ 查看详情。如有疑问，可电话咨询 _param_ 。","通知受赠方，快递已发货")
-    ;
+    ,
 
+    /**
+     * 通知捐赠方，受赠方已收货
+     */
+    NOTIFY_DONOR_DONEE_RECEIVE("【珞樱善联】尊敬的 _param_ ，您捐赠的物资 _param_ 已被 _param_ 签收，感谢您的爱心奉献！登录 _param_ 查看详情。如有疑问，可电话咨询 _param_ 。","通知捐赠方，受赠方已收货")
+    ;
     /**
      * 枚举编码
      */
