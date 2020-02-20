@@ -2,10 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.whu.lysl.dao.DemandDAO">
 
-    <insert id="insertDemand">
-      insert into lysl_demand_object (gmt_created,gmt_modified,demand_id,institution_id,donee_id,material_name,material_id,material_num,status,description)
-      values (#{gmtCreated},#{gmtModified},#{demandId},#{institutionId},#{doneeId},#{materialName},#{materialId},#{materialNum},#{status},#{description})
+    <sql id="DemandCols">
+         demand_id, institution_id, donee_id, material_name, material_id, material_num, status, description
+    </sql>
+
+    <insert id="insertDemand" parameterType="com.whu.lysl.entity.dbobj.DemandDO" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into lysl_demand_object
+        (
+        <include refid="DemandCols"/>
+        )
+        values (
+        #{demandId}, #{institutionId}, #{doneeId}, #{materialName}, #{materialId}, #{materialNum}, #{status},
+        #{description}
+        )
     </insert>
+
+    <update id="update" parameterType="com.whu.lysl.entity.dbobj.DemandDO" >
+        UPDATE lysl_demand_object
+        <set>
+            <if test="demandId != null" > demand_id = #{demandId}, </if>
+            <if test="institutionId != null" > institution_id = #{institutionId}, </if>
+            <if test="doneeId != null" > donee_id = #{doneeId}, </if>
+            <if test="materialName != null" > material_name = #{materialName}, </if>
+            <if test="materialId != null" > material_id = #{materialId}, </if>
+            <if test="materialNum != null" > material_num = #{materialNum}, </if>
+            <if test="status != null" > status = #{status}, </if>
+            <if test="description != null" > description = #{description}, </if>
+            gmt_modified = now()
+        </set>
+        WHERE id = #{id}
+    </update>
 
     <update id="modifyStatus" parameterType="string">
       update lysl_demand_object set
@@ -21,20 +48,28 @@
     </select>
 
     <select id="showUnreviewedDemandsById" resultType="com.whu.lysl.entity.dbobj.DemandDO">
-      select *
+      select
+      <include refid="DemandCols" />
       from lysl_demand_object
       where status = 'UNCHECKED' AND institution_id = #{param1}
     </select>
 
     <!--todo 建议不要使用 select *-->
-    <select id="selectByCondition" resultType="com.whu.lysl.entity.dbobj.DemandDO" >
+    <select id="selectByCondition" resultType="com.whu.lysl.entity.dbobj.DemandDO">
         SELECT *
         FROM lysl_demand_object
         <where>
-            <if test="demandId != null" > AND demand_id = #{demandId} </if>
-            <if test="status != null" > AND status = #{status} </if>
-            <if test="institutionId != null"> AND institution_id = #{institutionId}</if>
+            <if test="demandId != null">AND demand_id = #{demandId}</if>
+            <if test="status != null">AND status = #{status}</if>
+            <if test="institutionId != null">AND institution_id = #{institutionId}</if>
         </where>
+    </select>
+
+    <select id="selectByDemandIdForUpdate" resultType="com.whu.lysl.entity.dbobj.DemandDO">
+        SELECT *
+        FROM lysl_demand_object
+        WHERE demand_id = #{demandId}
+        FOR UPDATE
     </select>
 
 </mapper>

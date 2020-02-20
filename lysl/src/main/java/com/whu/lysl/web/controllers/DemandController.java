@@ -1,7 +1,10 @@
 package com.whu.lysl.web.controllers;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.whu.lysl.base.enums.LYSLMessageEnum;
 import com.whu.lysl.base.enums.OrderStatusEnum;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
@@ -14,6 +17,8 @@ import com.whu.lysl.entity.dto.User;
 import com.whu.lysl.entity.vo.DemandVO;
 import com.whu.lysl.service.demand.DemandService;
 import com.whu.lysl.service.institution.InstitutionService;
+import com.whu.lysl.service.notice.NoticeService;
+import com.whu.lysl.service.system.SystemService;
 import com.whu.lysl.service.user.UserService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
@@ -45,6 +50,14 @@ public class DemandController extends LYSLBaseController {
     /** 用户服务 */
     @Resource
     private UserService userService;
+
+    /** 通知服务 */
+    @Resource
+    private NoticeService noticeService;
+
+    /** 系统服务 */
+    @Resource
+    private SystemService systemService;
 
     private class DemandOrderVO {
         // 必须是 public 否则 JSON 无法序列化
@@ -89,8 +102,29 @@ public class DemandController extends LYSLBaseController {
     public String insertDemand(@RequestBody String jsonString, HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
-            demandService.insertDemand(jsonString);
-            result.setResultObj("插入成功");
+
+            JSONObject jsonObject = JSON.parseObject(jsonString);
+            Institution institution = jsonObject.getJSONObject("institution").toJavaObject(Institution.class);
+            User user = jsonObject.getJSONObject("donee").toJavaObject(User.class);
+            String desc = jsonObject.getString("description");
+
+            List<Map<String, String>> materials = new ArrayList<>();
+            JSONArray materialsJson = jsonObject.getJSONArray("materials");
+            for(Object object: materialsJson) {
+                JSONObject materialJson = (JSONObject) object;
+                Map<String, String> map = new HashMap<>();
+                map.put("materialName", materialJson.getString("materialName"));
+                map.put("materialId", materialJson.getString("materialId"));
+                map.put("materialNum", materialJson.getString("materialNum"));
+
+                materials.add(map);
+            }
+
+            int demandId = demandService.insertDemand(institution, user, materials, desc);
+
+            noticeService.sendSingleMessage(LYSLMessageEnum.DEMAND_CHECK, (String) systemService.getCustomerServiceStaff().values().toArray()[0],
+                    demandId + "", "后台管理系统");
+
             return result;
         }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
@@ -105,18 +139,12 @@ public class DemandController extends LYSLBaseController {
             String demandId = request.getParameter("demandId");
             String verify = request.getParameter("verify");
 
-            List<DemandDO> demands = demandService.getDemandsByCondition(new DemandCondition.Builder()
-                    .demandId(demandId).status(OrderStatusEnum.UNCHECKED.getCode()).build());
-            if (demands.size() == 0) {
-                throw new LYSLException("审核的订单不存在或已审核过", LYSLResultCodeEnum.DATA_INVALID);
-            }
-
-            if (StringUtils.equal(verify, "APPROVE")) {
+            if (StringUtils.equal(verify, OrderStatusEnum.APPROVED.getCode())) {
                 demandService.modifyDemandOrderStatus(demandId, OrderStatusEnum.APPROVED);
-            } else if (StringUtils.equal(verify, "DISAPPROVE")) {
+            } else if (StringUtils.equal(verify, OrderStatusEnum.DISAPPROVED.getCode())) {
                 demandService.modifyDemandOrderStatus(demandId, OrderStatusEnum.DISAPPROVED);
             } else {
-                throw new LYSLException("错误的审核动作", LYSLResultCodeEnum.DATA_INVALID);
+                throw new LYSLException("Insufficient or wrong prams", LYSLResultCodeEnum.DATA_INVALID);
             }
 
             return result;

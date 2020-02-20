@@ -1,6 +1,8 @@
 package com.whu.lysl.service.demand;
 
 import com.whu.lysl.base.enums.OrderStatusEnum;
+import com.whu.lysl.entity.dto.Institution;
+import com.whu.lysl.entity.dto.User;
 import com.whu.lysl.entity.vo.DemandVO;
 import com.whu.lysl.entity.condition.DemandCondition;
 import com.whu.lysl.entity.dbobj.DemandDO;
@@ -8,6 +10,7 @@ import com.whu.lysl.entity.dto.Demand;
 import com.whu.lysl.entity.vo.DemandVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DemandService {
 
@@ -25,10 +28,13 @@ public interface DemandService {
     List<DemandVO> getUnreviewedDemandsById(String jsonString);
 
     /**
-     * 向插入一条需求数据库
-     * @param jsonString 查询条件
+     * 插入一条需求单
+     * @param institution 机构
+     * @param user 用户
+     * @param materials 物资
+     * @param description 描述
      */
-    void insertDemand(String jsonString);
+    int insertDemand(Institution institution, User user, List<Map<String, String>> materials, String description);
 
     /**
      * 修改一个需求单的 status

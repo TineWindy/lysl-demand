@@ -20,8 +20,12 @@ public interface DemandDAO {
 
     void insertDemand(DemandDO demandDO);
 
+    int update(DemandDO demandDO);
+
     void modifyStatus(@Param("demandId") String demandId, @Param("status") String status);
 
     List<DemandDO> selectByCondition(DemandCondition demandCondition);
+
+    List<DemandDO> selectByDemandIdForUpdate(@Param("demandId") String demandId);
 
 }

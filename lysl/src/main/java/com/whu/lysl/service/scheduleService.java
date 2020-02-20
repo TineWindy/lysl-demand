@@ -25,11 +25,11 @@ import java.util.List;
 public class scheduleService {
 
     @Resource
-    MatchOrderDAO matchOrderDAO;
+    private MatchOrderDAO matchOrderDAO;
     @Resource
-    OrderMatchService orderMatchService;
+    private OrderMatchService orderMatchService;
     @Resource
-    CacheService cacheService;
+    private CacheService cacheService;
     /**
      * 定时查询物流信息，并存入缓存中
      */
