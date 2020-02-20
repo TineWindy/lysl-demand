@@ -433,8 +433,8 @@ public class OrderMatchServiceImpl implements OrderMatchService {
                 id(demandDOS.get(0).getInstitutionId()).build()).get(0);
 
         User user = userService.getUserById(demandDOS.get(0).getDoneeId());
-
-        instAndMaterialInfo.setAddress(institution.getAddress());
+        String address = institution.getProvince() + institution.getCity() + institution.getAddress();
+        instAndMaterialInfo.setAddress(address);
         instAndMaterialInfo.setInstName(institution.getName());
         instAndMaterialInfo.setRecipient(user.getName());
         instAndMaterialInfo.setTel(user.getPhone());

@@ -138,6 +138,10 @@ public class DonationOrderController extends LYSLBaseController {
             if(listDonationOrder.size()==0) {
                 throw new LYSLException("donationOrderId is invalid",  LYSLResultCodeEnum.DATA_INVALID);
             }
+            // 只能修改爱心池状态为 IN_POOL 在爱心池中 的捐赠单
+            if (!listDonationOrder.get(0).getStatus().equals(LovePoolStatusEnum.IN_POOL.getCode())) {
+                throw new LYSLException("爱心池状态已经从 在爱心池中 状态更改或该捐赠单不在爱心池中", LYSLResultCodeEnum.DATA_INVALID);
+            }
             int ans_update = donationOrderService.updateDonationOrderLovePoolStatus(
                     listDonationOrder.get(0), lovePoolStatus);
 
@@ -162,6 +166,11 @@ public class DonationOrderController extends LYSLBaseController {
             if(listDonationOrder.size()==0) {
                 throw new LYSLException("donationOrderId is invalid",  LYSLResultCodeEnum.DATA_INVALID);
             }
+            // 只能修改捐赠订单状态为 UNFINISHED 定向分配未完成 的捐赠单
+            if (!listDonationOrder.get(0).getStatus().equals(DirectedStatusEnum.UNFINISHED.getCode())) {
+                throw new LYSLException("定向捐赠订单状态已经从 定向分配未完成 状态更改或该订单为非定向捐赠", LYSLResultCodeEnum.DATA_INVALID);
+            }
+
             int ans_update = donationOrderService.updateDonationOrderDirectedStatus(
                     listDonationOrder.get(0), directedStatus);
 
@@ -211,6 +220,11 @@ public class DonationOrderController extends LYSLBaseController {
             if (listDonationOrder == null || listDonationOrder.size() == 0) {
                 throw new LYSLException("Can't find the order with this donationOrderId", LYSLResultCodeEnum.DATA_INVALID);
             }
+            // 只能修改审核状态为 UNCHECKED 的捐赠单
+            if (!listDonationOrder.get(0).getStatus().equals(OrderStatusEnum.UNCHECKED.getCode())) {
+                throw new LYSLException("该订单已经被审核完毕，不需要再进行审核操作", LYSLResultCodeEnum.DATA_INVALID);
+            }
+
             int update_ans = donationOrderService.check(listDonationOrder.get(0), status);
 
             if (update_ans==1) {
