@@ -42,6 +42,8 @@ public class DonationOrderServiceImpl implements DonationOrderService {
     @Resource
     private OrderMatchService orderMatchService;
 
+    @Resource
+    private NoticeService noticeService;
 
     @Override
     public List<DonationOrder> getDonationOrderByCondition(DonationOrderCondition donationOrderCondition) {

@@ -30,8 +30,9 @@ public enum LYSLMessageEnum {
     /**
      * 非定向发货短信，捐赠者，捐赠单号，受赠者，受赠者地址，链接，电话号码
      */
-    UNDIRECT_DONATION("【珞樱善联】尊敬的_param_，我们为您捐赠的物资_param_匹配到了_param_，" +
-            "请将物资发往_param_，登录_param_查看详情。如有疑问，可电话咨询_param_。","非定向捐赠，通知捐赠方发货"),
+    UNDIRECT_DONATION("【珞樱善联】尊敬的 _param_ ，我们为您捐赠的物资 _param_ 匹配到了 _param_ ，" +
+            "请将物资发往 _param_ ，登录 _param_ 查看详情。如有疑问，可电话咨询 _param_ 。","非定向捐赠，通知捐赠方发货"),
+
     /**
      * 通知受赠方，快递已发货
      */
