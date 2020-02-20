@@ -86,7 +86,7 @@ public class DonationOrder {
             stringBuffer.append(materialOrder.getMaterialName());
             stringBuffer.append("：");
             stringBuffer.append(materialOrder.getMaterialAmount());
-            stringBuffer.append(" ");
+            stringBuffer.append("; ");
         }
         return stringBuffer.toString();
     }
