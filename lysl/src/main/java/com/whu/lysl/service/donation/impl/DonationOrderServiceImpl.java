@@ -7,10 +7,14 @@ import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.AssertUtils;
 import com.whu.lysl.base.utils.StringUtils;
 import com.whu.lysl.dao.DonationOrderDAO;
+import com.whu.lysl.entity.condition.DemandCondition;
 import com.whu.lysl.entity.condition.DonationOrderCondition;
 import com.whu.lysl.entity.condition.InstCondition;
 import com.whu.lysl.entity.condition.MaterialOrderCondition;
+import com.whu.lysl.entity.dbobj.DemandDO;
 import com.whu.lysl.entity.dbobj.DonationOrderDO;
+import com.whu.lysl.entity.dto.*;
+import com.whu.lysl.service.demand.DemandService;
 import com.whu.lysl.entity.dto.DonationOrder;
 import com.whu.lysl.entity.dto.Institution;
 import com.whu.lysl.entity.dto.MatchOrder;
@@ -41,9 +45,8 @@ public class DonationOrderServiceImpl implements DonationOrderService {
     private InstitutionService institutionService;
     @Resource
     private OrderMatchService orderMatchService;
-
     @Resource
-    private NoticeService noticeService;
+    private DemandService demandService;
 
     @Override
     public List<DonationOrder> getDonationOrderByCondition(DonationOrderCondition donationOrderCondition) {
@@ -210,6 +213,7 @@ public class DonationOrderServiceImpl implements DonationOrderService {
 //        return updateDonationOrder(donationOrder1);
 //    }
 
+    @Transactional(rollbackFor = LYSLException.class)
     public int check(DonationOrder donationOrder, String status) {
         donationOrder.setStatus(status);  // 这边是为了下面对 donationOrder 进行校验
         validateInsertDonatiionOrder(donationOrder);
@@ -222,15 +226,34 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         }
         donationOrder1.setDonationOrderId(donationOrder.getDonationOrderId());
 
-
         int ans_update = updateDonationOrder(donationOrder1);
-        if (ans_update==1 && donationOrder.getStatus().equals(OrderStatusEnum.APPROVED.getCode())) {
-            // 生成匹配记录
-            MatchOrder materialOrder = new MatchOrder();
-            materialOrder.setStatus(MatchingStatusEnum.CHECKED.getCode());
-            materialOrder.setMatchingMethod(MatchingMethodEnum.ARTIFICAL_MATCHING.getCode());
-            materialOrder.setDonationType(DonationTypeEnum.UNDIRECTED.getCode());
-            orderMatchService.saveMatchOrder(materialOrder);
+        if (ans_update==1) {
+            if (donationOrder.getStatus().equals(OrderStatusEnum.APPROVED.getCode())
+                    && donationOrder.getDonationType().equals(DonationTypeEnum.DIRECTED.getCode())) {
+                // 生成匹配记录
+                MatchOrder materialOrder = new MatchOrder();
+                materialOrder.setStatus(MatchingStatusEnum.CHECKED.getCode());
+                materialOrder.setMatchingMethod(MatchingMethodEnum.TARGETED_DONATION.getCode());
+                materialOrder.setDonationType(DonationTypeEnum.DIRECTED.getCode());
+                materialOrder.setDonationOrderId(donationOrder.getDonationOrderId());
+
+                int doneeId = donationOrder.getDoneeId();
+
+                List<DemandDO> list_demand = demandService.getDemandsByCondition(new DemandCondition.Builder().institutionId(doneeId).build());
+
+                AssertUtils.AssertNotNull(list_demand);
+                if (list_demand.size()==0) {
+                    throw new LYSLException("未找到捐赠单", LYSLResultCodeEnum.INVALID_DATE);
+                }
+                int demandOrderId;
+                try {
+                    demandOrderId = Integer.valueOf(list_demand.get(0).getDemandId());
+                } catch (Exception e) {
+                    throw new LYSLException("需求单String转Integer类型报错", LYSLResultCodeEnum.INVALID_DATE);
+                }
+                materialOrder.setDemandOrderId(demandOrderId);
+                orderMatchService.saveMatchOrder(materialOrder);
+            }
         } else {
             throw new LYSLException("审核状态更新失败", LYSLResultCodeEnum.ERROR);
         }
