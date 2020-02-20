@@ -227,31 +227,33 @@ public class DonationOrderServiceImpl implements DonationOrderService {
         donationOrder1.setDonationOrderId(donationOrder.getDonationOrderId());
 
         int ans_update = updateDonationOrder(donationOrder1);
-        if (ans_update==1 && donationOrder.getStatus().equals(OrderStatusEnum.APPROVED.getCode())
-                && donationOrder.getDonationType().equals(DonationTypeEnum.DIRECTED.getCode())) {
-            // 生成匹配记录
-            MatchOrder materialOrder = new MatchOrder();
-            materialOrder.setStatus(MatchingStatusEnum.CHECKED.getCode());
-            materialOrder.setMatchingMethod(MatchingMethodEnum.TARGETED_DONATION.getCode());
-            materialOrder.setDonationType(DonationTypeEnum.DIRECTED.getCode());
-            materialOrder.setDonationOrderId(donationOrder.getDonationOrderId());
+        if (ans_update==1) {
+            if (donationOrder.getStatus().equals(OrderStatusEnum.APPROVED.getCode())
+                    && donationOrder.getDonationType().equals(DonationTypeEnum.DIRECTED.getCode())) {
+                // 生成匹配记录
+                MatchOrder materialOrder = new MatchOrder();
+                materialOrder.setStatus(MatchingStatusEnum.CHECKED.getCode());
+                materialOrder.setMatchingMethod(MatchingMethodEnum.TARGETED_DONATION.getCode());
+                materialOrder.setDonationType(DonationTypeEnum.DIRECTED.getCode());
+                materialOrder.setDonationOrderId(donationOrder.getDonationOrderId());
 
-            int doneeId = donationOrder.getDoneeId();
+                int doneeId = donationOrder.getDoneeId();
 
-            List<DemandDO> list_demand = demandService.getDemandsByCondition(new DemandCondition.Builder().institutionId(doneeId).build());
+                List<DemandDO> list_demand = demandService.getDemandsByCondition(new DemandCondition.Builder().institutionId(doneeId).build());
 
-            AssertUtils.AssertNotNull(list_demand);
-            if (list_demand.size()==0) {
-                throw new LYSLException("未找到捐赠单", LYSLResultCodeEnum.INVALID_DATE);
+                AssertUtils.AssertNotNull(list_demand);
+                if (list_demand.size()==0) {
+                    throw new LYSLException("未找到捐赠单", LYSLResultCodeEnum.INVALID_DATE);
+                }
+                int demandOrderId;
+                try {
+                    demandOrderId = Integer.valueOf(list_demand.get(0).getDemandId());
+                } catch (Exception e) {
+                    throw new LYSLException("需求单String转Integer类型报错", LYSLResultCodeEnum.INVALID_DATE);
+                }
+                materialOrder.setDemandOrderId(demandOrderId);
+                orderMatchService.saveMatchOrder(materialOrder);
             }
-            int demandOrderId;
-            try {
-                demandOrderId = Integer.valueOf(list_demand.get(0).getDemandId());
-            } catch (Exception e) {
-                throw new LYSLException("需求单String转Integer类型报错", LYSLResultCodeEnum.INVALID_DATE);
-            }
-            materialOrder.setDemandOrderId(demandOrderId);
-            orderMatchService.saveMatchOrder(materialOrder);
         } else {
             throw new LYSLException("审核状态更新失败", LYSLResultCodeEnum.ERROR);
         }
