@@ -172,12 +172,6 @@ public class MatchOrderController extends LYSLBaseController {
 
         LYSLResult<Object> res = protectController(request,() ->{
             LYSLResult<Object> result = new LYSLResult<>();
-            // 原PUT参数
-//            String matchOrderIdStr = request.getParameter("matchOrderId");
-//            if (!StringUtils.isNotEmpty(matchOrderIdStr)){
-//                throw new LYSLException("matchOrderId参数必须存在", LYSLResultCodeEnum.DATA_INVALID);
-//            }
-//            int matchOrderId = Integer.valueOf(matchOrderIdStr);
             int matchOrderId = confirmReceiptRequest.getMatchOrderId();
             if(matchOrderId <= 0){
                 throw new LYSLException("matchOrderId参数必须存在", LYSLResultCodeEnum.DATA_INVALID);
