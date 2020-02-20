@@ -79,7 +79,7 @@ public class OrderMatchServiceImpl implements OrderMatchService {
      * @throws LYSLException 主要是参数异常
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void saveMatchOrder(MatchOrder matchOrder) throws LYSLException {
 
 
