@@ -21,7 +21,7 @@ public enum DirectedStatusEnum {
     FINISHED("FINISHED", "定向分配已完成"),
 
     /**
-     * 定向分配已完成
+     * 非定向捐赠
      */
     UNDIRECTED("UNDIRECTED", "非定向捐赠");
 
