@@ -248,47 +248,6 @@ public class DonationOrderController extends LYSLBaseController {
                             , map_customer.values().toArray()[0].toString());
                 }
 
-            } else {
-
-            }
-
-            if (update_ans==1) {
-                DonationOrder donationOrder = listDonationOrder.get(0);
-                Map<String, String> map_customer = systemService.getCustomerServiceStaff();
-                User user = userService.getUserById(donationOrder.getDonorId());
-                if (status.equals(OrderStatusEnum.APPROVED.getCode())) {
-                    // 审核通过, 告知捐赠人发货
-                    noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_SHIP
-                            , user.getPhone()
-//                            , "15927434600" //test
-                            , donationOrder.getDonorName()
-                            , donationOrder.getDoneeName()
-                            , donationOrder.getMaterialListToString()
-                            , "更新物流信息链接"
-                            , map_customer.values().toArray()[0].toString());
-
-                    if (donationOrder.getDonationType().equals(DonationTypeEnum.UNDIRECTED.getCode())) {
-                        // 捐赠订单加入爱心池
-                        noticeService.sendSingleMessage(LYSLMessageEnum.IN_LOVE_POOL
-                                , map_customer.values().toArray()[0].toString()
-//                                , "15927434600" //test
-                                , donationOrder.getMaterialListToString()
-                                , "后台管理系统");
-                    }
-                } else if (status.equals(OrderStatusEnum.DISAPPROVED.getCode())) {
-                    // 审核不通过, 告知捐赠人审核不通过原因
-                    noticeService.sendSingleMessage(LYSLMessageEnum.DONOR_DISAPPROVED
-                            , user.getPhone()
-//                            , "15927434600" //test
-                            , donationOrder.getDonorName()
-                            , donationOrder.getMaterialListToString()
-                            , "审核未通过原因"
-                            , "后台管理系统"
-                            , map_customer.values().toArray()[0].toString());
-                }
-
-            } else {
-
             }
 
             result.setResultObj(update_ans == 1 ? "更新成功" : "更新失败");
