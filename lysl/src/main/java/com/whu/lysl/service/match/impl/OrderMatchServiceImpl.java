@@ -153,8 +153,9 @@ public class OrderMatchServiceImpl implements OrderMatchService {
         if(donationOrder.getDonationType().equals(DonationTypeEnum.UNDIRECTED.getCode())){
             // 修改捐赠单状态
             donationOrderService.updateDonationOrderLovePoolStatus(donationOrder,LovePoolStatusEnum.ARTI_DISPATCHED.getCode());
+            String address = institution.getProvince() + institution.getCity() + institution.getAddress();
             noticeService.sendSingleMessage(LYSLMessageEnum.UNDIRECT_DONATION,donorPhone,donor.getName(),
-                    matchOrder.getMaterialStrList(),institution.getName(),institution.getAddress(),notificationHttp,phone); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
+                    matchOrder.getMaterialStrList(),institution.getName(),address,notificationHttp,phone); /** 姓名，受捐机构，捐赠单物资，更新物流信息链接，运营电话 */
         }
         else{
             // 如果是定向捐赠，需要其处于未匹配状态
@@ -247,6 +248,28 @@ public class OrderMatchServiceImpl implements OrderMatchService {
         }
         matchOrderDAO.updateStatus(matchOrderId,MatchingStatusEnum.DELIVERED.getCode());
 
+        MatchOrderCondition matchOrderCondition = new MatchOrderCondition();
+        matchOrderCondition.setId(matchOrderId);
+        List<MatchOrder> matchOrders = getMatchOrderList(matchOrderCondition);
+        if(matchOrders.size() == 0){
+            log.info("获取匹配单失败");
+            return;
+        }
+        MatchOrder matchOrder = matchOrders.get(0);
+        // 生成链接地址
+        String notificationHttp = "http://47.113.115.120:8080/index.html#/pages/materialInfo/index";
+
+        User user = userService.getUserById(matchOrder.getDonorId());
+        List<Institution> institutionList = institutionService.getInstsByCondition(new InstCondition.Builder().id(matchOrder.getDoneeId()).build());
+        if(institutionList == null || institutionList.size() == 0){
+            log.info("获取机构失败");
+            return;
+        }
+
+        // 通知捐赠方已收货
+        noticeService.sendSingleMessage(LYSLMessageEnum.NOTIFY_DONOR_DONEE_RECEIVE,user.getPhone(),user.getName(),matchOrder.getMaterialStrList(),
+                institutionList.get(0).getName(),notificationHttp,getCustomerPhone());
+
     }
 
     /**
@@ -263,6 +286,17 @@ public class OrderMatchServiceImpl implements OrderMatchService {
             throw new LYSLException("matchOrder不能为空",LYSLResultCodeEnum.DATA_INVALID);
         }
         try {
+            MatchOrderCondition matchOrderCondition = new MatchOrderCondition();
+            matchOrderCondition.setId(matchOrderId);
+            List<MatchOrder> matchOrders = getMatchOrderList(matchOrderCondition);
+            if(matchOrders.size() == 0){
+                throw new LYSLException("没有找到相应的捐赠信息",LYSLResultCodeEnum.DATA_INVALID);
+            }
+
+            if(matchOrders.get(0).getStatus().equals(MatchingStatusEnum.DELIVERED.getCode())){
+                throw new LYSLException("这个捐赠单已收货，不允许更新物流信息",LYSLResultCodeEnum.DATA_INVALID);
+            }
+
             if (!StringUtils.isNotEmpty(logisticCode)){
                 matchOrderDAO.updateLogisticInfo(matchOrderId,null,null,remark,null);
                 return;
@@ -275,9 +309,7 @@ public class OrderMatchServiceImpl implements OrderMatchService {
                 IdentifyOrderResponse.Shipper shipper = identifyOrderResponse.getShippers().get(0);
                 matchOrderDAO.updateLogisticInfo(matchOrderId, shipper.getShipperCode(), logisticCode, remark, picList);
 
-                MatchOrderCondition matchOrderCondition = new MatchOrderCondition();
-                matchOrderCondition.setId(matchOrderId);
-                List<MatchOrder> matchOrders = getMatchOrderList(matchOrderCondition);
+
                 if (matchOrders.size() != 0) {
                     MatchOrder matchOrder = matchOrders.get(0);
                     String hashStr = createHashByMatchOrder(matchOrder);
@@ -292,15 +324,9 @@ public class OrderMatchServiceImpl implements OrderMatchService {
                     }
                     User user = userService.getUserById(demandDOS.get(0).getDoneeId());
 
-                    // 获取运营人员电话号码
-                    Map<String,String> customer = systemService.getCustomerServiceStaff();
-                    Collection values = customer.values();    //获取Map集合的value集合
-                    String phone = "";
-                    for (Object object : values) {
-                        phone = object.toString();
-                    }
+
                     // 发放收货通知
-                    noticeService.sendSingleMessage(LYSLMessageEnum.DONEE_RECEIVE,user.getPhone(),matchOrder.getDonorName(),notificationHttp,phone);
+                    noticeService.sendSingleMessage(LYSLMessageEnum.DONEE_RECEIVE,user.getPhone(),matchOrder.getDonorName(),notificationHttp,getCustomerPhone());
                 }
 
 
@@ -407,8 +433,8 @@ public class OrderMatchServiceImpl implements OrderMatchService {
                 id(demandDOS.get(0).getInstitutionId()).build()).get(0);
 
         User user = userService.getUserById(demandDOS.get(0).getDoneeId());
-
-        instAndMaterialInfo.setAddress(institution.getAddress());
+        String address = institution.getProvince() + institution.getCity() + institution.getAddress();
+        instAndMaterialInfo.setAddress(address);
         instAndMaterialInfo.setInstName(institution.getName());
         instAndMaterialInfo.setRecipient(user.getName());
         instAndMaterialInfo.setTel(user.getPhone());
@@ -430,4 +456,17 @@ public class OrderMatchServiceImpl implements OrderMatchService {
     }
 
 
+    /**
+     * 获取运营人员电话号码
+     * @return
+     */
+    private String getCustomerPhone(){
+        Map<String,String> customer = systemService.getCustomerServiceStaff();
+        Collection values = customer.values();    //获取Map集合的value集合
+        String phone = "";
+        for (Object object : values) {
+            phone = object.toString();
+        }
+        return phone;
+    }
 }

@@ -1,5 +1,6 @@
 package com.whu.lysl.service.institution;
 
+import com.whu.lysl.base.enums.OrderStatusEnum;
 import com.whu.lysl.entity.condition.InstCondition;
 import com.whu.lysl.entity.dto.Institution;
 
@@ -35,8 +36,8 @@ public interface InstitutionService {
     /**
      * 机构审核回调
      * @param institutionId id
-     * @param isPassed 通过为true
+     * @param orderStatusEnum 机构状态
      */
-    void checkInstitutionStatus(int institutionId, boolean isPassed);
+    void checkInstitutionStatus(int institutionId, OrderStatusEnum orderStatusEnum);
 
 }
