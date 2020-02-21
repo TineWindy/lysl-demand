@@ -67,7 +67,8 @@ public class DemandServiceImpl implements DemandService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int insertDemand(Institution institution, User user, List<Map<String, String>> materials, String description) {
-        int insiId = institutionService.addAnInstitution(institution);
+        int instId = institutionService.addAnInstitution(institution);
+        user.setInstitutionId(instId);
         int userId = userService.addAnUser(user);
 
         int demandId = 0;
@@ -75,7 +76,7 @@ public class DemandServiceImpl implements DemandService {
             Demand demand = new Demand();
             demand.setDemandId("");
             demand.setDoneeId(userId);
-            demand.setInstitutionId(insiId);
+            demand.setInstitutionId(instId);
             demand.setMaterialId(Integer.parseInt(map.get("materialId")));
             demand.setMaterialNum(Integer.parseInt(map.get("materialNum")));
             demand.setMaterialName(map.get("materialName"));
