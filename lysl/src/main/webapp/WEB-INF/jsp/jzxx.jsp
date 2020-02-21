@@ -9,7 +9,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 
 </head>
@@ -33,16 +33,14 @@
 
 <script type="text/html" id="photosdemo">
     <div id="layer-photos-demo" class="layer-photos-demo">
-        <a class="layui-btn layui-btn-xs" lay-event="spic1">pic1</a>
-        <a class="layui-btn layui-btn-xs" lay-event="spic2">pic2</a>
         <a class="layui-btn layui-btn-xs" lay-event="sxqxq">详情</a>
     </div>
 </script>
 
 
-<script src="/static/layui/layui.js" charset="utf-8"></script>
+<script src="../layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-<script type="text/javascript" src="../../../resources/static/js/jquery.js"></script>
+<script type="text/javascript" src="../js/jquery.js"></script>
 
 <script>
     layui.use('table', function () {
@@ -50,10 +48,9 @@
 
         table.render({
             elem: '#test'
-            , url: '/donationOrder/queryDonationOrderByPage'
-            , where: {"pageNo": "1", "pageSize": "5"}
-            , method: "post"
-            , contentType: "application/json;charset=UTF-8"
+            , url: '/donationOrder/queryDonationOrderByStatusByPage'
+            , where: {"pageNo": "0", "pageSize": "0", "status": "UNCHECKED"}
+            , method: "get"
             , toolbar: '#toolbarDemo',  //开启头部工具栏，并为其绑定左侧模板
             defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示',
@@ -63,23 +60,23 @@
             title: '用户数据表'
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'resultDesc', title: '名称', width: 120, fixed: 'left', unresize: true, sort: true}
+                , {field: 'doneeName', title: '捐赠医院', width: 120, fixed: 'left', unresize: true, sort: true}
                 // , {field: 'institutionType', title: '类型', width: 120, edit: 'text'}
                 // , {
                 //     field: 'email', title: '邮箱', width: 150, edit: 'text', templet: function (res) {
                 //         return '<em>' + res.email + '</em>'
                 //     }
                 // }
-                // , {field: 'province', title: '省', width: 80, edit: 'text', sort: true}
-                // , {field: 'city', title: '城市', width: 100}
-                // , {field: 'district', title: '区', width: 100}
-                // , {field: 'address', title: '地址', width: 200}
-                // , {title: '资质证明/需求详情', toolbar: '#photosdemo', width: 200}
-                // , {field: 'description', title: '描述'}
-                // , {field: 'doneeName', title: '联系人', width: 120}
+                , {field: 'donationType', title: '捐赠类型', width: 120, edit: 'text', sort: true}
+                , {field: 'donorName', title: '捐赠者姓名', width: 150}
+                , {field: 'lovePoolStatus', title: '是否在爱心池', width: 200}
+                , {field: 'origin', title: '捐赠物品地址', width: 200}
+                , {field: 'destination', title: '医院地址'}
+                , {title: '资质证明/需求详情', toolbar: '#photosdemo', width: 200}
+                , {field: 'remark', title: '联系人', width: 120}
                 // , {field: 'phone', title: '电话', width: 100, sort: true}
                 // , {field: 'wxNumber', title: '微信', width: 120}
-                // , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 200}
+                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 200}
 
             ]]
             , page: true
@@ -113,66 +110,24 @@
             var data = obj.data;
             //console.log(obj)
             if (obj.event === 'shtg') {
-                var json = JSON.stringify(data, ["demandId"]);
+                var json = JSON.stringify(data, ["donationOrderId"]);
                 var obj = new Function("return" + json)();//转换后的JSON对象
-                var id = obj.demandId;//json name
+                var id = obj.donationOrderId;//json name
                 $.ajax({
                     type: "GET",
-                    url: "/demand/verifyDemand?demandId=" + id + "&verify=APPROVE",
+                    url: "/donationOrder/checkDonationOrder?donationOrderId=" + id + "&status=APPROVED",
                     contentType: "application/json", //必须有
                     success: function (jsonResult) {
                         var json = JSON.parse(jsonResult);
                         alert(json.resultCode);
-                        window.location.href = '/xqwsh';
+                        window.location.href = '/jzxx';
                     }
                 });
 
-            } else if (obj.event === 'spic1') {
-
-                var json = JSON.stringify(data, ["authList"]);
-                var obj = new Function("return" + json)();//转换后的JSON对象
-                var list = obj.authList;//json name
-                addr = list.toString().split(",")[0];
-
-                var img = "<img src='" + addr + "' />";
-                layer.open({
-                    type: 1,
-                    shade: false,
-                    title: false, //不显示标题
-                    shadeClose: true,
-                    area: ['auto', '90%'],
-                    content: img, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
-                    cancel: function () {
-                        //layer.msg('图片查看结束！', { time: 5000, icon: 6 });
-                    }
-                });
-            } else if (obj.event === 'spic2') {
-                // var json = JSON.stringify(data, ["demandId"]);
-                // var obj = new Function("return" + json)();//转换后的JSON对象
-                // var id = obj.demandId;//json name
-                // window.location.href = '/jzshz?id=' + id;
-
-                var json = JSON.stringify(data, ["authList"]);
-                var obj = new Function("return" + json)();//转换后的JSON对象
-                var list = obj.authList;//json name
-                addr = list.toString().split(",")[1];
-
-                var img = "<img src='" + addr + "' />";
-                layer.open({
-                    type: 1,
-                    shade: false,
-                    title: false, //不显示标题
-                    shadeClose: true,
-                    area: ['auto', '90%'],
-                    content: img, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
-                    cancel: function () {
-                        //layer.msg('图片查看结束！', { time: 5000, icon: 6 });
-                    }
-                });
             } else if (obj.event === 'sxqxq') {
                 var json = JSON.stringify(data);
                 var obj = new Function("return" + json)();//转换后的JSON对象
-                var list = obj.materialList;//json name
+                var list = obj.materialOrderList;//json name
                 var html_middle = '';
                 for (var i = 0; i < list.length; i++) {
                     var jsonx = JSON.stringify(list[i]);
@@ -207,17 +162,19 @@
                     content: html
                 });
             } else if (obj.event === 'shbtg') {
-                var json = JSON.stringify(data, ["demandId"]);
+                var json = JSON.stringify(data, ["donationOrderId"]);
+                alert(json);
                 var obj = new Function("return" + json)();//转换后的JSON对象
-                var id = obj.demandId;//json name
+                var id = obj.donationOrderId;//json name
+                alert(id);
                 $.ajax({
                     type: "GET",
-                    url: "/demand/verifyDemand?demandId=" + id + "&verify=DISAPPROVE",
+                    url: "/donationOrder/checkDonationOrder?donationOrderId=" + id + "&status=DISAPPROVED",
                     contentType: "application/json", //必须有
                     success: function (jsonResult) {
                         var json = JSON.parse(jsonResult);
                         alert(json.resultCode);
-                        window.location.href = '/xqwsh';
+                        window.location.href = '/jzxx';
                     }
                 });
             }

@@ -49,9 +49,11 @@
         var table = layui.table;
 
         table.render({
-            elem: '#test',
-            url: '/demand/getUnreviewedDemands',
-            toolbar: '#toolbarDemo',  //开启头部工具栏，并为其绑定左侧模板
+            elem: '#test'
+            , url: 'http://47.113.115.120:8080//donationOrder/queryLovePoolByPage'
+            , where: {"pageNo": "-1", "pageSize": "-1", "lovePoolStatus": "IN_POOL"}
+            , method: "get"
+            , toolbar: '#toolbarDemo',  //开启头部工具栏，并为其绑定左侧模板
             defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示',
                 layEvent: 'LAYTABLE_TIPS',
@@ -60,22 +62,22 @@
             title: '用户数据表'
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'institutionName', title: '名称', width: 120, fixed: 'left', unresize: true, sort: true}
-                , {field: 'institutionType', title: '类型', width: 120, edit: 'text'}
+                , {field: 'doneeName', title: '捐赠医院', width: 120, fixed: 'left', unresize: true, sort: true}
+                // , {field: 'institutionType', title: '类型', width: 120, edit: 'text'}
                 // , {
                 //     field: 'email', title: '邮箱', width: 150, edit: 'text', templet: function (res) {
                 //         return '<em>' + res.email + '</em>'
                 //     }
                 // }
-                , {field: 'province', title: '省', width: 80, edit: 'text', sort: true}
-                , {field: 'city', title: '城市', width: 100}
-                , {field: 'district', title: '区', width: 100}
-                , {field: 'address', title: '地址', width: 200}
+                , {field: 'donationType', title: '捐赠类型', width: 120, edit: 'text', sort: true}
+                , {field: 'donorName', title: '捐赠者姓名', width: 150}
+                , {field: 'lovePoolStatus', title: '是否在爱心池', width: 200}
+                , {field: 'origin', title: '捐赠物品地址', width: 200}
+                , {field: 'destination', title: '医院地址'}
                 , {title: '资质证明/需求详情', toolbar: '#photosdemo', width: 200}
-                , {field: 'description', title: '描述'}
-                , {field: 'doneeName', title: '联系人', width: 120}
-                , {field: 'phone', title: '电话', width: 100, sort: true}
-                , {field: 'wxNumber', title: '微信', width: 120}
+                // , {field: 'doneeName', title: '联系人', width: 120}
+                // , {field: 'phone', title: '电话', width: 100, sort: true}
+                // , {field: 'wxNumber', title: '微信', width: 120}
                 , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 200}
 
             ]]
@@ -110,20 +112,57 @@
             var data = obj.data;
             //console.log(obj)
             if (obj.event === 'shtg') {
-                var json = JSON.stringify(data, ["demandId"]);
+                var json = JSON.stringify(data, ["donationOrderId"]);
                 var obj = new Function("return" + json)();//转换后的JSON对象
-                var id = obj.demandId;//json name
+                var id = obj.donationOrderId;//json name
                 $.ajax({
                     type: "GET",
-                    url: "/demand/verifyDemand?demandId=" + id + "&verify=APPROVED",
+                    url: "/donationOrder/checkDonationOrder?donationOrderId=" + id + "&status=APPROVED",
                     contentType: "application/json", //必须有
                     success: function (jsonResult) {
                         var json = JSON.parse(jsonResult);
                         alert(json.resultCode);
-                        window.location.href = '/xqwsh';
+                        window.location.href = '/jzxx';
                     }
                 });
 
+            } else if (obj.event === 'sxqxq') {
+                var json = JSON.stringify(data);
+                var obj = new Function("return" + json)();//转换后的JSON对象
+                var list = obj.materialOrderList;//json name
+                var html_middle = '';
+                for (var i = 0; i < list.length; i++) {
+                    var jsonx = JSON.stringify(list[i]);
+                    var objx = new Function("return" + jsonx)();//转换后的JSON对象
+                    html_middle = html_middle + "<tr>\n" +
+                        "<td>" + objx.materialName + "</td>\n" +
+                        "<td>" + objx.materialAmount + "</td>\n" +
+                        "</tr>";
+                }
+
+                var html_front = "<div class=\"layui-form\">\n" +
+                    "  <table class=\"layui-table\">\n" +
+                    "    <thead>\n" +
+                    "      <tr>\n" +
+                    "        <th>名称</th>\n" +
+                    "        <th>数量</th>\n" +
+                    "\n" +
+                    "      </tr> \n" +
+                    "    </thead>\n" +
+                    "    <tbody>";
+
+                var html_back = "    </tbody>\n" +
+                    "  </table>\n" +
+                    "</div>";
+
+                var html = html_front + html_middle + html_back;
+
+                layer.open({
+                    type: 1,
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['40%', '40%'], //宽高
+                    content: html
+                });
             } else if (obj.event === 'spic1') {
 
                 var json = JSON.stringify(data, ["authList"]);
@@ -166,55 +205,20 @@
                         //layer.msg('图片查看结束！', { time: 5000, icon: 6 });
                     }
                 });
-            } else if (obj.event === 'sxqxq') {
-                var json = JSON.stringify(data);
-                var obj = new Function("return" + json)();//转换后的JSON对象
-                var list = obj.materialList;//json name
-                var html_middle = '';
-                for (var i = 0; i < list.length; i++) {
-                    var jsonx = JSON.stringify(list[i]);
-                    var objx = new Function("return" + jsonx)();//转换后的JSON对象
-                    html_middle = html_middle + "<tr>\n" +
-                        "<td>" + objx.materialName + "</td>\n" +
-                        "<td>" + objx.materialAmount + "</td>\n" +
-                        "</tr>";
-                }
-
-                var html_front = "<div class=\"layui-form\">\n" +
-                    "  <table class=\"layui-table\">\n" +
-                    "    <thead>\n" +
-                    "      <tr>\n" +
-                    "        <th>名称</th>\n" +
-                    "        <th>数量</th>\n" +
-                    "\n" +
-                    "      </tr> \n" +
-                    "    </thead>\n" +
-                    "    <tbody>";
-
-                var html_back = "    </tbody>\n" +
-                    "  </table>\n" +
-                    "</div>";
-
-                var html = html_front + html_middle + html_back;
-
-                layer.open({
-                    type: 1,
-                    skin: 'layui-layer-rim', //加上边框
-                    area: ['40%', '40%'], //宽高
-                    content: html
-                });
             } else if (obj.event === 'shbtg') {
-                var json = JSON.stringify(data, ["demandId"]);
+                var json = JSON.stringify(data, ["donationOrderId"]);
+                alert(json);
                 var obj = new Function("return" + json)();//转换后的JSON对象
-                var id = obj.demandId;//json name
+                var id = obj.donationOrderId;//json name
+                alert(id);
                 $.ajax({
                     type: "GET",
-                    url: "/demand/verifyDemand?demandId=" + id + "&verify=DISAPPROVED",
+                    url: "/donationOrder/checkDonationOrder?donationOrderId=" + id + "&status=DISAPPROVED",
                     contentType: "application/json", //必须有
                     success: function (jsonResult) {
                         var json = JSON.parse(jsonResult);
                         alert(json.resultCode);
-                        window.location.href = '/xqwsh';
+                        window.location.href = '/jzxx';
                     }
                 });
             }

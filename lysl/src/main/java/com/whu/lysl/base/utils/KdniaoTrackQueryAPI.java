@@ -29,16 +29,16 @@ import java.util.Map;
 public class KdniaoTrackQueryAPI {
 	
 	//DEMO
-	public static void main(String[] args) {
-		KdniaoTrackQueryAPI api = new KdniaoTrackQueryAPI();
-		try {
-			String result = api.getOrderTracesByJson("ANE", "210001633605");
-			System.out.print(result);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		KdniaoTrackQueryAPI api = new KdniaoTrackQueryAPI();
+//		try {
+//			String result = api.getOrderTracesByJson("ANE", "210001633605");
+//			System.out.print(result);
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	//电商ID
 	private String EBusinessID="1618282";

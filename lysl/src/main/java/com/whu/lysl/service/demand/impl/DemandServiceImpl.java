@@ -23,6 +23,7 @@ import com.whu.lysl.entity.vo.DemandVO;
 import com.whu.lysl.service.demand.DemandService;
 import com.whu.lysl.service.institution.InstitutionService;
 import com.whu.lysl.service.user.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +39,7 @@ import java.util.Map;
  * @since 2020/2/8 9:54 PM
  */
 @Service
+@Slf4j
 public class DemandServiceImpl implements DemandService {
 
     @Resource

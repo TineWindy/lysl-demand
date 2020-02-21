@@ -45,6 +45,7 @@
       select *
       from lysl_demand_object
       where status = 'UNCHECKED'
+      LIMIT 100
     </select>
 
     <select id="showUnreviewedDemandsById" resultType="com.whu.lysl.entity.dbobj.DemandDO">

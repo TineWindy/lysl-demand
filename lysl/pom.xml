@@ -50,10 +50,10 @@
             <scope>test</scope>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-thymeleaf</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-thymeleaf</artifactId>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -137,35 +137,27 @@
             <version>${qiniu.version}</version>
         </dependency>
 
-        <!--httpclient-->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${httpclient.version}</version>
-        </dependency>
-
         <!--jsp 支持-->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.jdt</groupId>
-                    <artifactId>ecj</artifactId>
-                </exclusion>
-            </exclusions>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
         </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.eclipse.jdt.core.compiler</groupId>-->
+        <!--<artifactId>ecj</artifactId>-->
+        <!--<version>3.5.1</version>-->
+        <!--</dependency>-->
 
         <!--excel-->
         <!--<dependency>-->
-            <!--<groupId>org.apache.poi</groupId>-->
-            <!--<artifactId>poi-ooxml</artifactId>-->
-            <!--<version>3.15</version>-->
+        <!--<groupId>org.apache.poi</groupId>-->
+        <!--<artifactId>poi-ooxml</artifactId>-->
+        <!--<version>3.15</version>-->
         <!--</dependency>-->
 
 
@@ -173,10 +165,28 @@
 
 
     <build>
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/webapp</directory>
+                <!--注意此次必须要放在此目录下才能被访问到-->
+                <targetPath>META-INF/resources</targetPath>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+            </resource>
+
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.4.2.RELEASE</version>
             </plugin>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
