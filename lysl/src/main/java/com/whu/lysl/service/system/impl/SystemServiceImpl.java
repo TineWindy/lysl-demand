@@ -50,12 +50,11 @@ public class SystemServiceImpl implements SystemService {
         AssertUtils.AssertNotNull(systemConfig);
         if (systemConfig.getId() == null || !StringUtils.isNotEmpty(systemConfig.getConfigKey()) ||
                 !StringUtils.isNotEmpty(systemConfig.getStatus())) {
-            log.error("更新系统配置参数失败，systemconfig 数据残缺");
             throw new LYSLException("fail to update systemconfig due to lack of model data", LYSLResultCodeEnum.DATA_INVALID);
         }
 
         systemConfigDAO.update(SystemConfigConverter.model2DO(systemConfig));
-        log.info("更新系统配置参数完成", systemConfig);
+        log.info("更新系统配置参数完成: " + systemConfig);
     }
 
     @Override

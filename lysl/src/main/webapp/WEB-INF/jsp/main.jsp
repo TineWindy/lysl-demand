@@ -16,6 +16,11 @@
 </frameset>
 <noframes>
     <body>
+    <%
+        if (session.getAttribute("User") == null) {
+            response.sendRedirect("login"); //login.jsp是你的登录页面。
+        }
+    %>
     </body>
 </noframes>
 </html>

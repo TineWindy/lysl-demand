@@ -24,4 +24,7 @@ public class LYSLConstants {
     /** 请求地址 */
     public static final String SEND_SMS_ADDRESS = "https://sms.yunpian.com/v2/sms/single_send.json";
 
+    /** 运营相关 */
+    public static final String COSTUMER_SERVICE_STAFF_PRE = "COSTUMER_SERVICE_STAFF_PRE_";
+
 }

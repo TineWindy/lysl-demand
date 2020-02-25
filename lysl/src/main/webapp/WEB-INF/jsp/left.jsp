@@ -33,7 +33,7 @@
 </head>
 
 <body style="background:#f0f9fd;">
-<div class="lefttop"><span></span>通讯录</div>
+<div class="lefttop"><span></span>功能栏</div>
 
 <dl class="leftmenu">
 
@@ -50,47 +50,47 @@
             <%--            <li><cite></cite><a href="/imglist1" target="rightFrame">自定义</a><i></i></li>--%>
             <%--            <li><cite></cite><a href="/tools" target="rightFrame">常用工具</a><i></i></li>--%>
             <%--            <li><cite></cite><a href="/filelist" target="rightFrame">信息管理</a><i></i></li>--%>
-            <li><cite></cite><a href="/tab" target="rightFrame">Tab页</a><i></i></li>
+            <%--            <li><cite></cite><a href="/tab" target="rightFrame">Tab页</a><i></i></li>--%>
             <li><cite></cite><a href="/xqwsh" target="rightFrame">需求审核</a><i></i></li>
             <li><cite></cite><a href="/jzxx" target="rightFrame">捐赠信息</a><i></i></li>
-            <li><cite></cite><a href="/error" target="rightFrame">404页面</a><i></i></li>
+            <li><cite></cite><a href="/axcgl" target="rightFrame">爱心池信息管理</a><i></i></li>
         </ul>
     </dd>
 
 
-    <dd>
-        <div class="title">
-            <img src="../images/leftico02.png"/>其他设置
-        </div>
-        <ul class="menuson">
-            <li><cite></cite><a href="#">编辑内容</a><i></i></li>
-            <li><cite></cite><a href="#">发布信息</a><i></i></li>
-            <li><cite></cite><a href="#">档案列表显示</a><i></i></li>
-        </ul>
-    </dd>
+<%--    <dd>--%>
+<%--        <div class="title">--%>
+<%--            <img src="../images/leftico02.png"/>其他设置--%>
+<%--        </div>--%>
+<%--        <ul class="menuson">--%>
+<%--            <li><cite></cite><a href="#">编辑内容</a><i></i></li>--%>
+<%--            <li><cite></cite><a href="#">发布信息</a><i></i></li>--%>
+<%--            <li><cite></cite><a href="#">档案列表显示</a><i></i></li>--%>
+<%--        </ul>--%>
+<%--    </dd>--%>
 
 
-    <dd>
-        <div class="title"><img src="../images/leftico03.png"/>编辑器</div>
-        <ul class="menuson">
-            <li><cite></cite><a href="#">自定义</a><i></i></li>
-            <li><cite></cite><a href="#">常用资料</a><i></i></li>
-            <li><cite></cite><a href="#">信息列表</a><i></i></li>
-            <li><cite></cite><a href="#">其他</a><i></i></li>
-        </ul>
-    </dd>
+<%--    <dd>--%>
+<%--        <div class="title"><img src="../images/leftico03.png"/>编辑器</div>--%>
+<%--        <ul class="menuson">--%>
+<%--            <li><cite></cite><a href="#">自定义</a><i></i></li>--%>
+<%--            <li><cite></cite><a href="#">常用资料</a><i></i></li>--%>
+<%--            <li><cite></cite><a href="#">信息列表</a><i></i></li>--%>
+<%--            <li><cite></cite><a href="#">其他</a><i></i></li>--%>
+<%--        </ul>--%>
+<%--    </dd>--%>
 
 
-    <dd>
-        <div class="title"><img src="../images/leftico04.png"/>日期管理</div>
-        <ul class="menuson">
-            <li><cite></cite><a href="#">自定义</a><i></i></li>
-            <li><cite></cite><a href="#">常用资料</a><i></i></li>
-            <li><cite></cite><a href="#">信息列表</a><i></i></li>
-            <li><cite></cite><a href="#">其他</a><i></i></li>
-        </ul>
+<%--    <dd>--%>
+<%--        <div class="title"><img src="../images/leftico04.png"/>日期管理</div>--%>
+<%--        <ul class="menuson">--%>
+<%--            <li><cite></cite><a href="#">自定义</a><i></i></li>--%>
+<%--            <li><cite></cite><a href="#">常用资料</a><i></i></li>--%>
+<%--            <li><cite></cite><a href="#">信息列表</a><i></i></li>--%>
+<%--            <li><cite></cite><a href="#">其他</a><i></i></li>--%>
+<%--        </ul>--%>
 
-    </dd>
+<%--    </dd>--%>
 
 </dl>
 </body>
