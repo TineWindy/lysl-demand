@@ -105,6 +105,11 @@ public class ManagerController {
         return "xqwsh";
     }
 
+    @RequestMapping("/axcgl")
+    public String axcgl() {
+        return "axcgl";
+    }
+
     @RequestMapping("/jzshz")
     public String jzshz(HttpServletRequest request) {
         String id = request.getParameter("id");

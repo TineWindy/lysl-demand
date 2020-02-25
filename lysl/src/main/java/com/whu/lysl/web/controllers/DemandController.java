@@ -22,6 +22,7 @@ import com.whu.lysl.service.system.SystemService;
 import com.whu.lysl.service.user.UserService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +38,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("demand")
+@Slf4j
 public class DemandController extends LYSLBaseController {
 
     /** 需求服务 */
@@ -169,21 +171,21 @@ public class DemandController extends LYSLBaseController {
             List<Institution> institutions = institutionService.getInstsByCondition(new InstCondition.Builder()
                     .province(province).city(city).status(OrderStatusEnum.APPROVED.getCode()).build());
 
-            List<DemandOrderVO> demandOrderVOS = generateDemandOrderVOListByInsts(institutions);
-            Collections.sort(demandOrderVOS, (DemandOrderVO o1, DemandOrderVO o2) -> {
-                if (o1.time.getTime() >= o2.time.getTime()) {
+            Collections.sort(institutions, (Institution i1, Institution i2) -> {
+                if (i1.getGmtCreated().getTime() > i2.getGmtCreated().getTime()) {
                     return 1;
                 }
                 return -1;
             });
 
-            int fromIndex = (pageNo * pageSize) > demandOrderVOS.size() ?
-                    demandOrderVOS.size() : (pageNo * pageSize);
-            int toIndex = (pageSize * (pageNo + 1)) > demandOrderVOS.size() ?
-                    demandOrderVOS.size() : (pageSize * (pageNo + 1));
-            List<DemandOrderVO> resList = demandOrderVOS.subList(fromIndex, toIndex);
+            int fromIndex = (pageNo * pageSize) > institutions.size() ?
+                    institutions.size() : (pageNo * pageSize);
+            int toIndex = (pageSize * (pageNo + 1)) > institutions.size() ?
+                    institutions.size() : (pageSize * (pageNo + 1));
 
-            result.setResultObj(resList);
+            List<DemandOrderVO> demandOrderVOS = generateDemandOrderVOListByInsts(institutions.subList(fromIndex, toIndex));
+
+            result.setResultObj(demandOrderVOS);
             return result;
         }, BaseControllerEnum.IGNORE_VERIFY.getCode());
 
