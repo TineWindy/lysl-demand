@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whu.lysl.dao.NewsDAO">
+
+    <sql id="NewsCols">
+        publish_datetime, title, origin, url
+     </sql>
+
+    <sql id="NewsTable">
+        lysl_news
+    </sql>
+
+    <select id="selectByCondition" resultType="com.whu.lysl.entity.dbobj.NewsDO"
+            parameterType="com.whu.lysl.entity.condition.NewsCondition">
+        SELECT id, gmt_created, gmt_modified,
+        <include refid="NewsCols"/>
+        FROM
+        <include refid="NewsTable"/>
+        <where>
+            <if test="id != null">AND id = #{id}</if>
+            <if test="publishDatetime != null">AND publish_datetime = #{publishDatetime}</if>
+            <if test="title != null">AND title = #{title}</if>
+            <if test="origin != null">AND origin = #{origin}</if>
+            <if test="url != null">AND url = #{url}</if>
+        </where>
+        order by publish_datetime desc
+    </select>
+
+    <select id="queryByPartitionOfTitle" resultType="com.whu.lysl.entity.dbobj.NewsDO">
+        SELECT id, gmt_created, gmt_modified,
+        <include refid="NewsCols"/>
+        FROM
+        <include refid="NewsTable"/>
+        WHERE title LIKE CONCAT('%', #{title}, '%')
+        LIMIT 10
+    </select>
+    
+    <insert id="insert" parameterType="com.whu.lysl.entity.dbobj.NewsDO" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO
+        <include refid="NewsTable" />
+        (
+        <include refid="NewsCols"/>
+        )
+        VALUES (
+        #{publishDatetime}, #{title}, #{origin}, #{url}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.whu.lysl.entity.dbobj.NewsDO" >
+        UPDATE <include refid="NewsTable" />
+        <set>
+            <if test="publishDatetime != null"> publish_datetime = #{publishDatetime}, </if>
+            <if test="title != null"> title = #{title}, </if>
+            <if test="origin != null"> origin = #{origin}, </if>
+            <if test="url != null"> url = #{url}, </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+</mapper>
