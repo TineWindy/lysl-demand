@@ -24,5 +24,6 @@ public class TransportationVO {
 
     private String remark;
 
+    private String checkStatus;
 
 }

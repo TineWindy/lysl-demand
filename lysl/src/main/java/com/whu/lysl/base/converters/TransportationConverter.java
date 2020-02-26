@@ -99,6 +99,7 @@ public class TransportationConverter {
         transportation.setLinkMobile(transportationVO.getLinkMobile());
         transportation.setDeliveryScope(transportationVO.getDeliveryScope());
         transportation.setRemark(transportationVO.getRemark());
+        transportation.setCheckStatus(transportationVO.getCheckStatus());
 
         return transportation;
     }
@@ -120,6 +121,7 @@ public class TransportationConverter {
         transportationVO.setLinkMobile(transportation.getLinkMobile());
         transportationVO.setDeliveryScope(transportation.getDeliveryScope());
         transportationVO.setRemark(transportation.getRemark());
+        transportationVO.setCheckStatus(transportation.getCheckStatus());
 
         return transportationVO;
     }
