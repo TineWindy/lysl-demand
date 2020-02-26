@@ -42,4 +42,6 @@ public interface NewsDAO {
      */
     int update(NewsDO newsDO);
 
+    int delete(Integer id);
+
 }

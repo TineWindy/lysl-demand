@@ -37,4 +37,6 @@ public interface NewsService {
 
     int updateNews(News news);
 
+    int deleteNews(Integer id);
+
 }

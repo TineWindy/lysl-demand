@@ -57,5 +57,9 @@
         where id = #{id}
     </update>
 
+    <delete id="delete" parameterType="Integer">
+        DELETE from <include refid="NewsTable" /> where id = #{id}
+    </delete>
+
 
 </mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whu.lysl.dao.TransportationDAO">
+
+    <sql id="TransportationCols">
+        name, link_man, link_mobile, delivery_scope, check_status, deleted, remark
+     </sql>
+
+    <sql id="TransportationTable">
+        lysl_transportation
+    </sql>
+
+    <select id="selectByCondition" resultType="com.whu.lysl.entity.dbobj.TransportationDO"
+            parameterType="com.whu.lysl.entity.condition.TransportationCondition">
+        SELECT id, gmt_created, gmt_modified,
+        <include refid="TransportationCols"/>
+        FROM
+        <include refid="TransportationTable"/>
+        <where>
+            <if test="id != null">AND id = #{id}</if>
+            <if test="name != null">AND name = #{name}</if>
+            <if test="linkMan != null">AND link_man = #{linkMan}</if>
+            <if test="deliveryScope != null">AND delivery_scope = #{deliveryScope}</if>
+            <if test="checkStatus != null">AND check_status = #{checkStatus}</if>
+            <if test="remark != null">AND remark = #{remark}</if>
+            <if test="deleted != null">AND deleted = #{deleted}</if>
+        </where>
+    </select>
+
+    <select id="queryByPartitionOfName" resultType="com.whu.lysl.entity.dbobj.TransportationDO">
+        SELECT id, gmt_created, gmt_modified,
+        <include refid="TransportationCols"/>
+        FROM
+        <include refid="TransportationTable"/>
+        WHERE name LIKE CONCAT('%', #{name}, '%') and deleted=0
+        LIMIT 10
+    </select>
+    
+    <insert id="insert" parameterType="com.whu.lysl.entity.dbobj.TransportationDO" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO
+        <include refid="TransportationTable" />
+        (
+        name, link_man, link_mobile, delivery_scope, remark, deleted, check_status
+        )
+        VALUES (
+        #{name}, #{linkMan}, #{linkMobile}, #{deliveryScope}, #{remark}, #{deleted}, #{checkStatus}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.whu.lysl.entity.dbobj.TransportationDO" >
+        UPDATE <include refid="TransportationTable" />
+        <set>
+            <if test="name != null"> name = #{name}, </if>
+            <if test="linkMan != null"> link_man = #{linkMan}, </if>
+            <if test="deliveryScope != null"> delivery_scope = #{deliveryScope}, </if>
+            <if test="checkStatus != null"> check_status = #{checkStatus}, </if>
+            <if test="remark != null"> remark = #{deliveryScope}, </if>
+        </set>
+        where id = #{id} and deleted = 0
+    </update>
+
+    <update id="delete" parameterType="Integer" >
+        UPDATE <include refid="TransportationTable" />
+        <set>
+            deleted = 1
+        </set>
+        where id = #{id} and deleted = 0
+    </update>
+
+
+</mapper>

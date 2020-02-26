@@ -47,22 +47,22 @@ public class NewsCondition {
             return this;
         }
 
-        public NewsCondition.Builder donationOrderId(Date publishDatetime) {
+        public NewsCondition.Builder publishDatetime(Date publishDatetime) {
             this.publishDatetime = publishDatetime;
             return this;
         }
 
-        public NewsCondition.Builder materialId(String title) {
+        public NewsCondition.Builder title(String title) {
             this.title = title;
             return this;
         }
 
-        public NewsCondition.Builder materialName(String origin) {
+        public NewsCondition.Builder origin(String origin) {
             this.origin = origin;
             return this;
         }
 
-        public NewsCondition.Builder materialAmount(String url) {
+        public NewsCondition.Builder url(String url) {
             this.url = url;
             return this;
         }

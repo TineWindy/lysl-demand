@@ -126,4 +126,25 @@ public class NewsController extends LYSLBaseController {
         return JSON.toJSONString(res);
     }
 
+    /**
+     * 删除新闻
+     * @param request request
+     * @return json str
+     */
+    @GetMapping("deleteNews")
+    public String deleteNews(Integer id, HttpServletRequest request) {
+        LYSLResult<Object> res = protectController(request, () -> {
+            LYSLResult<Object> result = new LYSLResult<>();
+            AssertUtils.AssertNotNull(id);
+            int ans = newsService.deleteNews(id);
+            if (ans!=1) {
+                throw new LYSLException("操作失败", LYSLResultCodeEnum.ERROR);
+            }
+            result.setResultObj("操作成功");
+            return result;
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
+
+        return JSON.toJSONString(res);
+    }
+
 }

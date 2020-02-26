@@ -54,6 +54,18 @@ public class NewsServiceImpl implements NewsService {
         return newsDAO.update(NewsConverter.model2DO(news));
     }
 
+    @Override
+    public int deleteNews(Integer id) {
+        int ans=0;
+        try {
+            ans = newsDAO.delete(id);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new LYSLException("删除操作失败" ,LYSLResultCodeEnum.ERROR);
+        }
+        return ans;
+    }
+
     public void validateNews(News news) {
         AssertUtils.AssertNotNull(news);
         AssertUtils.AssertNotNull(news.getOrigin(), "origin不为空");
