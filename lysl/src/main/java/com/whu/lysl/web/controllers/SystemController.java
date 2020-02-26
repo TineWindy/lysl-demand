@@ -2,8 +2,14 @@ package com.whu.lysl.web.controllers;
 
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.whu.lysl.base.constants.LYSLConstants;
 import com.whu.lysl.base.converters.SystemConfigConverter;
 import com.whu.lysl.base.enums.LYSLDataStatusEnum;
+import com.whu.lysl.base.enums.LYSLResultCodeEnum;
+import com.whu.lysl.base.exceptions.LYSLException;
+import com.whu.lysl.base.utils.StringUtils;
+import com.whu.lysl.entity.dto.SystemConfig;
 import com.whu.lysl.service.system.SystemService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
@@ -12,9 +18,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 系统服务
@@ -47,7 +56,7 @@ public class SystemController extends LYSLBaseController {
 
                 res.setResultObj(SystemConfigConverter.
                         batchModel2VO(systemService.getConfigsByKeyStatusTag(configKey, LYSLDataStatusEnum.NORMAL.getCode(), tag)));
-                log.info("获取系统配置参数", configKey, tag);
+                log.info("获取系统配置参数" + configKey + " " + tag);
                 return res;
 
         }, BaseControllerEnum.IGNORE_VERIFY.getCode());
@@ -71,6 +80,35 @@ public class SystemController extends LYSLBaseController {
             return res;
         }, BaseControllerEnum.IGNORE_VERIFY.getCode());
         return JSON.toJSONString(result);
+    }
+
+    /**
+     * 登录接口
+     * @param request 请求
+     * @return json str
+     */
+    @GetMapping("loginIn")
+    public String loginIn(HttpServletRequest request) {
+        return JSON.toJSONString(protectController(request, () -> {
+            LYSLResult<Object> res = new LYSLResult<>();
+
+            String userName = request.getParameter("userName");
+            String password = request.getParameter("password");
+
+            List<SystemConfig> userList = systemService.getConfigsByKeyStatusTag(LYSLConstants.COSTUMER_SERVICE_STAFF_PRE + userName,
+                     LYSLDataStatusEnum.NORMAL.getCode(), null);
+            if (userList.size() == 0) {
+                throw new LYSLException("username or password is wrong", LYSLResultCodeEnum.DATA_INVALID);
+            }
+            JSONObject userJson = JSON.parseObject(userList.get(0).getConfigValue());
+            if (!StringUtils.equal(password, userJson.getString("password"))) {
+                throw new LYSLException("username or password is wrong", LYSLResultCodeEnum.DATA_INVALID);
+            }
+            userJson.getInnerMap().put("password", null);
+
+            res.setResultObj(userJson);
+            return res;
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode(), BaseControllerEnum.BACK_MANAGE.getCode()));
     }
 
 }

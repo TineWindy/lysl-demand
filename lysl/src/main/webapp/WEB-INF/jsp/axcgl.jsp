@@ -33,8 +33,8 @@
 
 <script type="text/html" id="photosdemo">
     <div id="layer-photos-demo" class="layer-photos-demo">
-        <a class="layui-btn layui-btn-xs" lay-event="spic1">pic1</a>
-        <a class="layui-btn layui-btn-xs" lay-event="spic2">pic2</a>
+<%--        <a class="layui-btn layui-btn-xs" lay-event="spic1">pic1</a>--%>
+        <%--        <a class="layui-btn layui-btn-xs" lay-event="spic2">pic2</a>--%>
         <a class="layui-btn layui-btn-xs" lay-event="sxqxq">详情</a>
     </div>
 </script>
@@ -78,7 +78,7 @@
                 // , {field: 'doneeName', title: '联系人', width: 120}
                 // , {field: 'phone', title: '电话', width: 100, sort: true}
                 // , {field: 'wxNumber', title: '微信', width: 120}
-                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 200}
+                // , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 200}
 
             ]]
             , page: true

@@ -139,6 +139,7 @@
                     shadeClose: true,
                     area: ['auto', '90%'],
                     content: img, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+                    offset: ['50px', '300px'],
                     cancel: function () {
                         //layer.msg('图片查看结束！', { time: 5000, icon: 6 });
                     }
@@ -162,6 +163,7 @@
                     shadeClose: true,
                     area: ['auto', '90%'],
                     content: img, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+                    offset: ['50px', '300px'],
                     cancel: function () {
                         //layer.msg('图片查看结束！', { time: 5000, icon: 6 });
                     }
