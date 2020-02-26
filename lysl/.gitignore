@@ -2,8 +2,8 @@ HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
-application.properties
-generatorConfig.xml
+**/application.properties
+**/generatorConfig.xml
 
 
 ### STS ###
