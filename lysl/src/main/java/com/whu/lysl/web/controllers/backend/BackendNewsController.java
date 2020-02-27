@@ -1,24 +1,16 @@
-package com.whu.lysl.web.controllers;
+package com.whu.lysl.web.controllers.backend;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.whu.lysl.base.converters.NewsConverter;
 import com.whu.lysl.base.enums.LYSLResultCodeEnum;
-import com.whu.lysl.base.enums.LovePoolStatusEnum;
 import com.whu.lysl.base.exceptions.LYSLException;
 import com.whu.lysl.base.utils.AssertUtils;
-import com.whu.lysl.entity.condition.MatchOrderCondition;
-import com.whu.lysl.entity.condition.NewsCondition;
-import com.whu.lysl.entity.dto.DonationOrder;
-import com.whu.lysl.entity.dto.MatchOrder;
 import com.whu.lysl.entity.dto.News;
-import com.whu.lysl.entity.dto.User;
-import com.whu.lysl.entity.vo.DonationOrderVO;
 import com.whu.lysl.entity.vo.NewsVO;
 import com.whu.lysl.service.news.NewsService;
 import com.whu.lysl.web.LYSLBaseController;
 import com.whu.lysl.web.LYSLResult;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,13 +19,14 @@ import java.util.List;
 
 /**
  * @Author Caspar
- * @CreateTime 2020/2/26 02:01
+ * @CreateTime 2020/2/27 15:38
  * @Description:
  */
 
 @RestController
-@RequestMapping("news")
-public class NewsController extends LYSLBaseController {
+@RequestMapping("backend/news")
+public class BackendNewsController extends LYSLBaseController {
+
     @Resource
     private NewsService newsService;
 
@@ -57,33 +50,14 @@ public class NewsController extends LYSLBaseController {
                     newsList.size() : (pageNo * pageSize);
             int toIndex = (pageSize * (pageNo + 1)) > newsList.size() ?
                     newsList.size() : (pageSize * (pageNo + 1));
+            result.setCount(newsList.size());
             result.setResultObj( NewsConverter.batchModel2VO(newsList.subList(fromIndex, toIndex)));
             return result;
-        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode(), BaseControllerEnum.BACK_MANAGE.getCode());
 
         return JSON.toJSONString(res);
     }
 
-    /**
-     * 获取 news list
-     * @param request request
-     * @return json str
-     */
-    @GetMapping("getNewsListByPartionOfTitle")
-    public String getNewsListByPartionOfTitle(HttpServletRequest request) {
-        LYSLResult<Object> res = protectController(request, () -> {
-            LYSLResult<Object> result = new LYSLResult<>();
-
-            String title = request.getParameter("title");
-
-            List<News> newsList = newsService.getNewsByPartitionOfTitle(title);
-
-            result.setResultObj( NewsConverter.batchModel2VO(newsList));
-            return result;
-        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
-
-        return JSON.toJSONString(res);
-    }
 
     /**
      * 插入 news
@@ -109,7 +83,7 @@ public class NewsController extends LYSLBaseController {
 
             result.setResultObj("插入新闻,id: "+newsId);
             return result;
-        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode(), BaseControllerEnum.BACK_MANAGE.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -142,7 +116,7 @@ public class NewsController extends LYSLBaseController {
 
             result.setResultObj("更新新闻成功");
             return result;
-        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode(), BaseControllerEnum.BACK_MANAGE.getCode());
 
         return JSON.toJSONString(res);
     }
@@ -163,9 +137,8 @@ public class NewsController extends LYSLBaseController {
             }
             result.setResultObj("操作成功");
             return result;
-        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode(), BaseControllerEnum.BACK_MANAGE.getCode());
 
         return JSON.toJSONString(res);
     }
-
 }

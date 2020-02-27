@@ -1,4 +1,4 @@
-package com.whu.lysl.web.controllers;
+package com.whu.lysl.web.controllers.h5;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -37,7 +37,7 @@ public class TransportationController extends LYSLBaseController {
     TransportationService transportationService;
 
     /**
-     * 获取审核通过的运输信息 news list
+     * 获取审核通过的运输信息 tran list
      * @param request request
      * @return json str
      */
