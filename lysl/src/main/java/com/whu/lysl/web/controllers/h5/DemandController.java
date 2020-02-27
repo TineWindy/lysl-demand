@@ -1,4 +1,4 @@
-package com.whu.lysl.web.controllers;
+package com.whu.lysl.web.controllers.h5;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;

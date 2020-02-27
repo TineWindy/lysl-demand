@@ -86,7 +86,11 @@ public class LYSLBaseController {
         // temp
         if (params.length == 2 && StringUtils.equal(BaseControllerEnum.BACK_MANAGE.code, params[1])) {
             result.setData(result.getResultObj());
+            result.setMsg(result.getResultDesc());
             result.setResultObj(null);
+            result.setResultDesc(null);
+            result.setResultCode(null);
+
         }
 
         log.info("Finish request\n");
