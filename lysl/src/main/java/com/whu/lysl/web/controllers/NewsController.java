@@ -65,6 +65,27 @@ public class NewsController extends LYSLBaseController {
     }
 
     /**
+     * 获取 news list
+     * @param request request
+     * @return json str
+     */
+    @GetMapping("getNewsListByPartionOfTitle")
+    public String getNewsListByPartionOfTitle(HttpServletRequest request) {
+        LYSLResult<Object> res = protectController(request, () -> {
+            LYSLResult<Object> result = new LYSLResult<>();
+
+            String title = request.getParameter("title");
+
+            List<News> newsList = newsService.getNewsByPartitionOfTitle(title);
+
+            result.setResultObj( NewsConverter.batchModel2VO(newsList));
+            return result;
+        }, BaseControllerEnum.IGNORE_VERIFY.getCode());
+
+        return JSON.toJSONString(res);
+    }
+
+    /**
      * 插入 news
      * @param request request
      * @return json str
