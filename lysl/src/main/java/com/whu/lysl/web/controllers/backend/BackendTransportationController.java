@@ -44,8 +44,8 @@ public class BackendTransportationController extends LYSLBaseController {
     public String getTransportationList(HttpServletRequest request) {
         LYSLResult<Object> res = protectController(request, () -> {
             LYSLResult<Object> result = new LYSLResult<>();
-
-            int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+            // 后台接口要求分页的页码从1开始
+            int pageNo = Integer.parseInt(request.getParameter("pageNo"))-1;
             int pageSize = Integer.parseInt(request.getParameter("pageSize"));
 
             List<Transportation> transportationList = transportationService.getTransportationByCondition(
