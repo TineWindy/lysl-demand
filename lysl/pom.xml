@@ -160,6 +160,12 @@
         <!--<version>3.15</version>-->
         <!--</dependency>-->
 
+        <!--微信公众平台信开发支持-->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-mp</artifactId>
+            <version>{weixin-java-mp.version}</version>
+        </dependency>
 
     </dependencies>
 
