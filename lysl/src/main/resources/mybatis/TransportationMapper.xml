@@ -54,7 +54,8 @@
             <if test="linkMan != null"> link_man = #{linkMan}, </if>
             <if test="deliveryScope != null"> delivery_scope = #{deliveryScope}, </if>
             <if test="checkStatus != null"> check_status = #{checkStatus}, </if>
-            <if test="remark != null"> remark = #{deliveryScope}, </if>
+            <if test="remark != null"> remark = #{remark}, </if>
+            <if test="linkMobile != null"> link_mobile = #{linkMobile}, </if>
         </set>
         where id = #{id} and deleted = 0
     </update>
