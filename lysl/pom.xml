@@ -23,6 +23,7 @@
         <pageHelper.version>1.2.10</pageHelper.version>
         <qiniu.version>[7.2.0, 7.2.99]</qiniu.version>
         <httpclient.version>4.5.11</httpclient.version>
+        <weixinMp.version>3.6.0</weixinMp.version>
     </properties>
 
     <dependencies>
@@ -164,7 +165,7 @@
         <dependency>
             <groupId>com.github.binarywang</groupId>
             <artifactId>weixin-java-mp</artifactId>
-            <version>3.6.0</version>
+            <version>${weixinMp.version}</version>
         </dependency>
 
     </dependencies>
