@@ -130,20 +130,24 @@
                 var obj = new Function("return" + json)();//转换后的JSON对象
                 var list = obj.authList;//json name
                 addr = list.toString().split(",")[0];
+                imageflag = CheckImgExists(addr);
+                if (imageflag) {
 
-                var img = "<img src='" + addr + "' />";
-                layer.open({
-                    type: 1,
-                    shade: false,
-                    title: false, //不显示标题
-                    shadeClose: true,
-                    area: ['auto', '90%'],
-                    content: img, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
-                    offset: ['50px', '300px'],
-                    cancel: function () {
-                        //layer.msg('图片查看结束！', { time: 5000, icon: 6 });
-                    }
-                });
+                    var img = "<img src='" + addr + "' onload='javascript:DrawImage(this,1080,2000)'/>";
+                    layer.open({
+                        type: 1,
+                        shade: false,
+                        title: false, //不显示标题
+                        shadeClose: true,
+                        area: ['auto', '90%'],
+                        content: img, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+                        offset: ['50px', '300px'],
+                        cancel: function () {
+                            //layer.msg('图片查看结束！', { time: 5000, icon: 6 });
+                        }
+                    });
+                } else
+                    alert("图片不存在");
             } else if (obj.event === 'spic2') {
                 // var json = JSON.stringify(data, ["demandId"]);
                 // var obj = new Function("return" + json)();//转换后的JSON对象
@@ -154,20 +158,25 @@
                 var obj = new Function("return" + json)();//转换后的JSON对象
                 var list = obj.authList;//json name
                 addr = list.toString().split(",")[1];
+                imageflag = CheckImgExists(addr);
 
-                var img = "<img src='" + addr + "' />";
-                layer.open({
-                    type: 1,
-                    shade: false,
-                    title: false, //不显示标题
-                    shadeClose: true,
-                    area: ['auto', '90%'],
-                    content: img, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
-                    offset: ['50px', '300px'],
-                    cancel: function () {
-                        //layer.msg('图片查看结束！', { time: 5000, icon: 6 });
-                    }
-                });
+                if (imageflag) {
+
+                    var img = "<img src='" + addr + "' onload='javascript:DrawImage(this,1080,2000)'/>";
+                    layer.open({
+                        type: 1,
+                        shade: false,
+                        title: false, //不显示标题
+                        shadeClose: true,
+                        area: ['auto', '90%'],
+                        content: img, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+                        offset: ['50px', '300px'],
+                        cancel: function () {
+                            //layer.msg('图片查看结束！', { time: 5000, icon: 6 });
+                        }
+                    });
+                } else
+                    alert("图片不存在");
             } else if (obj.event === 'sxqxq') {
                 var json = JSON.stringify(data);
                 var obj = new Function("return" + json)();//转换后的JSON对象
@@ -222,6 +231,70 @@
             }
         });
     });
+
+    /**
+     * 图片按宽高比例进行自动缩放
+     * @param ImgObj
+     *     缩放图片源对象
+     * @param maxWidth
+     *     允许缩放的最大宽度
+     * @param maxHeight
+     *     允许缩放的最大高度
+     * @usage
+     *     调用：<img src="图片" onload="javascript:DrawImage(this,100,100)">
+     */
+    function DrawImage(ImgObj, maxWidth, maxHeight) {
+        var image = new Image();
+        //原图片原始地址（用于获取原图片的真实宽高，当<img>标签指定了宽、高时不受影响）
+        image.src = ImgObj.src;
+        // 用于设定图片的宽度和高度
+        var tempWidth;
+        var tempHeight;
+        if (image.width > 2000) {
+
+            if (image.width > 0 && image.height > 0) {
+                //原图片宽高比例 大于 指定的宽高比例，这就说明了原图片的宽度必然 > 高度
+                if (image.width / image.height >= maxWidth / maxHeight) {
+                    if (image.width > maxWidth) {
+                        tempWidth = maxWidth;
+                        // 按原图片的比例进行缩放
+                        tempHeight = (image.height * maxWidth) / image.width;
+                    } else {
+                        // 按原图片的大小进行缩放
+                        tempWidth = image.width;
+                        tempHeight = image.height;
+                    }
+                } else {// 原图片的高度必然 > 宽度
+                    if (image.height > maxHeight) {
+                        tempHeight = maxHeight;
+                        // 按原图片的比例进行缩放
+                        tempWidth = (image.width * maxHeight) / image.height;
+                    } else {
+                        // 按原图片的大小进行缩放
+                        tempWidth = image.width;
+                        tempHeight = image.height;
+                    }
+                }
+                // 设置页面图片的宽和高
+                ImgObj.height = tempHeight;
+                ImgObj.width = tempWidth;
+                // 提示图片的原来大小
+                ImgObj.alt = image.width + "×" + image.height;
+            }
+        }
+    }
+
+    //判断图片是否存在
+    function CheckImgExists(imgurl) {
+        var ImgObj = new Image(); //判断图片是否存在
+        ImgObj.src = imgurl;
+        //存在图片
+        if (ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 </script>
 
 </body>

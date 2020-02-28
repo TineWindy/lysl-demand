@@ -33,7 +33,7 @@
 
 <script type="text/html" id="photosdemo">
     <div id="layer-photos-demo" class="layer-photos-demo">
-<%--        <a class="layui-btn layui-btn-xs" lay-event="spic1">pic1</a>--%>
+        <%--        <a class="layui-btn layui-btn-xs" lay-event="spic1">pic1</a>--%>
         <%--        <a class="layui-btn layui-btn-xs" lay-event="spic2">pic2</a>--%>
         <a class="layui-btn layui-btn-xs" lay-event="sxqxq">详情</a>
     </div>
@@ -50,7 +50,7 @@
 
         table.render({
             elem: '#test'
-            , url: 'http://47.113.115.120:8080//donationOrder/queryLovePoolByPage'
+            , url: 'donationOrder/queryLovePoolByPage'
             , where: {"pageNo": "-1", "pageSize": "-1", "lovePoolStatus": "IN_POOL"}
             , method: "get"
             , toolbar: '#toolbarDemo',  //开启头部工具栏，并为其绑定左侧模板

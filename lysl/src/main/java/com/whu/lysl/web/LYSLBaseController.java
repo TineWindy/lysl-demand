@@ -51,7 +51,8 @@ public class LYSLBaseController {
                                                         LYSLLogicCallBack logicCallBack, String... params) {
         LYSLResult<Object> result = new LYSLResult<>();
         try {
-            log.info("Start request " + request.getRequestURI() + " from " + request.getRemoteAddr());
+            log.info("Start request " + request.getRequestURI() + " from " + request.getRemoteAddr() + " | "
+                    + request.getHeader("x-forwarded-for"));
 
             // 1. 前置操作
             preRequestHandle(request);

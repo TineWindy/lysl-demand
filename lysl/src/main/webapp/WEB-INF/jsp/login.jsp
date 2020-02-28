@@ -67,21 +67,27 @@
 <div class="loginbm">版权所有 2020 珞樱善联</div>
 <script>
     function login() {
-        window.location.href = '/mainx';
-        // var un = document.getElementById("username");//id获取元素
-        // var pw = document.getElementById("password");//id获取元素
-        // $.ajax({
-        //     type: "GET",
-        //     url: "/demand/verifyDemand?demandId=" + id + "&verify=DISAPPROVED",
-        //     data: {
-        //         username: un,
-        //         password: pw
-        //     },
-        //     contentType: "application/json", //必须有
-        //     success: function (jsonResult) {
-        //         window.location.href = '/mainx';
-        //     }
-        // });
+        // window.location.href = '/mainx';
+
+        var un = document.getElementById("username").value;//id获取元素
+        var pw = document.getElementById("password").value;//id获取元素
+        $.ajax({
+            type: "GET",
+            url: "/system/loginIn",
+            data: {
+                userName: un,
+                password: pw
+            },
+            contentType: "application/json", //必须有
+            success: function (jsonResult) {
+                var json = JSON.parse(jsonResult);
+                if (json.code == -1) {
+                    alert("用户名或密码错误，请重新输入！");
+                    window.location.href = '/login';
+                } else if (json.code == 0)
+                    window.location.href = '/main';
+            }
+        });
     }
 </script>
 </body>

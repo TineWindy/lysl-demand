@@ -3,17 +3,16 @@ package com.whu.lysl.web.controllers.h5;
 import com.whu.lysl.entity.vo.DemandVO;
 import com.whu.lysl.service.demand.DemandService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,6 +118,26 @@ public class ManagerController {
     @RequestMapping("/axcgl")
     public String axcgl() {
         return "axcgl";
+    }
+
+    @RequestMapping("/xwzxgl")
+    public String xwzxgl() {
+        return "xwzxgl";
+    }
+
+    @RequestMapping("/addxwzx")
+    public String addxwzx() {
+        return "addxwzx";
+    }
+
+    @RequestMapping("/ysxxgl")
+    public String ysxxgl() {
+        return "ysxxgl";
+    }
+
+    @RequestMapping("/addysxx")
+    public String addysxx() {
+        return "addysxx";
     }
 
     @RequestMapping("/jzshz")
